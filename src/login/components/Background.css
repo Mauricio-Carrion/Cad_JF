@@ -10,3 +10,9 @@
   background-position: center;
   border-radius: 44px 0px 0px 44px;
 }
+
+@media(max-width: 700px) {
+  .background {
+    display: none;
+  }
+}

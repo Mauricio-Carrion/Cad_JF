@@ -1,5 +1,6 @@
 .nav {
   display: flex;
+  z-index: 1;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
@@ -15,7 +16,14 @@
   line-height: 20px;
   margin: 10px 0;
   padding: 0 20px;
+  width: 150px;
   text-decoration: none;
   color: #000AFF;
   text-align: center;
+  color: #fff;
+}
+
+.active {
+  background-color: #fff;
+  border-radius: 20px;
 }
