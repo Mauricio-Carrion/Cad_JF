@@ -1,0 +1,8 @@
+.center {
+  width: 700px;
+  height: 450px;
+  background-color: #fff;
+  box-shadow: 0px 22px 54px -6px rgba(0, 0, 0, 0.5);
+  border-radius: 48px 44px 44px 48px;
+  margin: 20px;
+}
