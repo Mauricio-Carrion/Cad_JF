@@ -1,3 +1,5 @@
+@import url('../Login.css');
+
 .nav {
   display: flex;
   z-index: 1;
@@ -8,22 +10,49 @@
 }
 
 .nav a {
-  display: block;
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 300;
+  display: flex;
   font-size: 16px;
-  line-height: 20px;
   margin: 10px 0;
   padding: 0 20px;
+  height: 30px;
   width: 150px;
   text-decoration: none;
-  color: #000AFF;
-  text-align: center;
   color: #fff;
+  align-items: center;
+  border-radius: 20px 0 0 20px;
 }
 
-.active {
+.nav a:active {
   background-color: #fff;
-  border-radius: 20px;
+  color: var(--blue-color) !important;
+}
+
+@media(max-width: 700px) {
+  .nav {
+    flex-direction: row;
+    align-items: flex-start;
+    bottom: 45px;
+    justify-content: center;
+  }
+
+  .nav a:first-child {
+    border-radius: 44px 0 0 0;
+  }
+
+  .nav a:last-child {
+    border-radius: 0 44px 0 0;
+  }
+
+  .nav a {
+    justify-content: center;
+    color: var(--blue-color);
+    height: 50px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .nav a:active {
+    background: var(--bg-gradient);
+    color: #fff !important;
+  }
 }

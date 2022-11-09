@@ -15,5 +15,7 @@
   .center {
     height: 350px;
     grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr;
+    border-radius: 48px 48px 48px 48px;
   }
 }
