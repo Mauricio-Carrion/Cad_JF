@@ -1,7 +1,6 @@
 import React from 'react';
 import './Logo.css'
+import Logo from '../../assets/img/logo.png'
 
 export default props =>
-  <figure >
-    <img className="logo" src="../../assets/logo.png" alt="logo" />
-  </figure>
+  <img className="logo" src={Logo} alt="logo" />

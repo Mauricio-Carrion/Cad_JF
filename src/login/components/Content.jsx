@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import Routes from '../Routes';
 import './Content.css'
 import Logo from './Logo';
 
 export default props =>
-  <Fragment>
-    <main className="content">
-      <Logo />
-      TESTE
-    </main>
-  </Fragment>
+
+  <main className="content">
+    <Logo />
+    <Routes />
+  </main>

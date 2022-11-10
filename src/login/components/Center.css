@@ -8,27 +8,14 @@
   border-radius: 48px 44px 44px 48px;
   margin: 40px;
   grid-template-columns: 298px 1fr;
-  grid-template-rows: 450px;
-  grid-template-areas:
-    "nav content"
 }
 
-main.content {
-  grid-area: content;
-}
-
-nav.nav {
-  grid-area: nav;
-}
 
 @media(max-width: 700px) {
   .center {
-    height: 350px;
+    height: 400px;
     grid-template-columns: 1fr;
     grid-template-rows: 50px 1fr;
-    grid-template-areas:
-      "nav"
-      "content";
-    border-radius: 50px 50px 50px 50px;
+    border-radius: 48px 48px 48px 48px;
   }
 }

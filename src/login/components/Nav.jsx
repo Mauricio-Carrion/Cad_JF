@@ -4,12 +4,12 @@ import './Nav.css'
 
 export default props =>
   <nav className="nav">
-    <a href="/">
+    <Link to="/login">
       Login
-    </a>
+    </Link>
 
-    <a href="/">
+    <Link to="/signin">
       Cadastrar
-    </a>
+    </Link>
   </nav>
 

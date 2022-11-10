@@ -1,3 +1,5 @@
 .logo {
-  max-width: 200px;
+  display: none;
+  width: 150px;
+  margin: 20px;
 }
