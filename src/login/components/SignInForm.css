@@ -9,7 +9,7 @@ input {
 .signLogin form {
   display: grid;
   grid-template-columns: 150px 150px;
-  grid-template-rows: 30px 30px 30px;
+  grid-template-rows: 30px 30px 30px 30px;
   grid-gap: 10px;
   margin: 20px;
 }
@@ -31,6 +31,12 @@ input:focus::placeholder {
 .signLogin form :nth-child(3) {
   grid-column-start: 1;
   grid-column-end: 3;
+}
+
+.signLogin form :nth-child(6) {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-self: center;
 }
 
 @media(max-width: 750px) {

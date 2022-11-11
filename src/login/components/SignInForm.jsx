@@ -1,5 +1,6 @@
 import React from 'react'
 import './SignInForm.css'
+import ButtonSubmit from './ButtonSubmit'
 
 export default props =>
   <div className='signLogin'>
@@ -9,5 +10,6 @@ export default props =>
       <input type="password" name='confirm_password' placeholder='&#xf084; Confirmar senha' />
       <input type="text" name='name' placeholder='&#xf2bb; Nome' />
       <input type="text" name='lastname' placeholder='&#xf2b9; Sobrenome' />
+      <ButtonSubmit btnName='Cadastrar' />
     </form>
   </div>
