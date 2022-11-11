@@ -11,7 +11,7 @@ input {
   grid-template-columns: 150px 150px;
   grid-template-rows: 30px 30px 30px 30px;
   grid-gap: 10px;
-  margin: 20px;
+  margin: 20px 0 30px;
 }
 
 .signLogin form input {
@@ -56,6 +56,10 @@ input:focus::placeholder {
   .signLogin form {
     grid-template-columns: 200px 200px;
     grid-template-rows: 30px 30px 30px;
+  }
+
+  .signLogin {
+    margin: 15px 0 20px 0;
   }
 }
 

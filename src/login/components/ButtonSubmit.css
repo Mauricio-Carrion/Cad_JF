@@ -1,13 +1,18 @@
 .buttonSubmit {
-  background: linear-gradient(180deg, #47B5FF -93.9%, #000AFF 150%);
+  background: linear-gradient(to right, #00c6ff, #0072ff);
   border-radius: 20px;
   color: #fff;
   border: none;
   width: 190px;
   height: 40px;
   margin: 35px 0 0 0;
+  transition: ease-in-out 0.3s;
 }
 
 .buttonSubmit:active {
   background: linear-gradient(180deg, #47B5FF -93.9%, #009AFF 150%);
+}
+
+.buttonSubmit:hover {
+  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.75);
 }
