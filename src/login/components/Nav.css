@@ -22,9 +22,9 @@
   border-radius: 20px 0 0 20px;
 }
 
-.nav a:active {
+.nav a:focus {
   background-color: #fff;
-  color: var(--blue-color) !important;
+  color: #2867B0 !important;
 }
 
 @media(max-width: 700px) {
