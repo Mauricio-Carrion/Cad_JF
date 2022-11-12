@@ -1,22 +1,23 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../../../contexts/auth';
+import { AuthContext, } from '../../../contexts/auth';
 import ButtonSubmit from './ButtonSubmit';
 import './LoginForm.css'
 
 export default props => {
   const { authenticated, login } = useContext(AuthContext)
-
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  let Status
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     login(username, password)
   }
 
   return (
     <div className='loginform'>
+      <p></p>
       <form id="loginForm" onSubmit={handleSubmit}>
         <input
           type="text"
