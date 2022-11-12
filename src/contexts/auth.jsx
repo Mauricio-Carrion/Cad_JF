@@ -2,10 +2,12 @@ import React, { createContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import remoteHost from '../Api';
 import axios from 'axios'
+import { showToastMessageError } from '../App';
 
 export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
+
   const navigate = useNavigate()
 
   const [user, setUser] = useState(null)
@@ -18,16 +20,14 @@ export const AuthProvider = ({ children }) => {
       })
       .then(res => {
         if (res && res.status === 200) {
+          localStorage.setItem(`token ${user}`, res.data.token)
           return true
         }
       })
-      .catch(error => {
-        if (error.response.status === 404) {
-          alert(error.response.data.msg)
-        }
-
-        if (error.response.status === 422) {
-          alert(error.response.data.msg)
+      .catch(err => {
+        console.log(err.response.data.msg)
+        if (err) {
+          showToastMessageError(err.response.data.msg)
         }
       })
 

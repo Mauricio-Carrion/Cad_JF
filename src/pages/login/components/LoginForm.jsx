@@ -8,16 +8,15 @@ export default props => {
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
-  let Status
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
+
     login(username, password)
+
   }
 
   return (
     <div className='loginform'>
-      <p></p>
       <form id="loginForm" onSubmit={handleSubmit}>
         <input
           type="text"

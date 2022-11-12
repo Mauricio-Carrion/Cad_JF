@@ -23,6 +23,11 @@
   transition: all 0.2s linear;
 }
 
+.nav a:active {
+  color: #2867B0 !important;
+  background-color: #fff;
+}
+
 .active {
   background-color: #fff;
   color: #2867B0 !important;
