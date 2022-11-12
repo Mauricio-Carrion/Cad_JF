@@ -2,11 +2,11 @@ input {
   font-family: FontAwesome, 'Montserrat', sans-serif;
 }
 
-.signLogin {
+.signin {
   margin: 20px 0 20px 0;
 }
 
-.signLogin form {
+.signin form {
   display: grid;
   grid-template-columns: 150px 150px;
   grid-template-rows: 30px 30px 30px 30px;
@@ -14,12 +14,12 @@ input {
   margin: 20px 0 30px;
 }
 
-.signLogin form input {
+.signin form input {
   border: none;
   border-bottom: 1px solid #909090;
 }
 
-.signLogin form input:focus {
+.signin form input:focus {
   outline: none;
   border-bottom: 1px solid #2867B0;
 }
@@ -28,43 +28,43 @@ input:focus::placeholder {
   color: #2867B0;
 }
 
-.signLogin form :nth-child(3) {
+.signin form :nth-child(3) {
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.signLogin form :nth-child(6) {
+.signin form :nth-child(6) {
   grid-column-start: 1;
   grid-column-end: 3;
   justify-self: center;
 }
 
 @media(max-width: 750px) {
-  .signLogin form {
+  .signin form {
     grid-template-columns: 140px 140px;
     grid-template-rows: 30px 30px 30px;
     grid-gap: 5px;
     margin: 5px;
   }
 
-  .signLogin {
+  .signin {
     margin: 30px 0 20px 0;
   }
 }
 
 @media(max-width: 700px) {
-  .signLogin form {
+  .signin form {
     grid-template-columns: 200px 200px;
     grid-template-rows: 30px 30px 30px;
   }
 
-  .signLogin {
+  .signin {
     margin: 15px 0 20px 0;
   }
 }
 
 @media(max-width: 550px) {
-  .signLogin form {
+  .signin form {
     grid-template-columns: 120px 120px;
     grid-template-rows: 30px 30px 30px;
   }

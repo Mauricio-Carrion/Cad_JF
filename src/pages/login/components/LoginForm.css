@@ -1,0 +1,56 @@
+input {
+  font-family: FontAwesome, 'Montserrat', sans-serif;
+}
+
+.loginform {
+  margin: 20px 0 20px 0;
+}
+
+.loginform form {
+  display: grid;
+  grid-template-columns: 310px;
+  grid-template-rows: 30px 30px 30px;
+  grid-gap: 30px;
+  margin: 20px 0 30px;
+}
+
+.loginform form input {
+  border: none;
+  border-bottom: 1px solid #909090;
+}
+
+.loginform form input:focus {
+  outline: none;
+  border-bottom: 1px solid #2867B0;
+}
+
+input:focus::placeholder {
+  color: #2867B0;
+}
+
+.loginform form :nth-child(3) {
+  justify-self: center;
+}
+
+@media(max-width: 750px) {
+  .loginform form {
+    grid-template-columns: 260px;
+  }
+}
+
+@media(max-width: 700px) {
+  .loginform form {
+    grid-template-columns: 310px;
+    margin: 0;
+  }
+
+  .loginform {
+    margin: 0;
+  }
+}
+
+@media(max-width: 550px) {
+  .loginform form {
+    grid-template-columns: 245px;
+  }
+}
