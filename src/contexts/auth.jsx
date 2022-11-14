@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import remoteHost from '../Api';
 import axios from 'axios'
@@ -11,13 +11,25 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate()
 
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const recoveredUser = localStorage.getItem('user')
+
+    if (recoveredUser) {
+      setUser(recoveredUser)
+      navigate('/')
+    }
+
+    setLoading(false)
+  }, [])
 
   const login = async (user, password) => {
 
-    const loggedUser = {
+    let loggedUser = {
       id: null,
       user: null,
-      token: null,
+      token: null
     }
 
     const verifyUser = await axios.post(`${remoteHost}/auth/login`,
@@ -40,6 +52,7 @@ export const AuthProvider = ({ children }) => {
       })
       .catch(err => {
         if (err) {
+          console.log(err)
           showToastMessageError(err.response.data.msg)
         }
 
@@ -64,7 +77,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{
-      authenticated: !!user, user, login, logout
+      authenticated: !!user, user, loading, login, logout
     }}>
       {children}
     </AuthContext.Provider>

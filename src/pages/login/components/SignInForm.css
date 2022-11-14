@@ -11,7 +11,6 @@ input {
   grid-template-columns: 150px 150px;
   grid-template-rows: 30px 30px 30px 30px;
   grid-gap: 10px;
-  margin: 20px 0 30px;
 }
 
 .signin form input {

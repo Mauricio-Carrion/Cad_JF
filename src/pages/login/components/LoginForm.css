@@ -11,7 +11,6 @@ input {
   grid-template-columns: 310px;
   grid-template-rows: 30px 30px 30px;
   grid-gap: 30px;
-  margin: 20px 0 30px;
 }
 
 .loginform form input {
