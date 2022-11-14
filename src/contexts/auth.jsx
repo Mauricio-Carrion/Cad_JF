@@ -13,6 +13,13 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
   const login = async (user, password) => {
+
+    const loggedUser = {
+      id: null,
+      user: null,
+      token: null,
+    }
+
     const verifyUser = await axios.post(`${remoteHost}/auth/login`,
       {
         usuario: user,
@@ -20,19 +27,32 @@ export const AuthProvider = ({ children }) => {
       })
       .then(res => {
         if (res && res.status === 200) {
-          localStorage.setItem(`token ${user}`, res.data.token)
+          loggedUser = {
+            id: res.data.codigo,
+            user: res.data.usuario,
+            token: res.data.token
+          }
+
+          localStorage.setItem('user', JSON.stringify(loggedUser))
+
           return true
         }
       })
       .catch(err => {
-        console.log(err.response.data.msg)
         if (err) {
           showToastMessageError(err.response.data.msg)
+        }
+
+        if (err.response.status === 404) {
+          navigate('/login/signin')
         }
       })
 
     if (verifyUser === true) {
-      setUser({ user })
+      setUser({
+        id: loggedUser.id,
+        user: loggedUser.user,
+      })
       navigate('/')
     }
   }
