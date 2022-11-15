@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
-import Main from './pages/main/Main';
+import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import { AuthProvider, AuthContext } from './contexts/auth';
 
@@ -27,7 +27,7 @@ export default () => {
       <AuthProvider>
         <Routes>
           <Route exact path='/' element=
-            {<Private><Main /></Private>} />
+            {<Private><Home /></Private>} />
           <Route exact path='/login/*' element=
             {<Login />} />
         </Routes>
