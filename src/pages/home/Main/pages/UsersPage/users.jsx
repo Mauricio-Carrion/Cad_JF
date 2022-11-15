@@ -1,8 +1,13 @@
-import { DeferredData } from '@remix-run/router/dist/utils'
 import React from 'react'
-import './users.css'
+import './Users.css'
 
-export default props =>
-  <div className="users">
-    Usuários
-  </div>
+const Users = () => {
+  return (
+    <div className="users">
+      Usuários
+    </div>
+  )
+}
+
+export default Users
+

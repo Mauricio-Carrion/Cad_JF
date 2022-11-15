@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Routes from './Routes'
 import 'font-awesome/css/font-awesome.min.css'
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,10 +18,10 @@ export const showToastMessageSucess = (message) => {
 class App extends Component {
   render() {
     return (
-      <Fragment>
+      <>
         <Routes />
         <ToastContainer />
-      </Fragment>
+      </>
     );
   }
 }

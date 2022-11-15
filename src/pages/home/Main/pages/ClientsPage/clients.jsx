@@ -1,7 +1,12 @@
 import React from 'react'
-import './clients.css'
+import './Clients.css'
 
-export default props =>
-  <div className="clients">
-    Clientes
-  </div>
+const Clients = () => {
+  return (
+    <div className="clients">
+      Clientes
+    </div>
+  )
+}
+
+export default Clients

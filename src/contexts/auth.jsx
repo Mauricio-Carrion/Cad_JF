@@ -41,7 +41,8 @@ export const AuthProvider = ({ children }) => {
         if (res && res.status === 200) {
           loggedUser = {
             id: res.data.codigo,
-            user: res.data.usuario,
+            userName: res.data.usuario,
+            lastName: res.data.sobrenome,
             token: res.data.token
           }
 
@@ -67,12 +68,19 @@ export const AuthProvider = ({ children }) => {
         user: loggedUser.user,
       })
       navigate('/')
+      timeSession()
     }
   }
 
+  const timeSession = () => {
+    setTimeout(logout, 3600000)
+  }
+
   const logout = () => {
+    clearTimeout(timeSession)
     setUser(null)
-    navigate('/login')
+    navigate('/login/log')
+    localStorage.removeItem('user');
   }
 
   return (

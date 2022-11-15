@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
@@ -26,8 +26,10 @@ export default () => {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route exact path='/' element=
-            {<Private><Home /></Private>} />
+          <Route exact path='/*' element=
+            {<Private>
+              <Home />
+            </Private>} />
           <Route exact path='/login/*' element=
             {<Login />} />
         </Routes>

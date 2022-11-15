@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext, } from '../../../contexts/auth';
+import { AuthContext } from '../../../contexts/auth';
 import ButtonSubmit from './ButtonSubmit';
 import './LoginForm.css'
 
 export default props => {
-  const { authenticated, login } = useContext(AuthContext)
+  const { login } = useContext(AuthContext)
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
