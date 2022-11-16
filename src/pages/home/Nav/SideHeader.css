@@ -19,34 +19,54 @@
   justify-content: end;
   position: absolute;
   z-index: -1;
-  top: 20px;
-  left: 210px;
+  top: 15px;
+  left: 40px;
   width: 100px;
   height: 60px;
   border-radius: 0 40px 40px 0;
   background: linear-gradient(104deg, #47B5FF -24.2%, #000349 100%);
   cursor: pointer;
+  transition: all 0.4s;
+}
+
+.toggle-active {
+  left: 200px;
+}
+
+p {
+  visibility: hidden;
+}
+
+.p-active {
+  visibility: inherit !important;
 }
 
 .nav-active {
-  width: 250px;
+  width: 250px !important;
+}
+
+.username-active {
+  visibility: hidden;
+  width: 60px !important;
+  justify-content: center;
 }
 
 .user-active {
-  display: none;
+  display: block !important;
   width: 60px !important;
   justify-content: center;
 }
 
 .user {
   display: flex;
-  justify-content: center;
+  justify-self: center;
   align-items: center;
   background-color: #fff;
   height: 60px;
   border-radius: 40px;
   color: #184087;
   width: 220px;
+  transition: all 0.4s;
 }
 
 .user img {
@@ -63,9 +83,10 @@
   display: grid;
   grid-template-rows: auto;
   align-items: center;
+  width: 100px;
   justify-content: start;
   height: 100%;
-  margin-left: -25px;
+  transition: all 0.4s;
 }
 
 .sideheader nav :nth-child(6) {
@@ -75,12 +96,16 @@
 .sideheader a {
   display: flex;
   padding: 15px 0 15px 15px;
-  width: 200px;
+  width: 100px;
   text-decoration: none;
   color: #fff;
   justify-content: start;
   align-items: center;
   border-radius: 0 40px 40px 0;
+}
+
+.a-active {
+  width: 220px !important;
 }
 
 .sideheader a:focus {

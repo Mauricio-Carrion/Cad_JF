@@ -3,7 +3,7 @@ import ReactModal from 'react-modal'
 import './LogoutModal.css'
 import { AuthContext } from '../../../../../contexts/auth';
 
-const Modal = () => {
+const Modal = (props) => {
   const { logout } = useContext(AuthContext)
 
   const [showModal, setShowModal] = useState(false)
@@ -18,14 +18,16 @@ const Modal = () => {
 
   return (
     <div>
-      <span onClick={handleOpenModal}><i className="fa fa-sign-out" aria-hidden="true" />Sair</span>
+      <span onClick={handleOpenModal}>
+        <i className="fa fa-sign-out" aria-hidden="true" />
+        <p className={props.className}>Sair</p>
+      </span>
       <ReactModal
         isOpen={showModal}
         contentLabel="Modal"
         className='modal'
         ariaHideApp={false}
-        overlayClassName='modaloverlay'
-      >
+        overlayClassName='modaloverlay'>
         <div>
           Deseja realmente sair?
         </div>
