@@ -1,6 +1,6 @@
 .home {
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 100px 1fr;
   grid-template-rows: 100vh;
   grid-template-areas:
     'nav content';
@@ -16,4 +16,11 @@ aside.sideheader {
 
 div.content {
   grid-area: content;
+}
+
+@media (max-width:560px) {
+  .home {
+    display: grid;
+    grid-template-columns: 0 1fr;
+  }
 }

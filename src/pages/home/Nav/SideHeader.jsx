@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './SideHeader.css'
 import userImg from '../../../assets/img/user.jpg'
 import Modal from '../Main/pages/LogoutModal/LogoutModal';
@@ -20,53 +20,53 @@ const SideHeader = () => {
   const lastName = capitalize(JSON.parse(localStorage.getItem('user')).lastName)
 
   return (
-    <aside className={`sideheader ${toggle ? 'nav-active' : ''}`}>
-      <div className={`user ${!toggle ? 'user-active' : ''}`}>
+    <aside className={`sideheader ${toggle ? 'sidebar-active' : ''}`}>
+      <div className={`user ${toggle ? 'user-active' : ''}`}>
         <span className={`toggle ${toggle ? 'toggle-active' : ''}`} onClick={handleToggle}>
           <i className="fa fa-bars" aria-hidden="true" />
         </span>
         <img src={userImg} alt="user-img" />
-        <span className={`${!toggle ? 'username-active' : ''}`}>{`${userName} ${lastName}`}</span>
+        <h5 className={`username ${toggle ? 'username-active' : ''}`}>{`${userName} ${lastName}`}</h5>
       </div>
       <nav className={`${toggle ? 'nav-active' : ''}`}>
-        <Link className={`${toggle ? 'a-active' : ''}`} to="/users">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/users">
           <i className="fa fa-user" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Usuários
           </p>
-        </Link>
+        </NavLink>
 
-        <Link className={`${toggle ? 'a-active' : ''}`} to="/clients">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/clients">
           <i className="fa fa-users" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Clientes
           </p>
-        </Link>
+        </NavLink>
 
-        <Link className={`${toggle ? 'a-active' : ''}`} to="/visits">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/visits">
           <i className="fa fa-calendar" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Visitas
           </p>
-        </Link>
+        </NavLink>
 
-        <Link className={`${toggle ? 'a-active' : ''}`} to="/reports">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/reports">
           <i className="fa fa-area-chart" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Relatórios
           </p>
-        </Link>
+        </NavLink>
 
-        <Link className={`${toggle ? 'a-active' : ''}`} to="/logs">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/logs">
           <i className="fa fa-archive" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Logs
           </p>
-        </Link>
+        </NavLink>
 
-        <Link className={`${toggle ? 'a-active' : ''}`}>
+        <NavLink className={`${toggle ? 'a-active' : ''}`}>
           <Modal className={`${toggle ? 'p-active' : ''}`} />
-        </Link>
+        </NavLink>
       </nav>
     </aside>
   )

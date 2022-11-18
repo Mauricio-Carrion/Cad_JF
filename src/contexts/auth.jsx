@@ -68,16 +68,10 @@ export const AuthProvider = ({ children }) => {
         user: loggedUser.user,
       })
       navigate('/')
-      timeSession()
     }
   }
 
-  const timeSession = () => {
-    setTimeout(logout, 3600000)
-  }
-
   const logout = () => {
-    clearTimeout(timeSession)
     setUser(null)
     navigate('/login/log')
     localStorage.removeItem('user');

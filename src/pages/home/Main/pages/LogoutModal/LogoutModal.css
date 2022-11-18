@@ -37,14 +37,6 @@
   cursor: pointer;
 }
 
-span {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 185px;
-  height: 70px;
-}
-
 .modaloverlay {
   z-index: 999;
   position: fixed;
