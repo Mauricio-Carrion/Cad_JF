@@ -57,15 +57,19 @@ span {
   justify-content: end;
   position: absolute;
   z-index: -1;
-  top: 15px;
-  left: 30px;
+  top: 20px;
+  left: 15px;
   width: 100px;
-  height: 60px;
+  height: 50px;
   border-radius: 40px 40px 40px 40px;
   background: linear-gradient(104deg, #47B5FF -24.2%, #000349 100%);
   cursor: pointer;
   transition: all 0.4s;
   color: #fff;
+}
+
+.toggle>i {
+  font-size: 20px !important;
 }
 
 .toggle-active {
@@ -101,10 +105,10 @@ span {
   justify-self: center;
   align-items: center;
   background-color: #fff;
-  height: 60px;
+  height: 50px;
   border-radius: 40px;
   color: #184087;
-  width: 60px;
+  width: 50px;
   transition: all 0.4s;
 }
 
@@ -124,7 +128,7 @@ span {
 
 .user img {
   border-radius: 50%;
-  width: 60px;
+  width: 50px;
 }
 
 .user span {
@@ -154,7 +158,7 @@ span {
 
   .toggle {
     left: -30px;
-    width: 100px;
-    justify-content: center;
+    width: 80px;
+    justify-content: end;
   }
 }

@@ -1,44 +1,49 @@
-import React, { useState, useContext } from 'react';
+import React, { Component } from 'react';
 import ReactModal from 'react-modal'
 import './LogoutModal.css'
 import { AuthContext } from '../../../../../contexts/auth';
 
-const Modal = (props) => {
-  const { logout } = useContext(AuthContext)
+class Modal extends Component {
+  static contextType = AuthContext
+  constructor(props) {
+    super(props)
+    this.state = { showModal: true }
 
-  const [showModal, setShowModal] = useState(false)
-
-  const handleOpenModal = () => {
-    setShowModal(true)
+    this.handleOpenModal = this.handleOpenModal.bind(this)
   }
 
-  const handleCloseModal = () => {
-    setShowModal(false)
+  handleOpenModal() {
+    this.setState({ showModal: true })
   }
 
-  return (
-    <div>
-      <span onClick={handleOpenModal}>
-        <i className="fa fa-sign-out" aria-hidden="true" />
-        <p className={props.className}>Sair</p>
-      </span>
-      <ReactModal
-        isOpen={showModal}
-        contentLabel="Modal"
-        className='modal'
-        ariaHideApp={false}
-        overlayClassName='modaloverlay'>
-        <div>
-          Deseja realmente sair?
-        </div>
+  handleCloseModal() {
+    this.setState({ showModal: false })
+  }
 
-        <div className='btns'>
-          <span onClick={handleCloseModal}><i className="fa fa-times" aria-hidden="true" /></span>
-          <span onClick={logout}><i className="fa fa-check" aria-hidden="true" /></span>
-        </div>
-      </ReactModal>
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        <span onClick={this.handleOpenModal}>
+          <p className={this.props.className}>Sair</p>
+        </span>
+        <ReactModal
+          isOpen={this.state.showModal}
+          contentLabel="Modal"
+          className='modal'
+          ariaHideApp={false}
+          overlayClassName='modaloverlay'>
+          <div>
+            Deseja realmente sair?
+          </div>
+
+          <div className='btns'>
+            <span onClick={this.handleCloseModal}><i className="fa fa-times" aria-hidden="true" /></span>
+            <span onClick={this.context.logout}><i className="fa fa-check" aria-hidden="true" /></span>
+          </div>
+        </ReactModal>
+      </div >
+    )
+  }
 }
 
 export default Modal
