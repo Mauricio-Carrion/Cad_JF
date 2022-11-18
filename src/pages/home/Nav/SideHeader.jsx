@@ -5,8 +5,6 @@ import userImg from '../../../assets/img/user.jpg'
 import { capitalize } from '../../../utils/utils'
 import Modal from '../Main/pages/LogoutModal/LogoutModal';
 
-const ModalLogout = new Modal
-
 const SideHeader = () => {
   const [toggle, setToggle] = useState(false)
 
@@ -66,8 +64,8 @@ const SideHeader = () => {
           </p>
         </NavLink>
 
-        <span onClick={ModalLogout.handleOpenModal} className={`${toggle ? 'a-active' : ''}`}>
-          <i className="fa fa-archive" aria-hidden="true" />
+        <span onClick={ModalLogout.handleOpenModal()} className={`${toggle ? 'a-active' : ''}`}>
+          <i className="fa fa-sign-out" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Sair
           </p>

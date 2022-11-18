@@ -3,20 +3,19 @@ import ReactModal from 'react-modal'
 import './LogoutModal.css'
 import { AuthContext } from '../../../../../contexts/auth';
 
+ReactModal.setAppElement('#root');
+
 class Modal extends Component {
   static contextType = AuthContext
-  constructor(props) {
-    super(props)
-    this.state = { showModal: true }
 
-    this.handleOpenModal = this.handleOpenModal.bind(this)
-  }
+  state = { showModal: false }
 
-  handleOpenModal() {
+  handleOpenModal = () => {
     this.setState({ showModal: true })
+    console.log(this.state)
   }
 
-  handleCloseModal() {
+  handleCloseModal = () => {
     this.setState({ showModal: false })
   }
 
