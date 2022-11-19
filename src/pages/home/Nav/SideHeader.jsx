@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/auth'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import './SideHeader.css'
 import userImg from '../../../assets/img/user.jpg'
 import { capitalize } from '../../../utils/utils'
-import Modal from '../Main/pages/LogoutModal/LogoutModal';
+import Modal from '../components/Modal';
 
 const SideHeader = () => {
+  const { logout } = useContext(AuthContext)
+
   const [toggle, setToggle] = useState(false)
+  const [OpenLogout, setOpenLogout] = useState(false)
 
   const handleToggle = () => {
     if (toggle) {
@@ -64,12 +69,26 @@ const SideHeader = () => {
           </p>
         </NavLink>
 
-        <span onClick={ModalLogout.handleOpenModal()} className={`${toggle ? 'a-active' : ''}`}>
+        <a onClick={() => setOpenLogout(true)} className={`${toggle ? 'a-active' : ''}`}>
           <i className="fa fa-sign-out" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Sair
+            <Modal show={OpenLogout} close={OpenLogout}>
+              Deseja realmente sair?
+
+
+              <div className="btns">
+                <button onClick={() => setOpenLogout(false)}>
+                  <XMarkIcon className='heroicons' />
+                </button>
+
+                <button onClick={logout}>
+                  <CheckIcon className='heroicons' />
+                </button>
+              </div>
+            </Modal>
           </p>
-        </span>
+        </a>
       </nav>
     </aside>
   )

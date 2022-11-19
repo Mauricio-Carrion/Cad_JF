@@ -8,7 +8,7 @@ import SignInForm from './SignInForm';
 
 export default props =>
 
-  <main className="content">
+  <main className="content-login">
     <Logo />
     <Routes>
       <Route path="/log" element={<LoginForm />} />
