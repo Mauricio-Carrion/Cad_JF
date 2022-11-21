@@ -29,7 +29,8 @@ export const AuthProvider = ({ children }) => {
     let loggedUser = {
       id: null,
       user: null,
-      token: null
+      token: null,
+      image: null
     }
 
     const verifyUser = await axios.post(`${remoteHost}/auth/login`,
@@ -43,7 +44,8 @@ export const AuthProvider = ({ children }) => {
             id: res.data.codigo,
             userName: res.data.usuario,
             lastName: res.data.sobrenome,
-            token: res.data.token
+            token: res.data.token,
+            image: ''
           }
 
           localStorage.setItem('user', JSON.stringify(loggedUser))
@@ -58,6 +60,7 @@ export const AuthProvider = ({ children }) => {
 
         } else if (err.response.status === 404) {
 
+          showToastMessageError(err.response.data.msg)
           navigate('/login/signin')
 
         } else {

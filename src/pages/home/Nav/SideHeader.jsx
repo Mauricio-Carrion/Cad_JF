@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/auth'
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import './SideHeader.css'
-import CommonUserImg from '../../../assets/img/user.jpg'
+import CommonUserImg from '../../../assets/img/user.png'
 import { capitalize } from '../../../utils/utils'
 import Modal from '../components/Modal';
 
@@ -21,6 +21,7 @@ const SideHeader = () => {
     }
   }
 
+  const userImage = JSON.parse(localStorage.getItem('user')).image
   const userName = capitalize(JSON.parse(localStorage.getItem('user')).userName)
   const lastName = capitalize(JSON.parse(localStorage.getItem('user')).lastName)
 
@@ -30,8 +31,10 @@ const SideHeader = () => {
         <span className={`toggle ${toggle ? 'toggle-active' : ''}`} onClick={handleToggle}>
           <i className="fa fa-bars" aria-hidden="true" />
         </span>
-        <img src={CommonUserImg} alt="user-img" />
-        <h5 className={`username ${toggle ? 'username-active' : ''}`}>{`${userName} ${lastName}`}</h5>
+        <img src={userImage ? userImage : CommonUserImg} alt="user-img" />
+        <h5 className={`username ${toggle ? 'username-active' : ''}`}>
+          {`${userName} ${lastName}`}
+        </h5>
       </div>
       <nav className={`${toggle ? 'nav-active' : ''}`}>
         <NavLink className={`${toggle ? 'a-active' : ''}`} to="/users">
