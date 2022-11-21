@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/auth'
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import './SideHeader.css'
-import userImg from '../../../assets/img/user.jpg'
+import CommonUserImg from '../../../assets/img/user.jpg'
 import { capitalize } from '../../../utils/utils'
 import Modal from '../components/Modal';
 
@@ -30,7 +30,7 @@ const SideHeader = () => {
         <span className={`toggle ${toggle ? 'toggle-active' : ''}`} onClick={handleToggle}>
           <i className="fa fa-bars" aria-hidden="true" />
         </span>
-        <img src={userImg} alt="user-img" />
+        <img src={CommonUserImg} alt="user-img" />
         <h5 className={`username ${toggle ? 'username-active' : ''}`}>{`${userName} ${lastName}`}</h5>
       </div>
       <nav className={`${toggle ? 'nav-active' : ''}`}>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import Loading from './pages/home/components/Loading'
 import { AuthProvider, AuthContext } from './contexts/auth';
 
 export default () => {
@@ -10,7 +11,9 @@ export default () => {
     const { authenticated, loading } = useContext(AuthContext)
 
     if (loading) {
-      return <div className="loading">Carregando...</div>
+
+      return <Loading />
+
     }
 
     if (!authenticated) {

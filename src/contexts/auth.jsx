@@ -52,13 +52,19 @@ export const AuthProvider = ({ children }) => {
         }
       })
       .catch(err => {
-        if (err) {
+        if (err && !err.request.status) {
+
+          showToastMessageError('Ocorreu um erro no servidor! Tente mais tarde.')
+
+        } else if (err.response.status === 404) {
+
+          navigate('/login/signin')
+
+        } else {
+
           console.log(err)
           showToastMessageError(err.response.data.msg)
-        }
 
-        if (err.response.status === 404) {
-          navigate('/login/signin')
         }
       })
 
