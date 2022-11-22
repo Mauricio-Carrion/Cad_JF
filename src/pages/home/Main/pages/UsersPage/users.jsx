@@ -6,47 +6,57 @@ import Loading from '../../../components/Loading'
 import remoteHost from '../../../../../Api'
 import { showToastMessageError } from '../../../../../App';
 
-const token = JSON.parse(localStorage.getItem('user')).token
-
-const options = {
-  method: 'GET',
-  url: `${remoteHost}/usuarios`,
-  headers: { Authorization: `Bearer ${token}` }
-}
-
 const Users = () => {
+  const token = JSON.parse(localStorage.getItem('user')).token
+
+  const options = {
+    method: 'GET',
+    url: `${remoteHost}/usuarios`,
+    headers: { Authorization: `Bearer ${token}` }
+  }
+
   const [data, setData] = useState()
-  //const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     axios(options)
-      .then(res => setData(res.data))
+      .then(
+        res => setData(res.data))
       .catch(err => console.log(err))
+    //setLoading(false)
   }, [])
 
   return (
     <div className="users">
       <input type="search" name="search" id="#userSearch" placeholder='&#xf002;  Pesquisar' />
       <table>
-        <tr>
-          <th>Código</th>
-          <th className='none'>Usuário</th>
-          <th>Nome</th>
-          <th className='none'>Sobrenome</th>
-          <th className='none'>Admin</th>
-          <th>Editar/Excluir</th>
-        </tr>
-        {data && data.map(user => {
-          return (
-            <TrUser
-              code={user.codigo}
-              userName={user.login}
-              name={user.nome}
-              lastName={user.sobrenome}
-              admin={user.administador ? 'Sim' : 'Não'}
-            />
-          )
-        })}
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th className='none'>Usuário</th>
+            <th>Nome</th>
+            <th className='none'>Sobrenome</th>
+            <th className='none'>Admin</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            loading ? <Loading /> :
+              data && data.map(user => {
+                return (
+                  <TrUser
+                    code={user.codigo}
+                    userName={user.login}
+                    name={user.nome}
+                    lastName={user.sobrenome}
+                    admin={user.administador ? 'Sim' : 'Não'}
+                  />
+                )
+              })
+          }
+        </tbody>
       </table>
     </div>
   )
