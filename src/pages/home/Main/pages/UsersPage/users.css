@@ -1,0 +1,8 @@
+.users {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100px 1fr;
+  margin: 20px;
+  font-size: 15px;
+  color: #909090;
+}
