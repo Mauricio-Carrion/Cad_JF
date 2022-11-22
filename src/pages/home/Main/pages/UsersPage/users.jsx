@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Users.css'
 import TrUser from './components/TrUser'
 import axios from 'axios'
 import Loading from '../../../components/Loading'
 import remoteHost from '../../../../../Api'
-import { showToastMessageError } from '../../../../../App';
+import { AuthContext } from '../../../../../contexts/auth'
 
 const Users = () => {
+  const logout = useContext(AuthContext).logout
+
   const token = JSON.parse(localStorage.getItem('user')).token
 
   const options = {
@@ -23,8 +25,8 @@ const Users = () => {
     axios(options)
       .then(
         res => setData(res.data))
-      .catch(err => console.log(err))
-    //setLoading(false)
+      .catch(err => logout())
+    setLoading(false)
   }, [])
 
   return (

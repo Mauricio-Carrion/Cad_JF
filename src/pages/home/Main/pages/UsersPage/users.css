@@ -6,8 +6,3 @@
   font-size: 15px;
   color: #909090;
 }
-
-.users tbody {
-  display: flex;
-  flex-direction: column;
-}
