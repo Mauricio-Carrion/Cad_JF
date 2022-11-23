@@ -22,6 +22,41 @@
   color: red;
 }
 
+#imgUser {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.formEditUser {
+  display: grid;
+  grid-template-columns: 250px 250px;
+  grid-template-rows: 50px 50px 50px 50px;
+  gap: 10px;
+  align-items: center;
+}
+
+.formEditUser>:nth-child(1) {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-self: center;
+}
+
+.formEditUser>:nth-child(6) {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-self: center;
+}
+
+
+.formEditUser input {
+  height: 25px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  padding: 15px;
+}
+
 @media (max-width:700px) {
   .none {
     display: none;

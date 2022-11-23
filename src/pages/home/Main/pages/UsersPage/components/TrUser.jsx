@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PencilIcon, XCircleIcon, XMarkIcon, CheckIcon } from '@heroicons/react/24/solid'
+import { PencilIcon, XCircleIcon, XMarkIcon, CheckIcon, PlusCircleIcon } from '@heroicons/react/24/solid'
 import './TrUser.css'
 import remoteHost from '../../../../../../Api'
 import axios from 'axios';
@@ -56,13 +56,19 @@ const TrUser = (props) => {
       </Modal>
 
       <Modal show={OpenEdit} close={OpenEdit}>
-        <form>
-          <input type="file" />
+        <form className="formEditUser">
+          <label htmlFor="imgUser">
+            <PlusCircleIcon className='heroicons' />
+            <input type="file" id="imgUser" />
+          </label>
+
           <input type="text" />
           <input type="password" />
           <input type="password" />
           <input type="text" />
-          <input type="text" />
+          <label htmlFor="admin">Administrador
+            <input type="checkbox" id="admin" name="Admin" value="true" />
+          </label>
 
           <div className="btns">
             <button onClick={() => setOpenEdit(false)}>
