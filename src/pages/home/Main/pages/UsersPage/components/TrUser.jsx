@@ -1,19 +1,80 @@
-import React from 'react';
-import { PencilIcon, XCircleIcon } from '@heroicons/react/24/solid'
+import React, { useState } from 'react';
+import { PencilIcon, XCircleIcon, XMarkIcon, CheckIcon } from '@heroicons/react/24/solid'
 import './TrUser.css'
+import remoteHost from '../../../../../../Api'
+import axios from 'axios';
+import Modal from '../../../../components/Modal';
+import { showToastMessageError, showToastMessageSucess } from '../../../../../../App';
 
 const TrUser = (props) => {
+  const [OpenDelete, setOpenDelete] = useState(false)
+  const [OpenEdit, setOpenEdit] = useState(false)
+
+  const editUser = () => {
+
+  }
+
+  const deleteUser = async () => {
+    const tr = document.getElementById(`user${props.code}`)
+
+    const token = JSON.parse(localStorage.getItem('user')).token
+
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+
+    await axios.delete(`${remoteHost}/usuario/${props.code}`, { headers })
+      .then(res => showToastMessageSucess(res.data.msg))
+      .then(res => tr.remove())
+      .then(setOpenDelete(false))
+      .catch(err => showToastMessageError(err.response.data.msg))
+  }
+
   return (
-    <tr>
+    <tr id={`user${props.code}`}>
       <td>{props.code}</td>
       <td className='none'>{props.userName}</td>
       <td>{props.name}</td>
       <td className='none'>{props.lastName}</td>
       <td className='none'>{props.admin}</td>
       <td>
-        <PencilIcon className='tdEditUserIcon' />
-        <XCircleIcon className='tdDeleteUserIcon' />
+        <PencilIcon onClick={() => setOpenEdit(true)} className='tdEditUserIcon' />
+        <XCircleIcon onClick={() => setOpenDelete(true)} className='tdDeleteUserIcon' />
       </td>
+
+      <Modal show={OpenDelete} close={OpenDelete}>
+        Deseja realmente excluir usuário?
+        <div className="btns">
+          <button onClick={() => setOpenDelete(false)}>
+            <XMarkIcon className='heroicons' />
+          </button>
+
+          <button onClick={deleteUser}>
+            <CheckIcon className='heroicons' />
+          </button>
+        </div>
+      </Modal>
+
+      <Modal show={OpenEdit} close={OpenEdit}>
+        <form>
+          <input type="file" />
+          <input type="text" />
+          <input type="password" />
+          <input type="password" />
+          <input type="text" />
+          <input type="text" />
+
+          <div className="btns">
+            <button onClick={() => setOpenEdit(false)}>
+              <XMarkIcon className='heroicons' />
+            </button>
+
+            <button onClick={deleteUser}>
+              <CheckIcon className='heroicons' />
+            </button>
+          </div>
+        </form>
+      </Modal>
     </tr>
   )
 }

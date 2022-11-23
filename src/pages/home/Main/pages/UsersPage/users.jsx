@@ -49,6 +49,7 @@ const Users = () => {
               data && data.map(user => {
                 return (
                   <TrUser
+                    key={user.codigo}
                     code={user.codigo}
                     userName={user.login}
                     name={user.nome}
