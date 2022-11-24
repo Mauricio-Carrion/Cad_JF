@@ -77,8 +77,9 @@ const SideHeader = () => {
           <p className={`${toggle ? 'p-active' : ''}`}>
             Sair
             <Modal show={OpenLogout} close={OpenLogout}>
-              Deseja realmente sair?
-
+              <span>
+                Deseja realmente sair?
+              </span>
 
               <div className="btns">
                 <button onClick={() => setOpenLogout(false)}>

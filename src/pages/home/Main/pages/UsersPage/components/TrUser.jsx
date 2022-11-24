@@ -5,10 +5,15 @@ import remoteHost from '../../../../../../Api'
 import axios from 'axios';
 import Modal from '../../../../components/Modal';
 import { showToastMessageError, showToastMessageSucess } from '../../../../../../App';
+import userImg from '../../../../../../assets/img/user.png'
 
 const TrUser = (props) => {
   const [OpenDelete, setOpenDelete] = useState(false)
   const [OpenEdit, setOpenEdit] = useState(false)
+  const [inputUser, setInputUser] = useState(props.userName)
+  const [inputName, setInputName] = useState(props.name)
+  const [inputLastName, setInputLastName] = useState(props.lastName)
+  const [inputAdmin, setInputAdmin] = useState(props.admin)
 
   const editUser = () => {
 
@@ -58,24 +63,25 @@ const TrUser = (props) => {
       <Modal show={OpenEdit} close={OpenEdit}>
         <form className="formEditUser">
           <label htmlFor="imgUser">
-            <PlusCircleIcon className='heroicons' />
+            <img src={userImg} alt="user" title="Clique para alterar!" />
             <input type="file" id="imgUser" />
           </label>
 
-          <input type="text" />
-          <input type="password" />
-          <input type="password" />
-          <input type="text" />
+          <input type="text" placeholder='Usuário' value={inputUser} onChange={(e) => setInputUser(e.target.value)} />
+          <input type="text" placeholder='Nome' value={inputName} onChange={(e) => setInputName(e.target.value)} />
+          <input type="text" placeholder='Sobrenome' value={inputLastName} onChange={(e) => setInputLastName(e.target.value)} />
+          <input type="password" placeholder='Senha' />
+          <input type="password" placeholder='Confirmar senha' />
           <label htmlFor="admin">Administrador
-            <input type="checkbox" id="admin" name="Admin" value="true" />
+            <input type="checkbox" id="admin" name="Admin" checked={inputAdmin == 'Sim' ? true : false} />
           </label>
 
-          <div className="btns">
+          <div className="btns" title="Cancelar">
             <button onClick={() => setOpenEdit(false)}>
               <XMarkIcon className='heroicons' />
             </button>
 
-            <button onClick={deleteUser}>
+            <button onClick title="Confirmar">
               <CheckIcon className='heroicons' />
             </button>
           </div>

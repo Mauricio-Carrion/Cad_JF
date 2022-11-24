@@ -30,22 +30,34 @@
 
 .formEditUser {
   display: grid;
-  grid-template-columns: 250px 250px;
+  grid-template-columns: 200px 200px;
   grid-template-rows: 50px 50px 50px 50px;
   gap: 10px;
   align-items: center;
 }
 
-.formEditUser>:nth-child(1) {
+.formEditUser>:nth-child(1),
+.formEditUser>:nth-child(7),
+.formEditUser>:nth-child(8) {
   grid-column-start: 1;
   grid-column-end: 3;
   justify-self: center;
 }
 
-.formEditUser>:nth-child(6) {
+.formEditUser>:nth-child(2) {
   grid-column-start: 1;
   grid-column-end: 3;
-  justify-self: center;
+}
+
+.formEditUser img {
+  width: 80px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.formEditUser>label {
+  display: flex;
+  align-items: center;
 }
 
 
@@ -60,5 +72,17 @@
 @media (max-width:700px) {
   .none {
     display: none;
+  }
+}
+
+@media(max-width:600px) {
+  .formEditUser {
+    grid-template-columns: 150px 150px;
+  }
+}
+
+@media(max-width:380px) {
+  .formEditUser {
+    grid-template-columns: 120px 120px;
   }
 }

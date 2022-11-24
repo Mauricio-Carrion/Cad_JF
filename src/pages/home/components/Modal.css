@@ -22,7 +22,7 @@
 .btns {
   display: flex;
   position: relative;
-  top: 120px;
+  top: 30px;
   flex-direction: row;
   justify-content: center;
 }
