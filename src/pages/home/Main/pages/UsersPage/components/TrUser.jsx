@@ -14,9 +14,35 @@ const TrUser = (props) => {
   const [inputName, setInputName] = useState(props.name)
   const [inputLastName, setInputLastName] = useState(props.lastName)
   const [inputAdmin, setInputAdmin] = useState(props.admin)
+  const [inputImage, setInputImage] = useState()
 
   const editUser = () => {
 
+  }
+
+  const loadImg = (e) => {
+    let input = e.target;
+
+    let reader = new FileReader();
+
+    reader.onload = () => {
+      let dataURL = reader.result;
+      const output = document.getElementById('editUserImg');
+      output.src = dataURL;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  const handleCancelEdit = () => {
+    setOpenEdit(false)
+    setInputUser(props.userName)
+    setInputName(props.name)
+    setInputLastName(props.lastName)
+    setInputAdmin(props.admin)
+  }
+
+  const handleCheckBoxAdmin = (e) => {
+    e.target.checked ? setInputAdmin('Sim') : setInputAdmin('Não')
   }
 
   const deleteUser = async () => {
@@ -47,6 +73,7 @@ const TrUser = (props) => {
         <XCircleIcon onClick={() => setOpenDelete(true)} className='tdDeleteUserIcon' />
       </td>
 
+      {/* Modal excluir */}
       <Modal show={OpenDelete} close={OpenDelete}>
         Deseja realmente excluir usuário?
         <div className="btns">
@@ -60,11 +87,12 @@ const TrUser = (props) => {
         </div>
       </Modal>
 
+      {/* Modal editar */}
       <Modal show={OpenEdit} close={OpenEdit}>
         <form className="formEditUser">
           <label htmlFor="imgUser">
-            <img src={userImg} alt="user" title="Clique para alterar!" />
-            <input type="file" id="imgUser" />
+            <img id='editUserImg' src={userImg} alt="user" title="Clique para alterar!" />
+            <input id="imgUser" type="file" onChange={loadImg} />
           </label>
 
           <input type="text" placeholder='Usuário' value={inputUser} onChange={(e) => setInputUser(e.target.value)} />
@@ -73,15 +101,15 @@ const TrUser = (props) => {
           <input type="password" placeholder='Senha' />
           <input type="password" placeholder='Confirmar senha' />
           <label htmlFor="admin">Administrador
-            <input type="checkbox" id="admin" name="Admin" checked={inputAdmin == 'Sim' ? true : false} />
+            <input type="checkbox" id="admin" name="Admin" onChange={handleCheckBoxAdmin} checked={inputAdmin == 'Sim' ? true : false} />
           </label>
 
           <div className="btns" title="Cancelar">
-            <button onClick={() => setOpenEdit(false)}>
+            <button onClick={handleCancelEdit}>
               <XMarkIcon className='heroicons' />
             </button>
 
-            <button onClick title="Confirmar">
+            <button title="Confirmar">
               <CheckIcon className='heroicons' />
             </button>
           </div>
