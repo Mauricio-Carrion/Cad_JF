@@ -7,6 +7,8 @@ import remoteHost from '../../../../../Api'
 import { AuthContext } from '../../../../../contexts/auth'
 
 const Users = () => {
+  const [data, setData] = useState()
+  const [loading, setLoading] = useState(false)
   const logout = useContext(AuthContext).logout
 
   const token = JSON.parse(localStorage.getItem('user')).token
@@ -16,9 +18,6 @@ const Users = () => {
     url: `${remoteHost}/usuarios`,
     headers: { Authorization: `Bearer ${token}` }
   }
-
-  const [data, setData] = useState()
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -51,6 +50,7 @@ const Users = () => {
                   <TrUser
                     key={user.codigo}
                     code={user.codigo}
+                    userImage={user.imagem}
                     userName={user.login}
                     name={user.nome}
                     lastName={user.sobrenome}

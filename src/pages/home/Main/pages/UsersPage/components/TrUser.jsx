@@ -8,16 +8,22 @@ import { showToastMessageError, showToastMessageSucess } from '../../../../../..
 import userImg from '../../../../../../assets/img/user.png'
 
 const TrUser = (props) => {
+  const token = JSON.parse(localStorage.getItem('user')).token
+
+  const headers = {
+    Authorization: `Bearer ${token}`
+  }
+
   const [OpenDelete, setOpenDelete] = useState(false)
   const [OpenEdit, setOpenEdit] = useState(false)
   const [inputUser, setInputUser] = useState(props.userName)
   const [inputName, setInputName] = useState(props.name)
   const [inputLastName, setInputLastName] = useState(props.lastName)
   const [inputAdmin, setInputAdmin] = useState(props.admin)
-  const [inputImage, setInputImage] = useState()
+  const [inputImage, setInputImage] = useState(props.image ? props.image : userImg)
 
-  const editUser = () => {
-
+  const editUser = async () => {
+    await axios.post(`${remoteHost}/usuario/${props.code}`, { headers })
   }
 
   const loadImg = (e) => {
@@ -27,8 +33,7 @@ const TrUser = (props) => {
 
     reader.onload = () => {
       let dataURL = reader.result;
-      const output = document.getElementById('editUserImg');
-      output.src = dataURL;
+      setInputImage(dataURL)
     };
     reader.readAsDataURL(input.files[0]);
   }
@@ -39,6 +44,7 @@ const TrUser = (props) => {
     setInputName(props.name)
     setInputLastName(props.lastName)
     setInputAdmin(props.admin)
+    setInputImage(props.image ? props.image : userImg)
   }
 
   const handleCheckBoxAdmin = (e) => {
@@ -47,13 +53,6 @@ const TrUser = (props) => {
 
   const deleteUser = async () => {
     const tr = document.getElementById(`user${props.code}`)
-
-    const token = JSON.parse(localStorage.getItem('user')).token
-
-    const headers = {
-      Authorization: `Bearer ${token}`
-    }
-
     await axios.delete(`${remoteHost}/usuario/${props.code}`, { headers })
       .then(res => showToastMessageSucess(res.data.msg))
       .then(res => tr.remove())
@@ -91,7 +90,7 @@ const TrUser = (props) => {
       <Modal show={OpenEdit} close={OpenEdit}>
         <form className="formEditUser">
           <label htmlFor="imgUser">
-            <img id='editUserImg' src={userImg} alt="user" title="Clique para alterar!" />
+            <img id='editUserImg' src={inputImage} alt="user" title="Clique para alterar!" />
             <input id="imgUser" type="file" onChange={loadImg} />
           </label>
 
