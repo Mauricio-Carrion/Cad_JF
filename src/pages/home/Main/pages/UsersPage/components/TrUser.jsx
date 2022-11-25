@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PencilIcon, XCircleIcon, XMarkIcon, CheckIcon, PlusCircleIcon } from '@heroicons/react/24/solid'
+import { PencilIcon, XCircleIcon, XMarkIcon, CheckIcon } from '@heroicons/react/24/solid'
 import './TrUser.css'
 import remoteHost from '../../../../../../Api'
 import axios from 'axios';
@@ -17,13 +17,35 @@ const TrUser = (props) => {
   const [OpenDelete, setOpenDelete] = useState(false)
   const [OpenEdit, setOpenEdit] = useState(false)
   const [inputUser, setInputUser] = useState(props.userName)
+  const [inputPassword, setInputPassword] = useState()
+  const [inputConfirmPassword, setConfirmPassword] = useState()
   const [inputName, setInputName] = useState(props.name)
   const [inputLastName, setInputLastName] = useState(props.lastName)
   const [inputAdmin, setInputAdmin] = useState(props.admin)
   const [inputImage, setInputImage] = useState(props.image ? props.image : userImg)
 
-  const editUser = async () => {
-    await axios.post(`${remoteHost}/usuario/${props.code}`, { headers })
+  const editUser = async (e) => {
+    e.preventDefault()
+
+    if (inputPassword !== inputConfirmPassword) {
+
+      showToastMessageError('Senhas não conferem')
+
+    } else {
+
+      await axios.put(
+        `${remoteHost}/usuario/${props.code}`,
+        {
+          usuario: inputUser,
+          senha: inputPassword,
+          nome: inputName,
+          sobrenome: inputLastName,
+          adm: inputAdmin == 'Sim' ? true : false,
+        },
+        { headers })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
   }
 
   const loadImg = (e) => {
@@ -41,6 +63,8 @@ const TrUser = (props) => {
   const handleCancelEdit = () => {
     setOpenEdit(false)
     setInputUser(props.userName)
+    setInputPassword()
+    setConfirmPassword()
     setInputName(props.name)
     setInputLastName(props.lastName)
     setInputAdmin(props.admin)
@@ -97,8 +121,8 @@ const TrUser = (props) => {
           <input type="text" placeholder='Usuário' value={inputUser} onChange={(e) => setInputUser(e.target.value)} />
           <input type="text" placeholder='Nome' value={inputName} onChange={(e) => setInputName(e.target.value)} />
           <input type="text" placeholder='Sobrenome' value={inputLastName} onChange={(e) => setInputLastName(e.target.value)} />
-          <input type="password" placeholder='Senha' />
-          <input type="password" placeholder='Confirmar senha' />
+          <input type="password" placeholder='Senha' value={inputPassword} onChange={(e) => setInputPassword(e.target.value)} />
+          <input type="password" placeholder='Confirmar senha' value={inputConfirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
           <label htmlFor="admin">Administrador
             <input type="checkbox" id="admin" name="Admin" onChange={handleCheckBoxAdmin} checked={inputAdmin == 'Sim' ? true : false} />
           </label>
@@ -108,7 +132,7 @@ const TrUser = (props) => {
               <XMarkIcon className='heroicons' />
             </button>
 
-            <button title="Confirmar">
+            <button onClick={editUser} title="Confirmar">
               <CheckIcon className='heroicons' />
             </button>
           </div>
