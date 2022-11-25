@@ -17,14 +17,19 @@ const TrUser = (props) => {
   const [OpenDelete, setOpenDelete] = useState(false)
   const [OpenEdit, setOpenEdit] = useState(false)
   const [inputUser, setInputUser] = useState(props.userName)
-  const [inputPassword, setInputPassword] = useState()
-  const [inputConfirmPassword, setConfirmPassword] = useState()
+  const [inputPassword, setInputPassword] = useState('')
+  const [inputConfirmPassword, setConfirmPassword] = useState('')
   const [inputName, setInputName] = useState(props.name)
   const [inputLastName, setInputLastName] = useState(props.lastName)
   const [inputAdmin, setInputAdmin] = useState(props.admin)
   const [inputImage, setInputImage] = useState(props.image ? props.image : userImg)
 
   const editUser = async (e) => {
+    const tdUserName = document.getElementById(`userName${props.code}`)
+    const tdName = document.getElementById(`name${props.code}`)
+    const tdLastName = document.getElementById(`lastName${props.code}`)
+    const tdAdmin = document.getElementById(`admin${props.code}`)
+
     e.preventDefault()
 
     if (inputPassword !== inputConfirmPassword) {
@@ -40,10 +45,23 @@ const TrUser = (props) => {
           senha: inputPassword,
           nome: inputName,
           sobrenome: inputLastName,
-          adm: inputAdmin == 'Sim' ? true : false,
+          adm: inputAdmin == 'Sim' ? 'true' : 'false',
         },
         { headers })
-        .then(res => console.log(res))
+        .then(res => {
+          tdUserName.innerHTML = res.data.usuario
+          console.log(res)
+          tdName.innerHTML = res.data.nome
+          tdLastName.innerHTML = res.data.sobrenome
+          tdAdmin.innerHTML = res.data.adm == 'true' ? 'Sim' : 'Não'
+
+          setInputUser(res.data.usuario)
+          setInputName(res.data.nome)
+          setInputLastName(res.data.sobrenome)
+          setInputAdmin(res.data.adm)
+        })
+        .then(showToastMessageSucess('Usúario atualizado!'))
+        .then(handleCancelEdit)
         .catch(err => console.log(err))
     }
   }
@@ -63,8 +81,8 @@ const TrUser = (props) => {
   const handleCancelEdit = () => {
     setOpenEdit(false)
     setInputUser(props.userName)
-    setInputPassword()
-    setConfirmPassword()
+    setInputPassword('')
+    setConfirmPassword('')
     setInputName(props.name)
     setInputLastName(props.lastName)
     setInputAdmin(props.admin)
@@ -79,7 +97,7 @@ const TrUser = (props) => {
     const tr = document.getElementById(`user${props.code}`)
     await axios.delete(`${remoteHost}/usuario/${props.code}`, { headers })
       .then(res => showToastMessageSucess(res.data.msg))
-      .then(res => tr.remove())
+      .then(tr.remove())
       .then(setOpenDelete(false))
       .catch(err => showToastMessageError(err.response.data.msg))
   }
@@ -87,10 +105,10 @@ const TrUser = (props) => {
   return (
     <tr id={`user${props.code}`}>
       <td>{props.code}</td>
-      <td className='none'>{props.userName}</td>
-      <td>{props.name}</td>
-      <td className='none'>{props.lastName}</td>
-      <td className='none'>{props.admin}</td>
+      <td id={`userName${props.code}`} className='none'>{props.userName}</td>
+      <td id={`name${props.code}`}>{props.name}</td>
+      <td id={`lastName${props.code}`} className='none'>{props.lastName}</td>
+      <td id={`admin${props.code}`} className='none'>{props.admin}</td>
       <td>
         <PencilIcon onClick={() => setOpenEdit(true)} className='tdEditUserIcon' />
         <XCircleIcon onClick={() => setOpenDelete(true)} className='tdDeleteUserIcon' />
