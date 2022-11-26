@@ -24,19 +24,20 @@ const TrUser = (props) => {
   const [inputAdmin, setInputAdmin] = useState(props.admin)
   const [inputImage, setInputImage] = useState(props.image ? props.image : userImg)
 
-  const editUser = async (e) => {
-    const tdUserName = document.getElementById(`userName${props.code}`)
-    const tdName = document.getElementById(`name${props.code}`)
-    const tdLastName = document.getElementById(`lastName${props.code}`)
-    const tdAdmin = document.getElementById(`admin${props.code}`)
+  const tdUserName = document.getElementById(`userName${props.code}`)
+  const tdName = document.getElementById(`name${props.code}`)
+  const tdLastName = document.getElementById(`lastName${props.code}`)
+  const tdAdmin = document.getElementById(`admin${props.code}`)
 
+  const editUser = async (e) => {
     e.preventDefault()
 
     if (inputPassword !== inputConfirmPassword) {
 
-      showToastMessageError('Senhas não conferem')
+      showToastMessageError('Senhas são diferentes')
 
     } else {
+      const adminCheckBox = document.getElementById('admin')
 
       await axios.put(
         `${remoteHost}/usuario/${props.code}`,
@@ -45,12 +46,11 @@ const TrUser = (props) => {
           senha: inputPassword,
           nome: inputName,
           sobrenome: inputLastName,
-          adm: inputAdmin == 'Sim' ? 'true' : 'false',
+          adm: adminCheckBox.checked ? 'true' : 'false',
         },
         { headers })
         .then(res => {
           tdUserName.innerHTML = res.data.usuario
-          console.log(res)
           tdName.innerHTML = res.data.nome
           tdLastName.innerHTML = res.data.sobrenome
           tdAdmin.innerHTML = res.data.adm == 'true' ? 'Sim' : 'Não'
@@ -58,11 +58,11 @@ const TrUser = (props) => {
           setInputUser(res.data.usuario)
           setInputName(res.data.nome)
           setInputLastName(res.data.sobrenome)
-          setInputAdmin(res.data.adm)
+          setInputAdmin(res.data.adm == 'true' ? 'Sim' : 'Não')
+          showToastMessageSucess('Usuário atualizado!')
+          setOpenEdit(false)
         })
-        .then(showToastMessageSucess('Usúario atualizado!'))
-        .then(handleCancelEdit)
-        .catch(err => console.log(err))
+        .catch(err => showToastMessageError(err.response.data.msg))
     }
   }
 
@@ -80,12 +80,12 @@ const TrUser = (props) => {
 
   const handleCancelEdit = () => {
     setOpenEdit(false)
-    setInputUser(props.userName)
+    setInputUser(tdUserName.innerText)
     setInputPassword('')
     setConfirmPassword('')
-    setInputName(props.name)
-    setInputLastName(props.lastName)
-    setInputAdmin(props.admin)
+    setInputName(tdName.innerText)
+    setInputLastName(tdLastName.innerText)
+    setInputAdmin(tdAdmin.innerText)
     setInputImage(props.image ? props.image : userImg)
   }
 
