@@ -24,8 +24,9 @@ const Users = () => {
     axios(options)
       .then(
         res => setData(res.data))
-      .catch(err => logout())
+      .catch(err => console.error(err) /*logout()*/)
     setLoading(false)
+
   }, [])
 
   return (
@@ -34,6 +35,7 @@ const Users = () => {
       <table>
         <thead>
           <tr>
+            <th className='none'></th>
             <th>Código</th>
             <th className='none'>Usuário</th>
             <th>Nome</th>

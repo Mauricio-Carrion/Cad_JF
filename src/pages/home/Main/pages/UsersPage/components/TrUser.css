@@ -56,6 +56,13 @@
   height: 60px;
 }
 
+.tdUserImage {
+  display: flex;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
 .formEditUser>label {
   display: flex;
   align-items: center;

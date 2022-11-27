@@ -28,9 +28,10 @@ const TrUser = (props) => {
   const tdName = document.getElementById(`name${props.code}`)
   const tdLastName = document.getElementById(`lastName${props.code}`)
   const tdAdmin = document.getElementById(`admin${props.code}`)
-
+  console.log(inputImage)
   const editUser = async (e) => {
     e.preventDefault()
+
 
     if (inputPassword !== inputConfirmPassword) {
 
@@ -42,6 +43,7 @@ const TrUser = (props) => {
       await axios.put(
         `${remoteHost}/usuario/${props.code}`,
         {
+          imagem: inputImage,
           usuario: inputUser,
           senha: inputPassword,
           nome: inputName,
@@ -72,7 +74,7 @@ const TrUser = (props) => {
     let reader = new FileReader();
 
     reader.onload = () => {
-      let dataURL = reader.result;
+      let dataURL = reader.result
       setInputImage(dataURL)
     };
     reader.readAsDataURL(input.files[0]);
@@ -104,6 +106,9 @@ const TrUser = (props) => {
 
   return (
     <tr id={`user${props.code}`}>
+      <td id={`userImg${props.code}`} className='none'>
+        <img src={inputImage} alt="user" className='tdUserImage' />
+      </td>
       <td>{props.code}</td>
       <td id={`userName${props.code}`} className='none'>{props.userName}</td>
       <td id={`name${props.code}`}>{props.name}</td>
