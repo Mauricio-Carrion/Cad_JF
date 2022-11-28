@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
             userName: res.data.usuario,
             lastName: res.data.sobrenome,
             token: res.data.token,
-            image: ''
+            image: res.data.imagem ? `data:image/png;base64,${res.data.imagem}` : res.data.imagem
           }
 
           localStorage.setItem('user', JSON.stringify(loggedUser))

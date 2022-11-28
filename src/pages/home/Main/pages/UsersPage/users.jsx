@@ -35,7 +35,7 @@ const Users = () => {
       <table>
         <thead>
           <tr>
-            <th className='none'></th>
+            <th className='none'>Foto Perfil</th>
             <th>Código</th>
             <th className='none'>Usuário</th>
             <th>Nome</th>

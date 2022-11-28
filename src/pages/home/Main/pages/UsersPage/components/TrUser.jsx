@@ -22,13 +22,13 @@ const TrUser = (props) => {
   const [inputName, setInputName] = useState(props.name)
   const [inputLastName, setInputLastName] = useState(props.lastName)
   const [inputAdmin, setInputAdmin] = useState(props.admin)
-  const [inputImage, setInputImage] = useState(props.image ? props.image : userImg)
+  const [inputImage, setInputImage] = useState(props.userImage ? `data:image/png;base64,${props.userImage}` : userImg)
 
   const tdUserName = document.getElementById(`userName${props.code}`)
   const tdName = document.getElementById(`name${props.code}`)
   const tdLastName = document.getElementById(`lastName${props.code}`)
   const tdAdmin = document.getElementById(`admin${props.code}`)
-  console.log(inputImage)
+
   const editUser = async (e) => {
     e.preventDefault()
 
@@ -66,6 +66,12 @@ const TrUser = (props) => {
         })
         .catch(err => showToastMessageError(err.response.data.msg))
     }
+  }
+
+  const loadDbImg = (image) => {
+    let reader = new FileReader();
+
+    reader.readAsDataURL(image);
   }
 
   const loadImg = (e) => {
