@@ -14,6 +14,12 @@ const TrUser = (props) => {
     Authorization: `Bearer ${token}`
   }
 
+  const dbImage = props.dbImage ? `data:image/png;base64,${props.dbImage}` : null
+  const tdUserName = document.getElementById(`userName${props.code}`)
+  const tdName = document.getElementById(`name${props.code}`)
+  const tdLastName = document.getElementById(`lastName${props.code}`)
+  const tdAdmin = document.getElementById(`admin${props.code}`)
+
   const [OpenDelete, setOpenDelete] = useState(false)
   const [OpenEdit, setOpenEdit] = useState(false)
   const [inputUser, setInputUser] = useState(props.userName)
@@ -22,14 +28,8 @@ const TrUser = (props) => {
   const [inputName, setInputName] = useState(props.name)
   const [inputLastName, setInputLastName] = useState(props.lastName)
   const [inputAdmin, setInputAdmin] = useState(props.admin)
-  const [dbImage, setDbImage] = useState(props.dbImage ? `data:image/png;base64,${props.dbImage}` : props.dbImage)
-  const [defaultImage, setDefaultImage] = useState(userImg)
+  const [currentImage, setCurrentImage] = useState(dbImage ? dbImage : userImg)
   const [inputImage, setInputImage] = useState(null)
-
-  const tdUserName = document.getElementById(`userName${props.code}`)
-  const tdName = document.getElementById(`name${props.code}`)
-  const tdLastName = document.getElementById(`lastName${props.code}`)
-  const tdAdmin = document.getElementById(`admin${props.code}`)
 
   const editUser = async (e) => {
     e.preventDefault()
@@ -76,8 +76,10 @@ const TrUser = (props) => {
 
     reader.onload = () => {
       let dataURL = reader.result
-      setDefaultImage(dataURL)
+      setCurrentImage(dataURL)
+      setInputImage(dataURL)
     };
+
     reader.readAsDataURL(input.files[0]);
   }
 
@@ -89,7 +91,7 @@ const TrUser = (props) => {
     setInputName(tdName.innerText)
     setInputLastName(tdLastName.innerText)
     setInputAdmin(tdAdmin.innerText)
-    setInputImage(dbImage ? dbImage : defaultImage)
+    setCurrentImage(dbImage ? dbImage : userImg)
   }
 
   const handleCheckBoxAdmin = (e) => {
@@ -108,7 +110,7 @@ const TrUser = (props) => {
   return (
     <tr id={`user${props.code}`}>
       <td id={`userImg${props.code}`} className='none'>
-        <img src={dbImage ? dbImage : userImg} alt="user" className='tdUserImage' />
+        <img src={currentImage} alt="user" className='tdUserImage' />
       </td>
       <td>{props.code}</td>
       <td id={`userName${props.code}`} className='none'>{props.userName}</td>
@@ -138,7 +140,7 @@ const TrUser = (props) => {
       <Modal show={OpenEdit} close={OpenEdit}>
         <form className="formEditUser">
           <label htmlFor="imgUser">
-            <img id='editUserImg' src={dbImage ? dbImage : userImg} alt="user" title="Clique para alterar!" />
+            <img id='editUserImg' src={currentImage} alt="user" title="Clique para alterar!" />
             <input id="imgUser" type="file" onChange={loadImg} />
           </label>
 
