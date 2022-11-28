@@ -22,7 +22,9 @@ const TrUser = (props) => {
   const [inputName, setInputName] = useState(props.name)
   const [inputLastName, setInputLastName] = useState(props.lastName)
   const [inputAdmin, setInputAdmin] = useState(props.admin)
-  const [inputImage, setInputImage] = useState(props.userImage ? `data:image/png;base64,${props.userImage}` : userImg)
+  const [dbImage, setDbImage] = useState(props.dbImage ? `data:image/png;base64,${props.dbImage}` : props.dbImage)
+  const [defaultImage, setDefaultImage] = useState(userImg)
+  const [inputImage, setInputImage] = useState(null)
 
   const tdUserName = document.getElementById(`userName${props.code}`)
   const tdName = document.getElementById(`name${props.code}`)
@@ -31,7 +33,6 @@ const TrUser = (props) => {
 
   const editUser = async (e) => {
     e.preventDefault()
-
 
     if (inputPassword !== inputConfirmPassword) {
 
@@ -43,7 +44,7 @@ const TrUser = (props) => {
       await axios.put(
         `${remoteHost}/usuario/${props.code}`,
         {
-          imagem: inputImage,
+          imagem: inputImage ? inputImage : null,
           usuario: inputUser,
           senha: inputPassword,
           nome: inputName,
@@ -68,12 +69,6 @@ const TrUser = (props) => {
     }
   }
 
-  const loadDbImg = (image) => {
-    let reader = new FileReader();
-
-    reader.readAsDataURL(image);
-  }
-
   const loadImg = (e) => {
     let input = e.target;
 
@@ -81,7 +76,7 @@ const TrUser = (props) => {
 
     reader.onload = () => {
       let dataURL = reader.result
-      setInputImage(dataURL)
+      setDefaultImage(dataURL)
     };
     reader.readAsDataURL(input.files[0]);
   }
@@ -94,7 +89,7 @@ const TrUser = (props) => {
     setInputName(tdName.innerText)
     setInputLastName(tdLastName.innerText)
     setInputAdmin(tdAdmin.innerText)
-    setInputImage(props.image ? props.image : userImg)
+    setInputImage(dbImage ? dbImage : defaultImage)
   }
 
   const handleCheckBoxAdmin = (e) => {
@@ -113,7 +108,7 @@ const TrUser = (props) => {
   return (
     <tr id={`user${props.code}`}>
       <td id={`userImg${props.code}`} className='none'>
-        <img src={inputImage} alt="user" className='tdUserImage' />
+        <img src={dbImage ? dbImage : userImg} alt="user" className='tdUserImage' />
       </td>
       <td>{props.code}</td>
       <td id={`userName${props.code}`} className='none'>{props.userName}</td>
@@ -143,7 +138,7 @@ const TrUser = (props) => {
       <Modal show={OpenEdit} close={OpenEdit}>
         <form className="formEditUser">
           <label htmlFor="imgUser">
-            <img id='editUserImg' src={inputImage} alt="user" title="Clique para alterar!" />
+            <img id='editUserImg' src={dbImage ? dbImage : userImg} alt="user" title="Clique para alterar!" />
             <input id="imgUser" type="file" onChange={loadImg} />
           </label>
 

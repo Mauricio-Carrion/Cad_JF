@@ -26,7 +26,6 @@ const Users = () => {
         res => setData(res.data))
       .catch(err => console.error(err) /*logout()*/)
     setLoading(false)
-
   }, [])
 
   return (
@@ -52,7 +51,7 @@ const Users = () => {
                   <TrUser
                     key={user.codigo}
                     code={user.codigo}
-                    userImage={user.imagem}
+                    dbImage={user.imagem}
                     userName={user.login}
                     name={user.nome}
                     lastName={user.sobrenome}
