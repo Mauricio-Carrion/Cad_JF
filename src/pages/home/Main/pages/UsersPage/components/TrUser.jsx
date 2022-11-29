@@ -44,7 +44,7 @@ const TrUser = (props) => {
       await axios.put(
         `${remoteHost}/usuario/${props.code}`,
         {
-          imagem: inputImage ? inputImage : null,
+          imagem: inputImage ? inputImage : 'null',
           usuario: inputUser,
           senha: inputPassword,
           nome: inputName,
@@ -65,7 +65,7 @@ const TrUser = (props) => {
           showToastMessageSucess('Usuário atualizado!')
           setOpenEdit(false)
         })
-        .catch(err => showToastMessageError(err.response.data.msg))
+        .catch(err => /*showToastMessageError(err.response.data.msg)*/ console.log(err))
     }
   }
 
