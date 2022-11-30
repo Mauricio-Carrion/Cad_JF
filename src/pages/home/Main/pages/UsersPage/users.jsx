@@ -19,6 +19,18 @@ const Users = () => {
     headers: { Authorization: `Bearer ${token}` }
   }
 
+  const searchUser = (search) => {
+    const trUsers = document.querySelectorAll('tbody tr')
+    const arrayTrUsers = [...trUsers]
+
+    arrayTrUsers.filter(e => {
+      e.classList.add('tr-none')
+      if (e.innerText.includes(search)) {
+        e.classList.remove('tr-none')
+      }
+    })
+  }
+
   useEffect(() => {
     setLoading(true)
     axios(options)
@@ -30,7 +42,7 @@ const Users = () => {
 
   return (
     <div className="users">
-      <input type="search" name="search" id="#userSearch" placeholder='&#xf002;  Pesquisar' />
+      <input type="search" onChange={(e) => searchUser(e.target.value)} name="search" id="#userSearch" placeholder='&#xf002;  Pesquisar' />
       <table>
         <thead>
           <tr>

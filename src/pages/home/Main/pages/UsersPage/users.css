@@ -6,3 +6,7 @@
   font-size: 15px;
   color: #909090;
 }
+
+.tr-none {
+  display: none;
+}
