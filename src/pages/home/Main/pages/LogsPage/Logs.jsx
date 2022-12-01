@@ -8,7 +8,7 @@ import './Logs.css'
 
 const Logs = () => {
   const [data, setData] = useState()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
@@ -19,18 +19,53 @@ const Logs = () => {
   }
 
   useEffect(() => {
-    setLoading(true)
     axios(options)
       .then(res => setData(res.data))
       .catch(err => console.log(err))
     setLoading(false)
   }, [])
 
-  console.log(data)
+  const searchLog = (search) => {
+    const trLogs = document.querySelectorAll('tbody tr')
+    const arrayTrLogs = [...trLogs]
+
+    arrayTrLogs.filter(e => {
+      e.classList.add('tr-none')
+      if (e.innerText.includes(search)) {
+        e.classList.remove('tr-none')
+      }
+    })
+  }
 
   return (
-    loading ? <Loading /> : <p>teste</p>
-
+    <div className="users">
+      <input type="search" onChange={(e) => searchLog(e.target.value)} name="search" id="#userSearch" placeholder='&#xf002;  Pesquisar' />
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Data/Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            loading ? <Loading /> :
+              data && data.map(log => {
+                return (
+                  <TrLog
+                    code={log.codigo}
+                    type={log.tipo}
+                    user={log.descricao}
+                    date={`${log.data.split('T')[0]}  /  ${log.data.split('T')[1]}`}
+                  />
+                )
+              })
+          }
+        </tbody>
+      </table>
+    </div>
   )
 }
 

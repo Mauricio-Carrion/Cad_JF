@@ -5,17 +5,17 @@ import './Content.css'
 import Users from './pages/UsersPage/Users'
 import Clients from './pages/ClientsPage/Clients'
 import Visits from './pages/VisitPage/Visits'
-import Reports from './pages/ReportsPage/Reports'
+import Dashboard from './pages/DashboardPage/Dashboard'
 import Logs from './pages/LogsPage/Logs'
 
 const Content = () => {
   return (
     <div className="content">
       <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/clients" element={<Clients />} />
         <Route path="/visits" element={<Visits />} />
-        <Route path="/reports" element={<Reports />} />
         <Route path="/logs" element={<Logs />} />
       </Routes>
     </div>

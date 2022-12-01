@@ -101,8 +101,14 @@ const TrUser = (props) => {
   const deleteUser = async () => {
     const tr = document.getElementById(`user${props.code}`)
     await axios.delete(`${remoteHost}/usuario/${props.code}`, { headers })
-      .then(res => showToastMessageSucess(res.data.msg))
-      .then(tr.remove())
+      .then(res => {
+        showToastMessageSucess(res.data.msg)
+
+        if (res.status === 200) {
+          tr.remove()
+        }
+
+      })
       .then(setOpenDelete(false))
       .catch(err => showToastMessageError(err.response.data.msg))
   }

@@ -36,6 +36,7 @@ const Users = () => {
       .then(
         res => setData(res.data))
       .catch(err => console.error(err) /*logout()*/)
+    setLoading(false)
   }, [])
 
   return (

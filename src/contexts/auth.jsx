@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
         id: loggedUser.id,
         user: loggedUser.user,
       })
-      navigate('/')
+      navigate('/dashboard')
     }
   }
 

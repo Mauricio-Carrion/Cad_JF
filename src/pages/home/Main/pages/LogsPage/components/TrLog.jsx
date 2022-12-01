@@ -1,5 +1,4 @@
 import React from 'react';
-import './TrLog.css'
 
 const TrLog = (props) => {
   return (

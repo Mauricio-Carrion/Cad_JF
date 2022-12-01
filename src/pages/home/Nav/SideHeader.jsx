@@ -37,6 +37,13 @@ const SideHeader = () => {
         </h5>
       </div>
       <nav className={`${toggle ? 'nav-active' : ''}`}>
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/dashboard">
+          <i className="fa fa-area-chart" aria-hidden="true" />
+          <p className={`${toggle ? 'p-active' : ''}`}>
+            DashBoard
+          </p>
+        </NavLink>
+
         <NavLink className={`${toggle ? 'a-active' : ''}`} to="/users">
           <i className="fa fa-user" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
@@ -55,13 +62,6 @@ const SideHeader = () => {
           <i className="fa fa-calendar" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Visitas
-          </p>
-        </NavLink>
-
-        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/reports">
-          <i className="fa fa-area-chart" aria-hidden="true" />
-          <p className={`${toggle ? 'p-active' : ''}`}>
-            Relatórios
           </p>
         </NavLink>
 
