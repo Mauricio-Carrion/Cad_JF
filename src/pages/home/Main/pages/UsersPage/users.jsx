@@ -8,7 +8,7 @@ import { AuthContext } from '../../../../../contexts/auth'
 
 const Users = () => {
   const [data, setData] = useState()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const logout = useContext(AuthContext).logout
 
   const token = JSON.parse(localStorage.getItem('user')).token
@@ -32,12 +32,10 @@ const Users = () => {
   }
 
   useEffect(() => {
-    setLoading(true)
     axios(options)
       .then(
         res => setData(res.data))
       .catch(err => console.error(err) /*logout()*/)
-    setLoading(false)
   }, [])
 
   return (
@@ -76,6 +74,7 @@ const Users = () => {
     </div>
   )
 }
+
 
 export default Users
 

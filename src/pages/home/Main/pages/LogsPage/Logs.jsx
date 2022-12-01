@@ -12,18 +12,25 @@ const Logs = () => {
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
-  const headers = {
-    Authorization: `Bearer ${token}`
+  const options = {
+    method: 'GET',
+    url: `${remoteHost}/logs`,
+    headers: { Authorization: `Bearer ${token}` }
   }
 
   useEffect(() => {
-    axios.get(`${remoteHost}/logs`, headers)
-      .then(res => setData(res))
+    setLoading(true)
+    axios(options)
+      .then(res => setData(res.data))
       .catch(err => console.log(err))
+    setLoading(false)
   }, [])
 
+  console.log(data)
+
   return (
-    <p>teste</p>
+    loading ? <Loading /> : <p>teste</p>
+
   )
 }
 
