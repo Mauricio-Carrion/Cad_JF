@@ -16,11 +16,11 @@ const Logs = () => {
     Authorization: `Bearer ${token}`
   }
 
-  useEffect(async () =>
-    await axios.get(`${remoteHost}/logs`, headers)
+  useEffect(() => {
+    axios.get(`${remoteHost}/logs`, headers)
       .then(res => setData(res))
       .catch(err => console.log(err))
-    , [])
+  }, [])
 
   return (
     <p>teste</p>
