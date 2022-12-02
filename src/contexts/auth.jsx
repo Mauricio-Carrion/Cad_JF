@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
     if (recoveredUser) {
       setUser(recoveredUser)
-      navigate('/')
+      navigate('/dashboard')
     }
 
     setLoading(false)

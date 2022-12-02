@@ -2,10 +2,10 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './Content.css'
 
+import Dashboard from './pages/DashboardPage/Dashboard'
 import Users from './pages/UsersPage/Users'
 import Clients from './pages/ClientsPage/Clients'
 import Visits from './pages/VisitPage/Visits'
-import Dashboard from './pages/DashboardPage/Dashboard'
 import Logs from './pages/LogsPage/Logs'
 
 const Content = () => {
