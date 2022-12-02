@@ -40,7 +40,7 @@ const Users = () => {
   }, [])
 
   return (
-    <div className="users">
+    <div className="table">
       <input type="search" onChange={(e) => searchUser(e.target.value)} name="search" id="#userSearch" placeholder='&#xf002;  Pesquisar' />
       <table>
         <thead>

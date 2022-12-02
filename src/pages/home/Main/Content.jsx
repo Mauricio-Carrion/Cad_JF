@@ -5,6 +5,7 @@ import './Content.css'
 import Dashboard from './pages/DashboardPage/Dashboard'
 import Users from './pages/UsersPage/Users'
 import Clients from './pages/ClientsPage/Clients'
+import EditClient from './pages/ClientsPage/components/EditClient';
 import Visits from './pages/VisitPage/Visits'
 import Logs from './pages/LogsPage/Logs'
 
@@ -15,6 +16,7 @@ const Content = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/clients" element={<Clients />} />
+        <Route path="/clients/*" element={<EditClient />} />
         <Route path="/visits" element={<Visits />} />
         <Route path="/logs" element={<Logs />} />
       </Routes>

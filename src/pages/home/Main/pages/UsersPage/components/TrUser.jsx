@@ -124,8 +124,8 @@ const TrUser = (props) => {
       <td id={`lastName${props.code}`} className='none'>{props.lastName}</td>
       <td id={`admin${props.code}`} className='none'>{props.admin}</td>
       <td>
-        <PencilIcon onClick={() => setOpenEdit(true)} className='tdEditUserIcon' />
-        <XCircleIcon onClick={() => setOpenDelete(true)} className='tdDeleteUserIcon' />
+        <PencilIcon onClick={() => setOpenEdit(true)} className='tdEditUserIcon' title='Editar' />
+        <XCircleIcon onClick={() => setOpenDelete(true)} className='tdDeleteUserIcon' title='Excluir' />
       </td>
 
       {/* Modal excluir */}
@@ -133,11 +133,11 @@ const TrUser = (props) => {
         Deseja realmente excluir usuário?
         <div className="btns">
           <button onClick={() => setOpenDelete(false)}>
-            <XMarkIcon className='heroicons' />
+            <XMarkIcon className='heroicons' title='Cancelar' />
           </button>
 
           <button onClick={deleteUser}>
-            <CheckIcon className='heroicons' />
+            <CheckIcon className='heroicons' title='Confirmar' />
           </button>
         </div>
       </Modal>

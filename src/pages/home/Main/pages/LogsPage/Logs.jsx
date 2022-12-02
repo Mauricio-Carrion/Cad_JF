@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TrLog from './components/TrLog'
 import { showToastMessageError, showToastMessageSucess } from '../../../../../App';
+import { formatDate } from '../../../../../utils/utils';
 import Loading from '../../../components/Loading';
 import axios from 'axios';
 import remoteHost from '../../../../../Api';
@@ -38,7 +39,7 @@ const Logs = () => {
   }
 
   return (
-    <div className="users">
+    <div className="table">
       <input type="search" onChange={(e) => searchLog(e.target.value)} name="search" id="#userSearch" placeholder='&#xf002;  Pesquisar' />
       <table>
         <thead>
@@ -58,7 +59,7 @@ const Logs = () => {
                     code={log.codigo}
                     type={log.tipo}
                     user={log.descricao}
-                    date={`${log.data.split('T')[0]}  /  ${log.data.split('T')[1]}`}
+                    date={formatDate(log.data)}
                   />
                 )
               })

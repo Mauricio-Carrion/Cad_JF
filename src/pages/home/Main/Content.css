@@ -4,6 +4,19 @@
   margin: 0 0 0 30px;
 }
 
+.table {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100px 1fr;
+  margin: 20px;
+  font-size: 15px;
+  color: #909090;
+}
+
+.tr-none {
+  display: none;
+}
+
 @media(max-width:560px) {
   .content {
     overflow-y: auto;
