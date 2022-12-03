@@ -8,15 +8,12 @@ import './Clients.css'
 const Clients = () => {
 
   const [data, setData] = useState()
+  const [userData, setUserData] = useState(null)
   const [loading, setLoading] = useState(true)
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
-  const options = {
-    method: 'GET',
-    url: `${remoteHost}/clientes`,
-    headers: { Authorization: `Bearer ${token}` }
-  }
+
 
   const searchClient = (search) => {
     const trClients = document.querySelectorAll('tbody tr')
@@ -30,10 +27,29 @@ const Clients = () => {
     })
   }
 
+  const clientOptions = {
+    method: 'GET',
+    url: `${remoteHost}/clientes`,
+    headers: { Authorization: `Bearer ${token}` }
+  }
+
   useEffect(() => {
-    axios(options)
+    axios(clientOptions)
       .then(
         res => setData(res.data))
+      .catch(err => console.error(err) /*logout()*/)
+  }, [])
+
+  const userOptions = {
+    method: 'GET',
+    url: `${remoteHost}/usuario/${}`,
+    headers: { Authorization: `Bearer ${token}` }
+  }
+
+  useEffect(() => {
+    axios(userOptions)
+      .then(
+        res => setUserData(res.data))
       .catch(err => console.error(err) /*logout()*/)
     setLoading(false)
   }, [])
@@ -45,6 +61,7 @@ const Clients = () => {
         <thead>
           <tr>
             <th>Código</th>
+            <th>Técnico</th>
             <th>Nome</th>
             <th>Razão Social</th>
             <th>Status</th>
@@ -58,6 +75,7 @@ const Clients = () => {
                 return (
                   <TrClient
                     code={user.codigo}
+                    tec={user.tecnico}
                     clientName={user.nome}
                     razao={user.razaoSocial}
                     cnpj={user.cnpj}

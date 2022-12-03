@@ -50,6 +50,7 @@ const TrClient = (props) => {
   return (
     <tr id={`client${props.code}`}>
       <td>{props.code}</td>
+      <td id={`tec${props.code}`} className='none'>{props.tec}</td>
       <td id={`name${props.code}`} className='none'>{props.clientName}</td>
       <td id={`razao${props.code}`}>{props.razao}</td>
       <td id={`status${props.code}`} className='none'>{props.status}</td>
