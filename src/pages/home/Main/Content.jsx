@@ -16,7 +16,7 @@ const Content = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/clients" element={<Clients />} />
-        <Route path="/clients/*" element={<EditClient />} />
+        <Route path="/clients/client" element={<EditClient />} />
         <Route path="/visits" element={<Visits />} />
         <Route path="/logs" element={<Logs />} />
       </Routes>
