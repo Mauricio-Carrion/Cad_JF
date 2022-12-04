@@ -38,7 +38,7 @@ const EditClient = () => {
     setLoading(false)
   }, [])
 
-  console.log(userData)
+  console.log(data)
 
   const handleChange = (e) => {
     let updatedValue = {};
@@ -46,7 +46,6 @@ const EditClient = () => {
     switch (e.target.name) {
       case 'name':
         updatedValue = { nomeFantasia: e.target.value }
-        //setData(data => ({ ...data, ...updatedValue }))
         break
       case 'socialName':
         updatedValue = { razaoSocial: e.target.value }
@@ -61,8 +60,20 @@ const EditClient = () => {
     setData(data => ({ ...data, ...updatedValue }))
   }
 
-  const handleSelect = () => {
+  const handleSelectStatus = (status) => {
+    if (data.status == status) {
+      return true
+    } else {
+      return false
+    }
+  }
 
+  const handleSelectTec = (userCode) => {
+    if (userCode == data.tecnico) {
+      return true
+    } else {
+      return false
+    }
   }
 
   return (
@@ -74,17 +85,25 @@ const EditClient = () => {
             <input type="text" name="socialName" value={data.razaoSocial} onChange={(e) => handleChange(e)} />
             <input type="text" name="cnpj" value={data.cnpj} onChange={(e) => handleChange(e)} />
             <textarea name="obs" value={data.observacao} onChange={(e) => handleChange(e)} />
-            <select id="clientStatus" onChange={handleSelect}>
-              <option value="Finalizado">Finalizado</option>
-              <option value="Em andamento">Em andamento</option>
-              <option value="Finalizado pelo cliente">Finalizado pelo cliente</option>
+            <select id="clientStatus">
+              <option value="Finalizado" selected={handleSelectStatus("Finalizado")}>
+                Finalizado
+              </option>
+
+              <option value="Em andamento" selected={handleSelectStatus("Em andamento")}>
+                Em andamento
+              </option>
+
+              <option value="Finalizado pelo cliente" selected={handleSelectStatus("Finalizado pelo cliente")}>
+                Finalizado pelo cliente
+              </option>
             </select>
 
-            <select id="usersEdit" onChange={handleSelect}>
+            <select id="usersEdit">
               {
                 userData && userData.map(user => {
                   return (
-                    <option value={user.codigo}>{user.nome}</option>
+                    <option value={user.codigo} selected={handleSelectTec(user.codigo)}>{user.nome}</option>
                   )
                 })
               }

@@ -1,0 +1,30 @@
+.editClient input {
+  max-width: 250px;
+  height: 35px;
+  background: #D9D9D9;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  padding: 15px;
+}
+
+.editClient textarea {
+  max-width: 350px;
+  height: 250px;
+  background: #D9D9D9;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  padding: 15px;
+  resize: none;
+}
+
+.editClient select {
+  max-width: 250px;
+  height: 35px;
+  background: #D9D9D9;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  padding: 5px;
+}

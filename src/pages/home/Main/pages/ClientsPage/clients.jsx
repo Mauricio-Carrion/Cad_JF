@@ -13,8 +13,6 @@ const Clients = () => {
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
-
-
   const searchClient = (search) => {
     const trClients = document.querySelectorAll('tbody tr')
     const arrayTrClients = [...trClients]
@@ -37,19 +35,6 @@ const Clients = () => {
     axios(clientOptions)
       .then(
         res => setData(res.data))
-      .catch(err => console.error(err) /*logout()*/)
-  }, [])
-
-  const userOptions = {
-    method: 'GET',
-    url: `${remoteHost}/usuario/${}`,
-    headers: { Authorization: `Bearer ${token}` }
-  }
-
-  useEffect(() => {
-    axios(userOptions)
-      .then(
-        res => setUserData(res.data))
       .catch(err => console.error(err) /*logout()*/)
     setLoading(false)
   }, [])
