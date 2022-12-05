@@ -78,6 +78,8 @@ const EditClient = () => {
 
   return (
     <div className="editClient">
+      <span>{data && data.nomeFantasia}</span>
+
       {
         loading ? <Loading /> : data &&
           <form className="clientForm">
