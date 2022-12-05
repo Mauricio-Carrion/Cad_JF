@@ -1,3 +1,16 @@
+.editClient form {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 35px 250px 35px;
+  gap: 10px;
+  margin: 20px
+}
+
+.editClient form :nth-child(4) {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
 .editClient input {
   max-width: 250px;
   height: 35px;
@@ -9,7 +22,6 @@
 }
 
 .editClient textarea {
-  max-width: 350px;
   height: 250px;
   background: #D9D9D9;
   border-radius: 30px;

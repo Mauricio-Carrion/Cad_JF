@@ -86,16 +86,16 @@ const EditClient = () => {
             <input type="text" name="cnpj" value={data.cnpj} onChange={(e) => handleChange(e)} />
             <textarea name="obs" value={data.observacao} onChange={(e) => handleChange(e)} />
             <select id="clientStatus">
-              <option value="Finalizado" selected={handleSelectStatus("Finalizado")}>
-                Finalizado
-              </option>
-
               <option value="Em andamento" selected={handleSelectStatus("Em andamento")}>
                 Em andamento
               </option>
 
-              <option value="Finalizado pelo cliente" selected={handleSelectStatus("Finalizado pelo cliente")}>
-                Finalizado pelo cliente
+              <option value="Finalizado pelo cliente" selected={handleSelectStatus("Encerrado pelo cliente")}>
+                Encerrado pelo cliente
+              </option>
+
+              <option value="Finalizado" selected={handleSelectStatus("Finalizado")}>
+                Finalizado
               </option>
             </select>
 
