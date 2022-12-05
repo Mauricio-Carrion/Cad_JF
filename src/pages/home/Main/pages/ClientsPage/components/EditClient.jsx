@@ -78,25 +78,29 @@ const EditClient = () => {
 
   return (
     <div className="editClient">
-      <span>{data && data.nomeFantasia}</span>
+      <div className="resume">
+        <span>{data && data.nomeFantasia}</span>
+        <span>{data && data.nomeFantasia}</span>
+        <span>{data && data.nomeFantasia}</span>
+      </div>
 
       {
         loading ? <Loading /> : data &&
           <form className="clientForm">
-            <input type="text" name="name" value={data.nomeFantasia} onChange={(e) => handleChange(e)} />
-            <input type="text" name="socialName" value={data.razaoSocial} onChange={(e) => handleChange(e)} />
-            <input type="text" name="cnpj" value={data.cnpj} onChange={(e) => handleChange(e)} />
-            <textarea name="obs" value={data.observacao} onChange={(e) => handleChange(e)} />
+            <input type="text" name="name" value={data.nomeFantasia} onChange={(e) => handleChange(e)} placeholder="Nome Fantasia" />
+            <input type="text" name="socialName" value={data.razaoSocial} onChange={(e) => handleChange(e)} placeholder="Razão Social" />
+            <input type="text" name="cnpj" value={data.cnpj} onChange={(e) => handleChange(e)} placeholder="CNPJ" />
+            <textarea name="obs" value={data.observacao} onChange={(e) => handleChange(e)} placeholder="Observação" />
             <select id="clientStatus">
-              <option value="Em andamento" selected={handleSelectStatus("Em andamento")}>
+              <option value="1" selected={handleSelectStatus(1)}>
                 Em andamento
               </option>
 
-              <option value="Finalizado pelo cliente" selected={handleSelectStatus("Encerrado pelo cliente")}>
+              <option value="2" selected={handleSelectStatus(2)}>
                 Encerrado pelo cliente
               </option>
 
-              <option value="Finalizado" selected={handleSelectStatus("Finalizado")}>
+              <option value="3" selected={handleSelectStatus(3)}>
                 Finalizado
               </option>
             </select>
@@ -112,6 +116,9 @@ const EditClient = () => {
             </select>
           </form>
       }
+      <div className="visitsLabel">
+        visitas
+      </div>
     </div>
   )
 }

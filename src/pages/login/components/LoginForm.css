@@ -23,7 +23,8 @@ input {
   border-bottom: 1px solid #2867B0;
 }
 
-input:focus::placeholder {
+input:focus::placeholder,
+textarea:focus::placeholder {
   color: #2867B0;
 }
 
