@@ -38,8 +38,6 @@ const EditClient = () => {
     setLoading(false)
   }, [])
 
-  console.log(data)
-
   const handleChange = (e) => {
     let updatedValue = {};
 
