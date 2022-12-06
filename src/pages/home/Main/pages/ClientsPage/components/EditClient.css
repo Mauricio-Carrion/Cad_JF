@@ -42,7 +42,7 @@
   width: 100%;
   outline: none;
   border: none;
-  padding: 15px;
+  padding: 10px;
 }
 
 .clientForm textarea {
@@ -50,7 +50,7 @@
   border-radius: 30px;
   outline: none;
   border: none;
-  padding: 15px;
+  padding: 10px;
   resize: none;
 }
 
@@ -73,7 +73,7 @@
 @media(max-width:850px) {
   .editClient {
     grid-template-columns: 1fr;
-    grid-template-rows: 200px 300px 1fr;
+    grid-template-rows: 100px 300px 1fr;
     grid-template-areas:
       "resume"
       "form"
@@ -84,5 +84,22 @@
 @media(max-width:560px) {
   .editClient {
     margin: 0;
+  }
+}
+
+@media(max-width:480px) {
+  .clientForm {
+    grid-template-columns: 1fr;
+    grid-template-rows: 35px 35px 35px 150px 35px;
+  }
+
+  .clientForm :nth-child(1),
+  .clientForm :nth-child(2) {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  .editClient {
+    grid-template-rows: 100px 400px 1fr;
   }
 }

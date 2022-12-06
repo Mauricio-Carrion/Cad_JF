@@ -118,7 +118,6 @@ const TrUser = (props) => {
       <td id={`userImg${props.code}`} className='none'>
         <img src={currentImage} alt="user" className='tdUserImage' />
       </td>
-      <td>{props.code}</td>
       <td id={`userName${props.code}`} className='none'>{props.userName}</td>
       <td id={`name${props.code}`}>{props.name}</td>
       <td id={`lastName${props.code}`} className='none'>{props.lastName}</td>
