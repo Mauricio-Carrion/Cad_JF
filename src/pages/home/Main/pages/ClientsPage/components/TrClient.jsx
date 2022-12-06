@@ -60,10 +60,10 @@ const TrClient = (props) => {
 
   return (
     <tr id={`client${props.code}`}>
-      <td>{props.code}</td>
-      <td id={`tec${props.code}`} className='none'>{props.tec}</td>
-      <td id={`name${props.code}`} className='none'>{props.clientName}</td>
-      <td id={`razao${props.code}`}>{props.razao}</td>
+      <td className='none'>{props.code}</td>
+      <td id={`tec${props.code}`}>{props.tec}</td>
+      <td id={`name${props.code}`}>{props.clientName}</td>
+      <td id={`razao${props.code}`} className='none'>{props.razao}</td>
       <td id={`status${props.code}`} className='none'>{handleStatus(props.status)}</td>
       <td>
         <EllipsisHorizontalCircleIcon onClick={() => setOpenEdit(true)} className='tdEditUserIcon' title='Detalhes' />

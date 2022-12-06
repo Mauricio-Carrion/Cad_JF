@@ -1,13 +1,13 @@
 .editClient {
   display: grid;
-  grid-template-columns: 400px 1fr;
-  grid-template-rows: 300px 400px;
+  grid-template-columns: 350px 1fr;
+  grid-template-rows: 300px 1fr;
   grid-template-areas:
     "resume form"
     "visits visits";
   align-items: center;
-  margin: 100px;
-  gap: 50px
+  margin: 30px 30px 30px 0;
+  gap: 10px;
 }
 
 .resume {
@@ -17,18 +17,17 @@
 .visitsLabel {
   grid-area: visits;
   background-color: #D9D9D9;
-  height: 400px;
+  height: 250px;
   border-radius: 30px;
   padding: 20px;
 }
 
 .clientForm {
   display: grid;
-  grid-template-columns: 280px 280px 280px;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 35px 150px 35px;
   grid-area: form;
-  gap: 40px;
-  margin: 20px;
+  gap: 20px;
   justify-content: center;
 }
 
@@ -40,6 +39,7 @@
 .clientForm input {
   background: #D9D9D9;
   border-radius: 30px;
+  width: 100%;
   outline: none;
   border: none;
   padding: 15px;
@@ -62,4 +62,27 @@
   outline: none;
   border: none;
   padding: 5px;
+}
+
+@media(max-width:1000px) {
+  .editClient {
+    grid-template-columns: 200px 1fr;
+  }
+}
+
+@media(max-width:850px) {
+  .editClient {
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px 300px 1fr;
+    grid-template-areas:
+      "resume"
+      "form"
+      "visits";
+  }
+}
+
+@media(max-width:560px) {
+  .editClient {
+    margin: 0;
+  }
 }

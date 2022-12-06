@@ -45,11 +45,11 @@ const Clients = () => {
       <table>
         <thead>
           <tr>
-            <th>Código</th>
+            <th className='none'>Código</th>
             <th>Técnico</th>
             <th>Nome</th>
-            <th>Razão Social</th>
-            <th>Status</th>
+            <th className='none'>Razão Social</th>
+            <th className='none'>Status</th>
             <th>Editar/Excluir</th>
           </tr>
         </thead>
