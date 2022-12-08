@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import './EditClient.css'
+import { PencilSquareIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import axios from "axios"
 import remoteHost from "../../../../../../Api"
 import Loading from "../../../../components/Loading"
@@ -8,6 +9,7 @@ const EditClient = () => {
   const params = window.location.search.split('=')[1]
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
+  const [buttonEditStatus, setButtonEditStatus] = useState(false)
   const [userData, setUserData] = useState(null)
 
   const token = JSON.parse(localStorage.getItem('user')).token
@@ -58,6 +60,22 @@ const EditClient = () => {
     setData(data => ({ ...data, ...updatedValue }))
   }
 
+  const valueCNPJ = (e) => {
+    let v = e.toString().replace(/\D/g, "");
+
+    v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+
+    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+
+    v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+
+    v = v.replace(/(\d{4})(\d)/, "$1-$2");
+
+    console.log(data.cnpj)
+
+    return v
+  }
+
   const handleSelectStatus = (status) => {
     if (data.status == status) {
       return true
@@ -74,6 +92,14 @@ const EditClient = () => {
     }
   }
 
+  const handleEdition = () => {
+    if (buttonEditStatus) {
+      setButtonEditStatus(false)
+    } else {
+      setButtonEditStatus(true)
+    }
+  }
+
   return (
     <div className="editClient">
       <div className="resume">
@@ -81,15 +107,14 @@ const EditClient = () => {
         <span>{data && data.nomeFantasia}</span>
         <span>{data && data.nomeFantasia}</span>
       </div>
-
       {
         loading ? <Loading /> : data &&
           <form className="clientForm">
-            <input type="text" name="name" value={data.nomeFantasia} onChange={(e) => handleChange(e)} placeholder="Nome Fantasia" />
-            <input type="text" name="socialName" value={data.razaoSocial} onChange={(e) => handleChange(e)} placeholder="Razão Social" />
-            <input type="text" name="cnpj" value={data.cnpj} onChange={(e) => handleChange(e)} placeholder="CNPJ" />
-            <textarea name="obs" value={data.observacao} onChange={(e) => handleChange(e)} placeholder="Observação" />
-            <select id="clientStatus">
+            <input type="text" name="name" value={data.nomeFantasia} onChange={(e) => handleChange(e)} placeholder="Nome Fantasia" disabled={!buttonEditStatus} />
+            <input type="text" name="socialName" value={data.razaoSocial} onChange={(e) => handleChange(e)} placeholder="Razão Social" disabled={!buttonEditStatus} />
+            <input type="text" name="cnpj" value={valueCNPJ(data.cnpj)} onChange={(e) => handleChange(e)} placeholder="CNPJ" disabled={!buttonEditStatus} />
+            <textarea name="obs" value={data.observacao} onChange={(e) => handleChange(e)} placeholder="Observação" disabled={!buttonEditStatus} />
+            <select id="clientStatus" disabled={!buttonEditStatus}>
               <option value="1" selected={handleSelectStatus(1)}>
                 Em andamento
               </option>
@@ -103,7 +128,7 @@ const EditClient = () => {
               </option>
             </select>
 
-            <select id="usersEdit">
+            <select id="usersEdit" disabled={!buttonEditStatus}>
               {
                 userData && userData.map(user => {
                   return (
@@ -112,6 +137,16 @@ const EditClient = () => {
                 })
               }
             </select>
+            {
+              buttonEditStatus
+                ?
+                <div>
+                  <CheckIcon className="buttonEdit" title="Salvar" />
+                  <XMarkIcon className="buttonCancel" onClick={() => handleEdition()} title="Cancelar" />
+                </div>
+                :
+                <PencilSquareIcon className="buttonEdit" onClick={() => handleEdition()} title="Editar" />
+            }
           </form>
       }
       <div className="visitsLabel">

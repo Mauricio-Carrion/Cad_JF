@@ -10,6 +10,24 @@
   gap: 20px;
 }
 
+.buttonEdit,
+.buttonCancel {
+  width: 35px;
+  margin: 0 10px;
+}
+
+.buttonEdit {
+  color: #184087;
+}
+
+.buttonCancel {
+  color: red;
+}
+
+*:disabled {
+  opacity: 1;
+}
+
 .resume {
   grid-area: resume;
 }

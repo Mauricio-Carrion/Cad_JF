@@ -58,12 +58,27 @@ const TrClient = (props) => {
     }
   }
 
+  const handleStatusDot = (status) => {
+    switch (status) {
+      case 1:
+        return 'orange'
+      case 2:
+        return 'red'
+      case 3:
+        return 'green'
+    }
+  }
+
   return (
     <tr id={`client${props.code}`}>
       <td id={`name${props.code}`}>{props.clientName}</td>
       <td id={`razao${props.code}`} className='none'>{props.razao}</td>
       <td id={`tec${props.code}`}>{props.tec}</td>
-      <td id={`status${props.code}`} className='none'>{handleStatus(props.status)}</td>
+      <td id={`status${props.code}`} className='none'>
+        <span className="statusCircle" style={{ backgroundColor: handleStatusDot(props.status) }}></span>
+        {handleStatus(props.status)}
+      </td>
+
       <td>
         <EllipsisHorizontalCircleIcon onClick={() => setOpenEdit(true)} className='tdEditUserIcon' title='Detalhes' />
         <XCircleIcon onClick={() => setOpenDelete(true)} className='tdDeleteUserIcon' title='Excluir' />
