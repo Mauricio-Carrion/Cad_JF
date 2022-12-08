@@ -9,8 +9,8 @@ const EditClient = () => {
   const params = window.location.search.split('=')[1]
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
-  const [buttonEditStatus, setButtonEditStatus] = useState(false)
   const [userData, setUserData] = useState(null)
+  const [buttonEditStatus, setButtonEditStatus] = useState(!params ? true : false)
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
@@ -26,11 +26,13 @@ const EditClient = () => {
     headers: { Authorization: `Bearer ${token}` }
   }
 
-  useEffect(() => {
-    axios(clientOptions)
-      .then(res => setData(res.data))
-      .catch(err => console.log(err))
-  }, [])
+  if (params) {
+    useEffect(() => {
+      axios(clientOptions)
+        .then(res => setData(res.data))
+        .catch(err => console.log(err))
+    }, [])
+  }
 
   useEffect(() => {
     axios(userOptions)
@@ -51,33 +53,41 @@ const EditClient = () => {
         updatedValue = { razaoSocial: e.target.value }
         break
       case 'cnpj':
-        updatedValue = { cnpj: e.target.value }
+        let numbersCNPJ = [...e.target.value].filter(element => {
+          if (element <= 9) {
+            return element
+          }
+        }).join('')
+
+        updatedValue = { cnpj: numbersCNPJ }
         break
       case 'obs':
         updatedValue = { observacao: e.target.value }
+        break
+      default:
     }
 
     setData(data => ({ ...data, ...updatedValue }))
   }
 
   const valueCNPJ = (e) => {
-    let v = e.toString().replace(/\D/g, "");
+    if (e) {
+      let v = e.toString().replace(/\D/g, "");
 
-    v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+      v = v.replace(/^(\d{2})(\d)/, "$1.$2");
 
-    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+      v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
 
-    v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+      v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
 
-    v = v.replace(/(\d{4})(\d)/, "$1-$2");
+      v = v.replace(/(\d{4})(\d)/, "$1-$2");
 
-    console.log(data.cnpj)
-
-    return v
+      return v
+    }
   }
 
   const handleSelectStatus = (status) => {
-    if (data.status == status) {
+    if (data && data.status === status) {
       return true
     } else {
       return false
@@ -85,7 +95,7 @@ const EditClient = () => {
   }
 
   const handleSelectTec = (userCode) => {
-    if (userCode == data.tecnico) {
+    if (data && userCode === data.tecnico) {
       return true
     } else {
       return false
@@ -103,18 +113,22 @@ const EditClient = () => {
   return (
     <div className="editClient">
       <div className="resume">
-        <span>{data && data.nomeFantasia}</span>
-        <span>{data && data.nomeFantasia}</span>
-        <span>{data && data.nomeFantasia}</span>
+        <h1>{data && data.nomeFantasia}</h1>
+        <h3>{ }Visitas Concluídas</h3>
+
       </div>
       {
-        loading ? <Loading /> : data &&
+        loading ? <Loading /> :
           <form className="clientForm">
-            <input type="text" name="name" value={data.nomeFantasia} onChange={(e) => handleChange(e)} placeholder="Nome Fantasia" disabled={!buttonEditStatus} />
-            <input type="text" name="socialName" value={data.razaoSocial} onChange={(e) => handleChange(e)} placeholder="Razão Social" disabled={!buttonEditStatus} />
-            <input type="text" name="cnpj" value={valueCNPJ(data.cnpj)} onChange={(e) => handleChange(e)} placeholder="CNPJ" disabled={!buttonEditStatus} />
-            <textarea name="obs" value={data.observacao} onChange={(e) => handleChange(e)} placeholder="Observação" disabled={!buttonEditStatus} />
+            <input type="text" name="name" value={data ? data.nomeFantasia : null} onChange={(e) => handleChange(e)} placeholder="Nome Fantasia" disabled={!buttonEditStatus} />
+            <input type="text" name="socialName" value={data ? data.razaoSocial : null} onChange={(e) => handleChange(e)} placeholder="Razão Social" disabled={!buttonEditStatus} />
+            <input type="text" name="cnpj" value={valueCNPJ(data ? data.cnpj : null)} onChange={(e) => handleChange(e)} placeholder="CNPJ" disabled={!buttonEditStatus} />
+            <textarea name="obs" value={data ? data.observacao : null} onChange={(e) => handleChange(e)} placeholder="Observação" disabled={!buttonEditStatus} />
             <select id="clientStatus" disabled={!buttonEditStatus}>
+              <option value="" selected={handleSelectStatus(0)}>
+                Selecione Status
+              </option>
+
               <option value="1" selected={handleSelectStatus(1)}>
                 Em andamento
               </option>

@@ -1,0 +1,8 @@
+.buttonAddClient {
+  width: 80px;
+  position: fixed;
+  color: #184087;
+  right: 50px;
+  bottom: 50px;
+  cursor: pointer;
+}

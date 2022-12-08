@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { PlusCircleIcon } from '@heroicons/react/24/solid'
 import axios from 'axios'
 import remoteHost from '../../../../../Api'
 import Loading from '../../../components/Loading'
@@ -6,10 +8,17 @@ import TrClient from './components/TrClient'
 import './Clients.css'
 
 const Clients = () => {
+  const navigate = useNavigate()
 
   const [data, setData] = useState()
-  const [userData, setUserData] = useState(null)
+  const [OpenAdd, setOpenAdd] = useState(false)
   const [loading, setLoading] = useState(true)
+
+  if (OpenAdd) {
+    navigate({
+      pathname: '/clients/client'
+    });
+  }
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
@@ -19,6 +28,7 @@ const Clients = () => {
 
     arrayTrClients.filter(e => {
       e.classList.add('tr-none')
+
       if (e.innerText.includes(search)) {
         e.classList.remove('tr-none')
       }
@@ -55,21 +65,20 @@ const Clients = () => {
         <tbody>
           {
             loading ? <Loading /> :
-              data && data.map(user => {
-                return (
-                  <TrClient
-                    code={user.codigo}
-                    tec={user.tecnico}
-                    clientName={user.nome}
-                    razao={user.razaoSocial}
-                    cnpj={user.cnpj}
-                    status={user.status}
-                  />
-                )
-              })
+              data && data.map(user =>
+                <TrClient
+                  code={user.codigo}
+                  tec={user.tecnico}
+                  clientName={user.nome}
+                  razao={user.razaoSocial}
+                  cnpj={user.cnpj}
+                  status={user.status}
+                />
+              )
           }
         </tbody>
       </table>
+      <PlusCircleIcon onClick={() => setOpenAdd(true)} className='buttonAddClient' title='Adicionar cliente' />
     </div>
   )
 }

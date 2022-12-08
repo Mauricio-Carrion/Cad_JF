@@ -13,13 +13,6 @@ const TrClient = (props) => {
     Authorization: `Bearer ${token}`
   }
 
-  const client = {
-    code: props.code,
-    name: props.clientName,
-    razao: props.razao,
-    cnpj: props.cnpj
-  }
-
   const navigate = useNavigate()
 
   const [OpenDelete, setOpenDelete] = useState(false)
@@ -55,6 +48,7 @@ const TrClient = (props) => {
         return 'Encerrado pelo cliente'
       case 3:
         return 'Finalizado'
+      default:
     }
   }
 
@@ -66,6 +60,7 @@ const TrClient = (props) => {
         return 'red'
       case 3:
         return 'green'
+      default:
     }
   }
 

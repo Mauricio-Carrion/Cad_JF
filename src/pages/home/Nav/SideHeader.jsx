@@ -36,6 +36,7 @@ const SideHeader = () => {
           {`${userName} ${lastName}`}
         </h5>
       </div>
+
       <nav className={`${toggle ? 'nav-active' : ''}`}>
         <NavLink className={`${toggle ? 'a-active' : ''}`} to="/dashboard">
           <i className="fa fa-area-chart" aria-hidden="true" />

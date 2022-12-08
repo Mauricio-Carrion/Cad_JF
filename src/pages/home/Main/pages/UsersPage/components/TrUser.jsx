@@ -56,12 +56,12 @@ const TrUser = (props) => {
           tdUserName.innerHTML = res.data.usuario
           tdName.innerHTML = res.data.nome
           tdLastName.innerHTML = res.data.sobrenome
-          tdAdmin.innerHTML = res.data.adm == 'true' ? 'Sim' : 'Não'
+          tdAdmin.innerHTML = res.data.adm === 'true' ? 'Sim' : 'Não'
 
           setInputUser(res.data.usuario)
           setInputName(res.data.nome)
           setInputLastName(res.data.sobrenome)
-          setInputAdmin(res.data.adm == 'true' ? 'Sim' : 'Não')
+          setInputAdmin(res.data.adm === 'true' ? 'Sim' : 'Não')
           showToastMessageSucess('Usuário atualizado!')
           setOpenEdit(false)
         })
@@ -155,10 +155,10 @@ const TrUser = (props) => {
           <input type="password" placeholder='Senha' value={inputPassword} onChange={(e) => setInputPassword(e.target.value)} />
           <input type="password" placeholder='Confirmar senha' value={inputConfirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
           <label htmlFor="admin">Administrador
-            <input type="checkbox" id="admin" name="Admin" onChange={handleCheckBoxAdmin} checked={inputAdmin == 'Sim' ? true : false} />
+            <input type="checkbox" id="admin" name="Admin" onChange={handleCheckBoxAdmin} checked={inputAdmin === 'Sim' ? true : false} />
           </label>
 
-          <div className="btns" title="Cancelar">
+          <i className="btns" title="Cancelar">
             <button onClick={handleCancelEdit}>
               <XMarkIcon className='heroicons' />
             </button>
@@ -166,7 +166,7 @@ const TrUser = (props) => {
             <button onClick={editUser} title="Confirmar">
               <CheckIcon className='heroicons' />
             </button>
-          </div>
+          </i>
         </form>
       </Modal>
     </tr>
