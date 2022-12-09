@@ -22,7 +22,7 @@ const Logs = () => {
   useEffect(() => {
     axios(options)
       .then(res => setData(res.data))
-      .catch(err => console.log(err))
+      .catch(err => showToastMessageError(err.response.data.msg))
     setLoading(false)
   }, [])
 

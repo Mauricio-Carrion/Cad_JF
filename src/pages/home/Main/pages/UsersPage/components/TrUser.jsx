@@ -65,7 +65,7 @@ const TrUser = (props) => {
           showToastMessageSucess('Usuário atualizado!')
           setOpenEdit(false)
         })
-        .catch(err => /*showToastMessageError(err.response.data.msg)*/ console.log(err))
+        .catch(err => showToastMessageError(err.response.data.msg))
     }
   }
 

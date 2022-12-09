@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import './EditClient.css'
 import { PencilSquareIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/solid'
+import { showToastMessageError, showToastMessageSucess } from "../../../../../../App"
 import axios from "axios"
 import remoteHost from "../../../../../../Api"
 import Loading from "../../../../components/Loading"
@@ -29,11 +30,15 @@ const EditClient = () => {
     headers: { Authorization: `Bearer ${token}` }
   }
 
+  const headers = {
+    Authorization: `Bearer ${token}`
+  }
+
   if (params) {
     useEffect(() => {
       axios(clientOptions)
         .then(res => setData(res.data))
-        .catch(err => console.log(err))
+        .catch(err => showToastMessageError(err.response.data.msg))
     }, [])
   }
 
@@ -96,29 +101,57 @@ const EditClient = () => {
 
   const handleCancelEdit = () => {
     if (data) {
+
       setData(oldData)
       setButtonEditStatus(false)
+
     } else {
+
       navigate('/clients')
+
     }
   }
 
   const handleEdition = () => {
+
     setOldData(data)
     setButtonEditStatus(true)
+
   }
 
   const handleSubmit = async () => {
-    await axios.post(
-      `${remoteHost}/clientes`,
-      {
-        nome: data.nomeFantasia,
-        razao: data.razaoSocial,
-        cnpj: data.cnpj,
-        obs: data.observacao,
-        status: data.status
-      })
-      .catch(err => console.log(err))
+    if (oldData) {
+
+      await axios.put(
+        `${remoteHost}/cliente/${params}`,
+        {
+          nome: data.nomeFantasia,
+          razao: data.razaoSocial,
+          cnpj: data.cnpj,
+          obs: data.observacao,
+          status: data.status
+        },
+        { headers })
+        .then(res => showToastMessageSucess(res.data.msg))
+        .catch(err => showToastMessageError(err.response.data.msg))
+
+    } else {
+
+      await axios.post(
+        `${remoteHost}/clientes`,
+        {
+          nome: data.nomeFantasia,
+          razao: data.razaoSocial,
+          cnpj: data.cnpj,
+          obs: data.observacao,
+          status: data.status
+        },
+        { headers })
+        .then(res => showToastMessageSucess('Cliente cadastrado!'))
+        .catch(err => showToastMessageError(err.response.data.msg))
+
+    }
+
     navigate('/clients')
   }
 

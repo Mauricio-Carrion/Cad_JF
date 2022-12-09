@@ -35,7 +35,6 @@ export default props => {
         navigate('/login/log')
       })
       .catch(err => {
-        console.log(err)
         if (err) {
           showToastMessageError(err.response.data.msg)
         }
