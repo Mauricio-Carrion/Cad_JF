@@ -51,7 +51,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 35px 150px 35px;
   grid-area: form;
-  gap: 40px;
+  gap: 40px 10px;
   justify-content: center;
 }
 
@@ -139,16 +139,20 @@
     grid-template-rows: 200px 550px 1fr;
   }
 
+  .btnsFormEdit {
+    display: flex;
+    justify-content: center;
+  }
+
   .clientForm :nth-child(3),
   .clientForm :nth-child(5),
-  .clientForm :nth-child(6) {
+  .clientForm :nth-child(6),
+  .clientForm :nth-child(7) {
     grid-column-start: 1;
     grid-column-end: 4;
   }
-}
 
-@media(max-width:340px) {
-  .clientForm {
-    grid-template-columns: 80px;
+  .clientForm :nth-child(7) {
+    justify-self: center;
   }
 }

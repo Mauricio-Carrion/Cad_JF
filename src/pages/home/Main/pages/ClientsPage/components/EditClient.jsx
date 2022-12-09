@@ -43,7 +43,7 @@ const EditClient = () => {
   }, [])
 
   const handleChange = (e) => {
-    let updatedValue = {};
+    let updatedValue = {}
 
     switch (e.target.name) {
       case 'name':
@@ -64,6 +64,12 @@ const EditClient = () => {
       case 'obs':
         updatedValue = { observacao: e.target.value }
         break
+      case 'status':
+        updatedValue = { status: e.target.value }
+        break
+      case 'tec':
+        updatedValue = { tecnico: e.target.value }
+        break
       default:
     }
 
@@ -83,22 +89,6 @@ const EditClient = () => {
       v = v.replace(/(\d{4})(\d)/, "$1-$2");
 
       return v
-    }
-  }
-
-  const handleSelectStatus = (status) => {
-    if (data && data.status === status) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  const handleSelectTec = (userCode) => {
-    if (data && userCode === data.tecnico) {
-      return true
-    } else {
-      return false
     }
   }
 
@@ -124,29 +114,29 @@ const EditClient = () => {
             <input type="text" name="socialName" value={data ? data.razaoSocial : null} onChange={(e) => handleChange(e)} placeholder="Razão Social" disabled={!buttonEditStatus} />
             <input type="text" name="cnpj" value={valueCNPJ(data ? data.cnpj : null)} onChange={(e) => handleChange(e)} placeholder="CNPJ" disabled={!buttonEditStatus} />
             <textarea name="obs" value={data ? data.observacao : null} onChange={(e) => handleChange(e)} placeholder="Observação" disabled={!buttonEditStatus} />
-            <select id="clientStatus" disabled={!buttonEditStatus}>
-              <option value="" selected={handleSelectStatus(0)}>
+            <select id="clientStatus" name="status" value={data && data.status} onChange={(e) => handleChange(e)} disabled={!buttonEditStatus}>
+              <option value="">
                 Selecione Status
               </option>
 
-              <option value="1" selected={handleSelectStatus(1)}>
+              <option value="1">
                 Em andamento
               </option>
 
-              <option value="2" selected={handleSelectStatus(2)}>
+              <option value="2">
                 Encerrado pelo cliente
               </option>
 
-              <option value="3" selected={handleSelectStatus(3)}>
+              <option value="3">
                 Finalizado
               </option>
             </select>
 
-            <select id="usersEdit" disabled={!buttonEditStatus}>
+            <select id="usersEdit" name="tec" value={data && data.tecnico} onChange={(e) => handleChange(e)} disabled={!buttonEditStatus}>
               {
                 userData && userData.map(user => {
                   return (
-                    <option value={user.codigo} selected={handleSelectTec(user.codigo)}>{user.nome}</option>
+                    <option key={user.codigo} value={user.codigo}>{user.nome}</option>
                   )
                 })
               }
