@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useNavigate } from 'react-router-dom'
 import './EditClient.css'
 import { PencilSquareIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import axios from "axios"
@@ -9,8 +10,10 @@ const EditClient = () => {
   const params = window.location.search.split('=')[1]
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
+  const [oldData, setOldData] = useState(null)
   const [userData, setUserData] = useState(null)
   const [buttonEditStatus, setButtonEditStatus] = useState(!params ? true : false)
+  const navigate = useNavigate()
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
@@ -36,8 +39,7 @@ const EditClient = () => {
 
   useEffect(() => {
     axios(userOptions)
-      .then(
-        res => setUserData(res.data))
+      .then(res => setUserData(res.data))
       .catch(err => console.error(err) /*logout()*/)
     setLoading(false)
   }, [])
@@ -92,12 +94,32 @@ const EditClient = () => {
     }
   }
 
-  const handleEdition = () => {
-    if (buttonEditStatus) {
+  const handleCancelEdit = () => {
+    if (data) {
+      setData(oldData)
       setButtonEditStatus(false)
     } else {
-      setButtonEditStatus(true)
+      navigate('/clients')
     }
+  }
+
+  const handleEdition = () => {
+    setOldData(data)
+    setButtonEditStatus(true)
+  }
+
+  const handleSubmit = async () => {
+    await axios.post(
+      `${remoteHost}/clientes`,
+      {
+        nome: data.nomeFantasia,
+        razao: data.razaoSocial,
+        cnpj: data.cnpj,
+        obs: data.observacao,
+        status: data.status
+      })
+      .catch(err => console.log(err))
+    navigate('/clients')
   }
 
   return (
@@ -133,6 +155,9 @@ const EditClient = () => {
             </select>
 
             <select id="usersEdit" name="tec" value={data && data.tecnico} onChange={(e) => handleChange(e)} disabled={!buttonEditStatus}>
+              <option value="">
+                Selecione Técnico
+              </option>
               {
                 userData && userData.map(user => {
                   return (
@@ -145,8 +170,8 @@ const EditClient = () => {
               buttonEditStatus
                 ?
                 <div>
-                  <CheckIcon className="buttonEdit" title="Salvar" />
-                  <XMarkIcon className="buttonCancel" onClick={() => handleEdition()} title="Cancelar" />
+                  <CheckIcon className="buttonEdit" title="Salvar" onClick={() => handleSubmit()} />
+                  <XMarkIcon className="buttonCancel" onClick={() => handleCancelEdit()} title="Cancelar" />
                 </div>
                 :
                 <PencilSquareIcon className="buttonEdit" onClick={() => handleEdition()} title="Editar" />

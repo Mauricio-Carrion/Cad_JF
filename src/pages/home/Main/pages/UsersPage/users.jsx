@@ -59,6 +59,7 @@ const Users = () => {
               data && data.map(user => {
                 return (
                   <TrUser
+                    key={user.codigo}
                     code={user.codigo}
                     dbImage={user.imagem}
                     userName={user.login}

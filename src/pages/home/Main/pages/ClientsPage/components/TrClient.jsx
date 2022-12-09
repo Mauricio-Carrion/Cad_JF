@@ -69,7 +69,7 @@ const TrClient = (props) => {
       <td id={`name${props.code}`}>{props.clientName}</td>
       <td id={`razao${props.code}`} className='none'>{props.razao}</td>
       <td id={`tec${props.code}`}>{props.tec}</td>
-      <td id={`status${props.code}`} className='statusStyle none'>
+      <td id={`status${props.code}`} className='statusStyle'>
         <span className="statusCircle" style={{ backgroundColor: handleStatusDot(props.status) }}></span>
         {handleStatus(props.status)}
       </td>

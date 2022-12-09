@@ -3,7 +3,7 @@
   width: 11px;
   height: 11px;
   border-radius: 100%;
-  margin: 0 50px 0 10px;
+  margin: 0 10px;
 }
 
 .statusStyle {
@@ -11,4 +11,11 @@
   align-items: center;
   justify-content: start;
   margin: 20px 0 20px;
+  width: 140px;
+}
+
+@media(max-width:760px) {
+  .statusStyle {
+    display: none;
+  }
 }

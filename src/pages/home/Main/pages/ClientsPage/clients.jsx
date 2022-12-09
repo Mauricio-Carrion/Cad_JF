@@ -58,7 +58,7 @@ const Clients = () => {
             <th>Nome</th>
             <th className='none'>Razão Social</th>
             <th>Técnico</th>
-            <th className='none'>Status</th>
+            <th className='none thStatus'>Status</th>
             <th>Editar/Excluir</th>
           </tr>
         </thead>
@@ -67,6 +67,7 @@ const Clients = () => {
             loading ? <Loading /> :
               data && data.map(user =>
                 <TrClient
+                  key={user.codigo}
                   code={user.codigo}
                   tec={user.tecnico}
                   clientName={user.nome}
