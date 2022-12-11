@@ -16,10 +16,9 @@ const TrClient = (props) => {
   const navigate = useNavigate()
 
   const [OpenDelete, setOpenDelete] = useState(false)
-  const [OpenEdit, setOpenEdit] = useState(false)
 
   const deleteClient = async () => {
-    const tr = document.getElementById(`user${props.code}`)
+    const tr = document.getElementById(`client${props.code}`)
     await axios.delete(`${remoteHost}/cliente/${props.code}`, { headers })
       .then(res => {
         showToastMessageSucess(res.data.msg)
@@ -33,7 +32,7 @@ const TrClient = (props) => {
       .catch(err => showToastMessageError(err.response.data.msg))
   }
 
-  if (OpenEdit) {
+  const OpenEdit = () => {
     navigate({
       pathname: '/clients/client',
       search: `?code=${props.code}`,
@@ -75,7 +74,7 @@ const TrClient = (props) => {
       </td>
 
       <td>
-        <EllipsisHorizontalCircleIcon onClick={() => setOpenEdit(true)} className='tdEditUserIcon' title='Detalhes' />
+        <EllipsisHorizontalCircleIcon onClick={OpenEdit} className='tdEditUserIcon' title='Detalhes' />
         <XCircleIcon onClick={() => setOpenDelete(true)} className='tdDeleteUserIcon' title='Excluir' />
       </td>
 

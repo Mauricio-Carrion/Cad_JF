@@ -10,9 +10,9 @@ import Loading from "../../../../components/Loading"
 const EditClient = () => {
   const params = window.location.search.split('=')[1]
   const [loading, setLoading] = useState(true)
-  const [data, setData] = useState(null)
-  const [oldData, setOldData] = useState(null)
-  const [userData, setUserData] = useState(null)
+  const [data, setData] = useState('')
+  const [oldData, setOldData] = useState('')
+  const [userData, setUserData] = useState('')
   const [buttonEditStatus, setButtonEditStatus] = useState(!params ? true : false)
   const navigate = useNavigate()
 
@@ -66,7 +66,9 @@ const EditClient = () => {
           }
         }).join('')
 
-        updatedValue = { cnpj: numbersCNPJ }
+        if (numbersCNPJ.length <= 14) {
+          updatedValue = { cnpj: numbersCNPJ }
+        }
         break
       case 'obs':
         updatedValue = { observacao: e.target.value }
@@ -84,19 +86,17 @@ const EditClient = () => {
   }
 
   const valueCNPJ = (e) => {
-    if (e) {
-      let v = e.toString().replace(/\D/g, "");
+    let v = e.toString().replace(/\D/g, "");
 
-      v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+    v = v.replace(/^(\d{2})(\d)/, "$1.$2");
 
-      v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
 
-      v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+    v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
 
-      v = v.replace(/(\d{4})(\d)/, "$1-$2");
+    v = v.replace(/(\d{4})(\d)/, "$1-$2");
 
-      return v
-    }
+    return v
   }
 
   const handleCancelEdit = () => {
@@ -121,10 +121,10 @@ const EditClient = () => {
 
   const handleSubmit = async () => {
     if (oldData) {
-
       await axios.put(
         `${remoteHost}/cliente/${params}`,
         {
+          usuario: data.tecnico,
           nome: data.nomeFantasia,
           razao: data.razaoSocial,
           cnpj: data.cnpj,
@@ -132,7 +132,7 @@ const EditClient = () => {
           status: data.status
         },
         { headers })
-        .then(res => showToastMessageSucess(res.data.msg))
+        .then(res => showToastMessageSucess('Cliente foi alterado!'))
         .catch(err => showToastMessageError(err.response.data.msg))
 
     } else {
@@ -165,10 +165,10 @@ const EditClient = () => {
       {
         loading ? <Loading /> :
           <form className="clientForm">
-            <input type="text" name="name" value={data ? data.nomeFantasia : null} onChange={(e) => handleChange(e)} placeholder="Nome Fantasia" disabled={!buttonEditStatus} />
-            <input type="text" name="socialName" value={data ? data.razaoSocial : null} onChange={(e) => handleChange(e)} placeholder="Razão Social" disabled={!buttonEditStatus} />
-            <input type="text" name="cnpj" value={valueCNPJ(data ? data.cnpj : null)} onChange={(e) => handleChange(e)} placeholder="CNPJ" disabled={!buttonEditStatus} />
-            <textarea name="obs" value={data ? data.observacao : null} onChange={(e) => handleChange(e)} placeholder="Observação" disabled={!buttonEditStatus} />
+            <input type="text" name="name" value={data ? data.nomeFantasia : ''} onChange={(e) => handleChange(e)} placeholder="Nome Fantasia" disabled={!buttonEditStatus} />
+            <input type="text" name="socialName" value={data ? data.razaoSocial : ''} onChange={(e) => handleChange(e)} placeholder="Razão Social" disabled={!buttonEditStatus} />
+            <input type="text" name="cnpj" value={valueCNPJ(data ? data.cnpj : '')} onChange={(e) => handleChange(e)} placeholder="CNPJ" disabled={!buttonEditStatus} />
+            <textarea name="obs" value={data ? data.observacao : ''} onChange={(e) => handleChange(e)} placeholder="Observação" disabled={!buttonEditStatus} />
             <select id="clientStatus" name="status" value={data && data.status} onChange={(e) => handleChange(e)} disabled={!buttonEditStatus}>
               <option value="">
                 Selecione Status
