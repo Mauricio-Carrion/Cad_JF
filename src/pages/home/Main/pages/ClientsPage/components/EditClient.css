@@ -139,11 +139,6 @@
     grid-template-rows: 200px 550px 1fr;
   }
 
-  .btnsFormEdit {
-    display: flex;
-    justify-content: center;
-  }
-
   .clientForm :nth-child(3),
   .clientForm :nth-child(5),
   .clientForm :nth-child(6),

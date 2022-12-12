@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TrLog from './components/TrLog'
-import { showToastMessageError, showToastMessageSucess } from '../../../../../App';
+import { showToastMessageError } from '../../../../../App';
 import { formatDate } from '../../../../../utils/utils';
+import { AuthContext } from '../../../../../contexts/auth';
 import Loading from '../../../components/Loading';
 import axios from 'axios';
 import remoteHost from '../../../../../Api';
@@ -10,6 +11,7 @@ import './Logs.css'
 const Logs = () => {
   const [data, setData] = useState()
   const [loading, setLoading] = useState(true)
+  const { logout } = useContext(AuthContext)
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
@@ -22,7 +24,7 @@ const Logs = () => {
   useEffect(() => {
     axios(options)
       .then(res => setData(res.data))
-      .catch(err => showToastMessageError(err.response.data.msg))
+      .catch(err => err.response.status == 400 ? logout() : showToastMessageError(err.response.data.msg))
     setLoading(false)
   }, [])
 

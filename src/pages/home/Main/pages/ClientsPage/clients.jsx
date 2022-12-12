@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PlusCircleIcon } from '@heroicons/react/24/solid'
+import { showToastMessageError } from '../../../../../App'
+import { AuthContext } from '../../../../../contexts/auth'
 import axios from 'axios'
 import remoteHost from '../../../../../Api'
 import Loading from '../../../components/Loading'
@@ -9,12 +11,12 @@ import './Clients.css'
 
 const Clients = () => {
   const navigate = useNavigate()
+  const { logout } = useContext(AuthContext)
 
   const [data, setData] = useState()
-  const [OpenAdd, setOpenAdd] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  if (OpenAdd) {
+  const OpenAdd = () => {
     navigate({
       pathname: '/clients/client'
     });
@@ -45,7 +47,7 @@ const Clients = () => {
     axios(clientOptions)
       .then(
         res => setData(res.data))
-      .catch(err => console.error(err) /*logout()*/)
+      .catch(err => err.response.status ? logout() : showToastMessageError(err.response.data.msg))
     setLoading(false)
   }, [])
 
@@ -79,7 +81,7 @@ const Clients = () => {
           }
         </tbody>
       </table>
-      <PlusCircleIcon onClick={() => setOpenAdd(true)} className='buttonAddClient' title='Adicionar cliente' />
+      <PlusCircleIcon onClick={OpenAdd} className='buttonAddClient' title='Adicionar cliente' />
     </div>
   )
 }

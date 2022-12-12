@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Users.css'
+import { showToastMessageError } from '../../../../../App'
 import TrUser from './components/TrUser'
 import axios from 'axios'
 import Loading from '../../../components/Loading'
@@ -9,7 +10,7 @@ import { AuthContext } from '../../../../../contexts/auth'
 const Users = () => {
   const [data, setData] = useState()
   const [loading, setLoading] = useState(true)
-  const logout = useContext(AuthContext).logout
+  const { logout } = useContext(AuthContext)
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
@@ -35,7 +36,7 @@ const Users = () => {
     axios(options)
       .then(
         res => setData(res.data))
-      .catch(err => console.error(err) /*logout()*/)
+      .catch(err => err.response.status ? logout() : showToastMessageError(err.response.data.msg))
     setLoading(false)
   }, [])
 

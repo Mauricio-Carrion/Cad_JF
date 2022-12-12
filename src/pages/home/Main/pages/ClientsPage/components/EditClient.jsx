@@ -159,8 +159,8 @@ const EditClient = () => {
     <div className="editClient">
       <div className="resume">
         <h1>{data && data.nomeFantasia}</h1>
-        <h3>{ }Visitas Concluídas</h3>
-
+        <span>{ }</span>
+        <h3>Visitas efetuadas</h3>
       </div>
       {
         loading ? <Loading /> :
