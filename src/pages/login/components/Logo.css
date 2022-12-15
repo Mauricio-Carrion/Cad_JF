@@ -1,6 +1,9 @@
 .logo {
+  display: flex;
   width: 200px;
   margin: 20px;
+  justify-self: center;
+  align-self: center;
 }
 
 @media(max-width:700px) {

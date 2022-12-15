@@ -1,6 +1,6 @@
 .modal {
   display: grid;
-  position: absolute;
+  position: fixed;
   z-index: 999;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 50px;

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import './EditClient.css'
-import { PencilSquareIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/solid'
+import { PencilSquareIcon, CheckIcon, XMarkIcon, PlusCircleIcon } from '@heroicons/react/24/solid'
 import { showToastMessageError, showToastMessageSucess } from "../../../../../../App"
 import axios from "axios"
 import remoteHost from "../../../../../../Api"
 import Loading from "../../../../components/Loading"
+import Modal from "../../../../components/Modal"
 
 const EditClient = () => {
   const params = window.location.search.split('=')[1]
   const [loading, setLoading] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
   const [data, setData] = useState('')
   const [oldData, setOldData] = useState('')
   const [userData, setUserData] = useState('')
@@ -212,7 +214,14 @@ const EditClient = () => {
           </form>
       }
       <div className="visitsLabel">
-        visitas
+        <PlusCircleIcon className="buttonAddVisit" onClick={() => setOpenModal(true)} />
+        <Modal show={openModal} close={openModal}>
+          <form className="formAddVisit">
+            <input type="text" placeholder="Descrição" />
+            <textarea name='description' placeholder="Observação"></textarea>
+            <input type="date" />
+          </form>
+        </Modal>
       </div>
     </div>
   )

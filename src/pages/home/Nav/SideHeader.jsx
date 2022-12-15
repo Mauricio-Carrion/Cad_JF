@@ -59,13 +59,6 @@ const SideHeader = () => {
           </p>
         </NavLink>
 
-        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/visits">
-          <i className="fa fa-calendar" aria-hidden="true" />
-          <p className={`${toggle ? 'p-active' : ''}`}>
-            Visitas
-          </p>
-        </NavLink>
-
         <NavLink className={`${toggle ? 'a-active' : ''}`} to="/logs">
           <i className="fa fa-archive" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>

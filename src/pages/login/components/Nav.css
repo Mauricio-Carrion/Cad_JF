@@ -12,7 +12,7 @@
 .nav a {
   display: flex;
   font-size: 16px;
-  margin: 10px 0;
+  margin: 10px -3px;
   padding: 0 20px;
   height: 30px;
   width: 150px;
@@ -54,7 +54,7 @@
   .nav a {
     justify-content: center;
     color: var(--blue-color);
-    height: 50px;
+    height: 56px;
     width: 100%;
     margin: 0;
     color: #fff;
