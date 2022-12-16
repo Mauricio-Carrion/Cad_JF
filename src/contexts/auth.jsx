@@ -65,7 +65,6 @@ export const AuthProvider = ({ children }) => {
 
         } else {
 
-          console.log(err)
           showToastMessageError(err.response.data.msg)
 
         }

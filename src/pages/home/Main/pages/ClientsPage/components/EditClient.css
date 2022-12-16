@@ -69,9 +69,11 @@
   grid-template-rows: 30px 150px 30px;
   grid-template-columns: 200px 200px;
   gap: 20px;
+  justify-content: center;
 }
 
 .formAddVisit div {
+  display: flex;
   justify-self: center;
 }
 
@@ -142,6 +144,12 @@
   }
 }
 
+@media(max-width:600px) {
+  .formAddVisit {
+    grid-template-columns: 150px 150px;
+  }
+}
+
 @media(max-width:560px) {
   .editClient {
     margin: 0;
@@ -149,6 +157,10 @@
 }
 
 @media(max-width:480px) {
+  .formAddVisit {
+    gap: 10px;
+  }
+
   .clientForm {
     grid-template-columns: 1fr;
     grid-template-rows: 35px 35px 35px 150px 35px;
@@ -172,8 +184,19 @@
     grid-template-rows: 35px 35px 35px 150px 35px 35px 35px;
   }
 
+  .formAddVisit :nth-child(3),
+  .formAddVisit :nth-child(4) {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
   .editClient {
     grid-template-rows: 200px 550px 1fr;
+  }
+
+  .formAddVisit {
+    grid-template-columns: 120px 120px;
+    grid-template-rows: 30px 150px 30px 50px;
   }
 
   .clientForm :nth-child(3),
