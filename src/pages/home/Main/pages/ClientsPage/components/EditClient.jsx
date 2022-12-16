@@ -89,30 +89,27 @@ const EditClient = () => {
   }
 
   const valueCNPJ = (e) => {
-    let v = e.toString().replace(/\D/g, "");
+    if (e) {
+      let v = e.toString().replace(/\D/g, "");
 
-    v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+      v = v.replace(/^(\d{2})(\d)/, "$1.$2");
 
-    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+      v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
 
-    v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+      v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
 
-    v = v.replace(/(\d{4})(\d)/, "$1-$2");
+      v = v.replace(/(\d{4})(\d)/, "$1-$2");
 
-    return v
+      return v
+    }
   }
 
   const handleCancelEdit = () => {
-    if (data) {
 
-      setData(oldData)
-      setButtonEditStatus(false)
 
-    } else {
+    navigate('/clients')
 
-      navigate('/clients')
 
-    }
   }
 
   const handleEdition = () => {
@@ -194,6 +191,7 @@ const EditClient = () => {
       { headers })
       .then(res => showToastMessageSucess('Visita Cadastrada!'))
       .catch(err => showToastMessageError(err.response.data.msg))
+    handleCancelAddChange()
   }
 
   return (
@@ -253,7 +251,12 @@ const EditClient = () => {
           </form>
       }
       <div className="visitsLabel">
-        <PlusCircleIcon className="buttonAddVisit" onClick={() => setOpenModal(true)} title='Adicionar visita' />
+        {
+          params ?
+            <PlusCircleIcon className="buttonAddVisit" onClick={() => setOpenModal(true)} title='Adicionar visita' />
+            :
+            ''
+        }
         <Modal show={openModal} close={openModal}>
           <form className="formAddVisit">
             <input type="text" name="desc" value={newVisitData.desc} onChange={(e) => handleAddChange(e)} placeholder="Descrição" />
