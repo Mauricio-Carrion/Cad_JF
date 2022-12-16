@@ -71,6 +71,14 @@
   gap: 20px;
 }
 
+.formAddVisit div {
+  justify-self: center;
+}
+
+.formAddVisit svg {
+  margin: 0 15px;
+}
+
 .formAddVisit :nth-child(1),
 .formAddVisit :nth-child(2) {
   grid-column-start: 1;
@@ -100,6 +108,11 @@
   border: none;
   padding: 10px;
   resize: none;
+}
+
+.buttonsAddVisit {
+  width: 40px;
+  cursor: pointer;
 }
 
 .clientForm select {

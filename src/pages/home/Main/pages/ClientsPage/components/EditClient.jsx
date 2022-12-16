@@ -15,6 +15,7 @@ const EditClient = () => {
   const [data, setData] = useState('')
   const [oldData, setOldData] = useState('')
   const [userData, setUserData] = useState('')
+  const [newVisitData, setNewVisitData] = useState('')
   const [buttonEditStatus, setButtonEditStatus] = useState(!params ? true : false)
   const navigate = useNavigate()
 
@@ -47,7 +48,7 @@ const EditClient = () => {
   useEffect(() => {
     axios(userOptions)
       .then(res => setUserData(res.data))
-      .catch(err => console.error(err) /*logout()*/)
+      .catch(err => console.error(err))
     setLoading(false)
   }, [])
 
@@ -157,6 +158,44 @@ const EditClient = () => {
     navigate('/clients')
   }
 
+  const handleAddChange = (e) => {
+    let updatedValue = {}
+
+    switch (e.target.name) {
+      case 'desc':
+        updatedValue = { descricao: e.target.value }
+        break
+      case 'obs':
+        updatedValue = { obs: e.target.value }
+        break
+      case 'date':
+        updatedValue = { data: e.target.value }
+        break
+      default:
+    }
+
+    setNewVisitData(data => ({ ...data, ...updatedValue }))
+  }
+
+  const handleCancelAddChange = () => {
+    setNewVisitData('')
+    setOpenModal(false)
+  }
+
+  const handleSubmitVisit = async () => {
+    await axios.post(
+      `${remoteHost}/visitas`,
+      {
+        cliente: params,
+        data: newVisitData.data,
+        descricao: newVisitData.descricao,
+        obs: newVisitData.obs
+      },
+      { headers })
+      .then(res => showToastMessageSucess('Visita Cadastrada!'))
+      .catch(err => showToastMessageError(err.response.data.msg))
+  }
+
   return (
     <div className="editClient">
       <div className="resume">
@@ -214,12 +253,17 @@ const EditClient = () => {
           </form>
       }
       <div className="visitsLabel">
-        <PlusCircleIcon className="buttonAddVisit" onClick={() => setOpenModal(true)} />
+        <PlusCircleIcon className="buttonAddVisit" onClick={() => setOpenModal(true)} title='Adicionar visita' />
         <Modal show={openModal} close={openModal}>
           <form className="formAddVisit">
-            <input type="text" placeholder="Descrição" />
-            <textarea name='description' placeholder="Observação"></textarea>
-            <input type="date" />
+            <input type="text" name="desc" value={newVisitData.desc} onChange={(e) => handleAddChange(e)} placeholder="Descrição" />
+            <textarea name='obs' value={newVisitData.obs} onChange={(e) => handleAddChange(e)} placeholder="Observação" />
+            <input name="date" type="date" onChange={(e) => handleAddChange(e)} value={newVisitData.date} />
+
+            <div>
+              <XMarkIcon className='buttonsAddVisit' title='Cancelar' onClick={handleCancelAddChange} />
+              <CheckIcon className='buttonsAddVisit' title='Confirmar' onClick={handleSubmitVisit} />
+            </div>
           </form>
         </Modal>
       </div>
