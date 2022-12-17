@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { useNavigate } from 'react-router-dom'
 import './EditClient.css'
 import { PencilSquareIcon, CheckIcon, XMarkIcon, PlusCircleIcon } from '@heroicons/react/24/solid'
@@ -7,13 +7,18 @@ import axios from "axios"
 import remoteHost from "../../../../../../Api"
 import Loading from "../../../../components/Loading"
 import Modal from "../../../../components/Modal"
+import { AuthContext } from "../../../../../../contexts/auth"
+import Visit from "./Visit"
+import { formatDate } from "../../../../../../utils/utils"
 
 const EditClient = () => {
+  const { logout } = useContext(AuthContext)
   const searchParams = window.location.search.split('=')[1]
   const [params, setParams] = useState(searchParams)
   const [loading, setLoading] = useState(true)
   const [openModal, setOpenModal] = useState(false)
   const [data, setData] = useState('')
+  const [visitsData, setVisitsData] = useState('')
   const [oldData, setOldData] = useState('')
   const [userData, setUserData] = useState('')
   const [newVisitData, setNewVisitData] = useState('')
@@ -22,36 +27,59 @@ const EditClient = () => {
 
   const token = JSON.parse(localStorage.getItem('user')).token
 
+  const headers = {
+    Authorization: `Bearer ${token}`
+  }
+
   const clientOptions = {
     method: 'GET',
     url: `${remoteHost}/cliente/${params}`,
-    headers: { Authorization: `Bearer ${token}` }
+    headers: headers
   }
 
   const userOptions = {
     method: 'GET',
     url: `${remoteHost}/usuarios`,
-    headers: { Authorization: `Bearer ${token}` }
+    headers: headers
   }
 
-  const headers = {
-    Authorization: `Bearer ${token}`
+  const visitOptions = {
+    method: 'GET',
+    url: `${remoteHost}/visita_cliente/${params}`,
+    headers: headers
+  }
+
+  const handleLogout = (err) => {
+    if (err.status == 400) {
+      logout()
+    }
   }
 
   useEffect(() => {
     if (params) {
       axios(clientOptions)
         .then(res => setData(res.data))
-        .catch(err => showToastMessageError(err.response.data.msg))
-    }
-  }, [])
+        .catch(err => {
+          handleLogout(err)
+          showToastMessageError(err.response.data.msg)
+        })
 
-  useEffect(() => {
+      axios(visitOptions)
+        .then(res => setVisitsData(res.data))
+        .catch(err => {
+          if (err.response.status === 404) {
+            return
+          }
+          showToastMessageError(err.response.data.msg)
+        })
+    }
+
     axios(userOptions)
       .then(res => setUserData(res.data))
       .catch(err => console.error(err))
+
     setLoading(false)
-  }, [])
+  }, [openModal])
 
   const handleChange = (e) => {
     let updatedValue = {}
@@ -135,7 +163,11 @@ const EditClient = () => {
         },
         { headers })
         .then(res => showToastMessageSucess('Cliente foi alterado!'))
-        .catch(err => showToastMessageError(err.response.data.msg))
+        .then(setButtonEditStatus(false))
+        .catch(err => {
+          handleLogout(err)
+          showToastMessageError(err.response.data.msg)
+        })
 
     } else {
 
@@ -150,8 +182,12 @@ const EditClient = () => {
         },
         { headers })
         .then(res => setParams(res.data.codigo))
-        .then(res => showToastMessageSucess('Cliente cadastrado!'))
-        .catch(err => showToastMessageError(err.response.data.msg))
+        .then(showToastMessageSucess('Cliente cadastrado!'))
+        .then(setButtonEditStatus(false))
+        .catch(err => {
+          handleLogout(err)
+          showToastMessageError(err.response.data.msg)
+        })
     }
   }
 
@@ -190,16 +226,27 @@ const EditClient = () => {
       },
       { headers })
       .then(res => showToastMessageSucess('Visita Cadastrada!'))
-      .catch(err => showToastMessageError(err.response.data.msg))
+      .catch(err => {
+        handleLogout(err)
+        showToastMessageError(err.response.data.msg)
+      })
 
     handleCancelAddChange()
+  }
+
+  const scrollVisits = () => {
+    const scrollContainer = document.querySelector(".visitsLabel div");
+
+    scrollContainer.addEventListener("wheel", (evt) => {
+      scrollContainer.scrollLeft += evt.deltaY;
+    }, { passive: true });
   }
 
   return (
     <div className="editClient">
       <div className="resume">
-        <h1>{data && data.nomeFantasia}</h1>
-        <span>{ }</span>
+        <h3>{data && data.nomeFantasia}</h3>
+        <h1>{visitsData.length}</h1>
         <h3>Visitas efetuadas</h3>
       </div>
       {
@@ -251,13 +298,28 @@ const EditClient = () => {
             }
           </form>
       }
-      <div className="visitsLabel">
-        {
-          params ?
-            <PlusCircleIcon className="buttonAddVisit" onClick={() => setOpenModal(true)} title='Adicionar visita' />
-            :
-            ''
-        }
+      <div className="visitsLabel" onMouseOver={scrollVisits}>
+        <div>
+          {
+            params
+              ?
+              <section className="buttonAddVisit">
+                <p>Adicionar visita</p>
+                < PlusCircleIcon onClick={() => setOpenModal(true)} title='Adicionar visita' />
+              </section>
+              : ''
+          }
+
+          {
+            visitsData && visitsData.map(visit => {
+              return (
+                <Visit desc={visit.descricao} obs={visit.observacao} date={formatDate(visit.data, false)} />
+              )
+            })
+          }
+
+        </div>
+
         <Modal show={openModal} close={openModal}>
           <form className="formAddVisit">
             <input type="text" name="desc" value={newVisitData.desc} onChange={(e) => handleAddChange(e)} placeholder="Descrição" />

@@ -1,6 +1,6 @@
 .editClient {
   display: grid;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: 500px 1fr;
   grid-template-rows: 400px 1fr;
   grid-template-areas:
     "resume form"
@@ -26,11 +26,21 @@
 }
 
 .buttonAddVisit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: #184087;
   width: 215px;
-  padding: 63px;
+  padding: 15px;
   background-color: #fff;
   border-radius: 20px;
+  margin: 0 15px;
+}
+
+.buttonAddVisit svg {
+  width: 60px;
+  margin: 0 50px;
   cursor: pointer;
 }
 
@@ -48,11 +58,39 @@
 }
 
 .visitsLabel {
+  display: flex;
+  flex-direction: row;
+  overflow-y: auto;
   grid-area: visits;
   background-color: #D9D9D9;
-  height: 250px;
+  height: 350px;
   border-radius: 30px;
   padding: 20px;
+}
+
+.visitsLabel ::-webkit-scrollbar {
+  height: 5px;
+  margin: 5px;
+}
+
+.visitsLabel ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 5px;
+}
+
+.visitsLabel ::-webkit-scrollbar-thumb {
+  background: #184087;
+  border-radius: 5px;
+}
+
+.visitsLabel div {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  background-color: #D9D9D9;
+  height: 310px;
+  border-radius: 30px;
+  padding: 15px 0;
 }
 
 .clientForm {
@@ -127,7 +165,7 @@
   padding: 5px;
 }
 
-@media(max-width:1000px) {
+@media(max-width:1200px) {
   .editClient {
     grid-template-columns: 200px 1fr;
   }

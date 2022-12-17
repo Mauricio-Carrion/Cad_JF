@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { PlusCircleIcon } from '@heroicons/react/24/solid'
+import { PlusCircleIcon, FunnelIcon } from '@heroicons/react/24/solid'
 import { showToastMessageError } from '../../../../../App'
 import { AuthContext } from '../../../../../contexts/auth'
 import axios from 'axios'
@@ -8,21 +8,38 @@ import remoteHost from '../../../../../Api'
 import Loading from '../../../components/Loading'
 import TrClient from './components/TrClient'
 import './Clients.css'
+import Filter from '../../../components/Filter'
 
 const Clients = () => {
   const navigate = useNavigate()
   const { logout } = useContext(AuthContext)
-
-  const [data, setData] = useState()
+  const [userData, setUserData] = useState('')
+  const [data, setData] = useState('')
   const [loading, setLoading] = useState(true)
+  const [openFilter, setOpenFilter] = useState(false)
+  const [filterTec, setFilterTec] = useState('')
+  const [filterStatus, setFilterStatus] = useState('')
+  const token = JSON.parse(localStorage.getItem('user')).token
+
+  const headers = { Authorization: `Bearer ${token}` }
+
+  const userOptions = {
+    method: 'GET',
+    url: `${remoteHost}/usuarios`,
+    headers: headers
+  }
+
+  const clientOptions = {
+    method: 'GET',
+    url: `${remoteHost}/clientes`,
+    headers: headers
+  }
 
   const OpenAdd = () => {
     navigate({
       pathname: '/clients/client'
     });
   }
-
-  const token = JSON.parse(localStorage.getItem('user')).token
 
   const searchClient = (search) => {
     const trClients = document.querySelectorAll('tbody tr')
@@ -31,16 +48,10 @@ const Clients = () => {
     arrayTrClients.filter(e => {
       e.classList.add('tr-none')
 
-      if (e.innerText.includes(search)) {
+      if (e.children[0].innerHTML.includes(search)) {
         e.classList.remove('tr-none')
       }
     })
-  }
-
-  const clientOptions = {
-    method: 'GET',
-    url: `${remoteHost}/clientes`,
-    headers: { Authorization: `Bearer ${token}` }
   }
 
   useEffect(() => {
@@ -48,12 +59,77 @@ const Clients = () => {
       .then(
         res => setData(res.data))
       .catch(err => err.response.status ? logout() : showToastMessageError(err.response.data.msg))
+
+    axios(userOptions)
+      .then(res => setUserData(res.data))
+      .catch(err => console.error(err))
     setLoading(false)
   }, [])
 
+  const toggleFilter = () => {
+    if (openFilter) {
+      setOpenFilter(false)
+    } else {
+      setOpenFilter(true)
+    }
+  }
+
+  const handleFilter = (filter) => {
+    const trClients = document.querySelectorAll('tbody tr')
+    const arrayTrClients = [...trClients]
+
+    // setFilterTec(e.target.value)
+    // arrayTrClients.filter(client => {
+    //   client.classList.add('tr-none')
+    //   console.log(client.children[2].innerText)
+    //   if (client.children[2].innerText.includes(filterTec)) {
+    //     client.classList.remove('tr-none')
+    //   }
+    // })
+
+    setFilterStatus(filter)
+    arrayTrClients.filter(client => {
+      client.classList.add('tr-none')
+      if (client.children[3].innerText === filter) {
+        client.classList.remove('tr-none')
+      }
+    })
+
+  }
+
   return (
     <div className="table">
-      <input type="search" onChange={(e) => searchClient(e.target.value)} name="search" id="#userSearch" placeholder='&#xf002;  Pesquisar' />
+      <div>
+        <input type="search" onChange={(e) => searchClient(e.target.value)} name="search" id="#userSearch" placeholder='&#xf002;  Pesquisar' />
+        <FunnelIcon className='funnelIcon' title='Filtrar' onClick={toggleFilter} />
+        {
+          openFilter
+            ?
+            <Filter>
+              <form className='formFilter'>
+                <select id="filterTec" name="filterTec" value='' onChange={(e) => handleFilter(e.target.value)}>
+                  <option value="">Técnico</option>
+                  {
+                    userData && userData.map(user => {
+                      return (
+                        <option value={user.nome}>{user.nome}</option>
+                      )
+                    })
+                  }
+                </select>
+
+                <select id="filterStatus" name="filterStatus" value={filterStatus} onChange={(e) => handleFilter(e.target.value)}>
+                  <option value="">Status</option>
+                  <option value="Em andamento">Em andamento</option>
+                  <option value="Encerrado pelo cliente">Encerrado pelo cliente</option>
+                  <option value="Finalizado">Finalizado</option>
+                </select>
+              </form>
+            </Filter>
+            : ''
+        }
+      </div>
+
       <table>
         <thead>
           <tr>
@@ -82,7 +158,7 @@ const Clients = () => {
         </tbody>
       </table>
       <PlusCircleIcon onClick={OpenAdd} className='buttonAddClient' title='Adicionar cliente' />
-    </div>
+    </div >
   )
 }
 

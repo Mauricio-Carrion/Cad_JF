@@ -10,3 +10,23 @@
 .thStatus {
   width: 205px;
 }
+
+.funnelIcon {
+  width: 35px;
+  margin: 0 20px;
+  color: #184087;
+  cursor: pointer;
+}
+
+.table div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.formFilter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

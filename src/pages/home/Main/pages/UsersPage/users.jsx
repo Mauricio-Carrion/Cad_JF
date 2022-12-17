@@ -26,7 +26,7 @@ const Users = () => {
 
     arrayTrUsers.filter(e => {
       e.classList.add('tr-none')
-      if (e.innerText.includes(search)) {
+      if (e.children[1].innerHTML.includes(search)) {
         e.classList.remove('tr-none')
       }
     })

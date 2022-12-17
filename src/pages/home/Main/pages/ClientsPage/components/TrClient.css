@@ -9,7 +9,7 @@
 .statusStyle {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   margin: 20px 0 20px;
   width: 205px;
 }

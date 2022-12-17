@@ -1,12 +1,9 @@
-p {
+.sideheader p {
   display: none;
 }
 
-span {
-  display: flex;
-  flex-direction: row;
+.sideheader span {
   align-items: center;
-  justify-content: center;
 }
 
 .sideheader {
@@ -47,7 +44,7 @@ span {
   width: 100px;
   text-decoration: none;
   color: #fff;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   border-radius: 0 40px 40px 0;
 }
@@ -78,7 +75,7 @@ span {
 }
 
 .p-active {
-  display: block;
+  display: block !important;
   margin: 0;
 }
 
