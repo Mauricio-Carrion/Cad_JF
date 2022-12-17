@@ -9,7 +9,8 @@ import Loading from "../../../../components/Loading"
 import Modal from "../../../../components/Modal"
 
 const EditClient = () => {
-  const params = window.location.search.split('=')[1]
+  const searchParams = window.location.search.split('=')[1]
+  const [params, setParams] = useState(searchParams)
   const [loading, setLoading] = useState(true)
   const [openModal, setOpenModal] = useState(false)
   const [data, setData] = useState('')
@@ -37,13 +38,13 @@ const EditClient = () => {
     Authorization: `Bearer ${token}`
   }
 
-  if (params) {
-    useEffect(() => {
+  useEffect(() => {
+    if (params) {
       axios(clientOptions)
         .then(res => setData(res.data))
         .catch(err => showToastMessageError(err.response.data.msg))
-    }, [])
-  }
+    }
+  }, [])
 
   useEffect(() => {
     axios(userOptions)
@@ -105,11 +106,12 @@ const EditClient = () => {
   }
 
   const handleCancelEdit = () => {
-
-
-    navigate('/clients')
-
-
+    if (params) {
+      setData(oldData)
+      setButtonEditStatus(false)
+    } else {
+      navigate('/clients')
+    }
   }
 
   const handleEdition = () => {
@@ -147,12 +149,10 @@ const EditClient = () => {
           status: data.status
         },
         { headers })
+        .then(res => setParams(res.data.codigo))
         .then(res => showToastMessageSucess('Cliente cadastrado!'))
         .catch(err => showToastMessageError(err.response.data.msg))
-
     }
-
-    navigate('/clients')
   }
 
   const handleAddChange = (e) => {
@@ -191,6 +191,7 @@ const EditClient = () => {
       { headers })
       .then(res => showToastMessageSucess('Visita Cadastrada!'))
       .catch(err => showToastMessageError(err.response.data.msg))
+
     handleCancelAddChange()
   }
 
