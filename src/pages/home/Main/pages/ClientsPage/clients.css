@@ -18,6 +18,12 @@
   cursor: pointer;
 }
 
+.iconFilter {
+  width: 30px;
+  color: #fff;
+  margin: 0;
+}
+
 .table div {
   display: flex;
   flex-direction: row;
@@ -29,4 +35,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.btnFilter {
+  color: #fff;
+  width: 50px;
+  margin: 0 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 10px;
+}
+
+.btnFilter:hover {
+  color: #184087;
+  background-color: #fff;
 }

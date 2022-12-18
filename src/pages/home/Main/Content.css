@@ -2,6 +2,7 @@
   overflow-y: auto;
   font-size: 20px;
   margin: 0 0 0 30px;
+  height: 100vh;
 }
 
 .table {

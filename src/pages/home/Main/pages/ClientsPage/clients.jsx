@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { PlusCircleIcon, FunnelIcon } from '@heroicons/react/24/solid'
+import { PlusCircleIcon, FunnelIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
 import { showToastMessageError } from '../../../../../App'
 import { AuthContext } from '../../../../../contexts/auth'
 import axios from 'axios'
@@ -74,28 +74,37 @@ const Clients = () => {
     }
   }
 
-  const handleFilter = (filter) => {
+  const handleFilter = (e) => {
+    e.preventDefault()
     const trClients = document.querySelectorAll('tbody tr')
     const arrayTrClients = [...trClients]
 
-    // setFilterTec(e.target.value)
-    // arrayTrClients.filter(client => {
-    //   client.classList.add('tr-none')
-    //   console.log(client.children[2].innerText)
-    //   if (client.children[2].innerText.includes(filterTec)) {
-    //     client.classList.remove('tr-none')
-    //   }
-    // })
+    switch (e.target.name) {
+      case 'cleanFilter':
+        setFilterTec('')
+        setFilterStatus('')
 
-    setFilterStatus(filter)
-    arrayTrClients.filter(client => {
-      client.classList.add('tr-none')
-      if (client.children[3].innerText === filter) {
-        client.classList.remove('tr-none')
-      }
-    })
+        arrayTrClients.filter(client => {
 
+          client.classList.remove('tr-none')
+
+        })
+        break
+      case 'submitFilter':
+        arrayTrClients.filter(client => {
+          client.classList.add('tr-none')
+          if (client.children[2].innerText.includes(filterTec) && client.children[3].innerText.includes(filterStatus)) {
+
+            client.classList.remove('tr-none')
+
+          }
+        })
+        break
+      default:
+    }
   }
+
+
 
   return (
     <div className="table">
@@ -107,7 +116,7 @@ const Clients = () => {
             ?
             <Filter>
               <form className='formFilter'>
-                <select id="filterTec" name="filterTec" value='' onChange={(e) => handleFilter(e.target.value)}>
+                <select id="filterTec" name="filterTec" value={filterTec} onChange={(e) => setFilterTec(e.target.value)}>
                   <option value="">Técnico</option>
                   {
                     userData && userData.map(user => {
@@ -118,12 +127,22 @@ const Clients = () => {
                   }
                 </select>
 
-                <select id="filterStatus" name="filterStatus" value={filterStatus} onChange={(e) => handleFilter(e.target.value)}>
+                <select id="filterStatus" name="filterStatus" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
                   <option value="">Status</option>
                   <option value="Em andamento">Em andamento</option>
                   <option value="Encerrado pelo cliente">Encerrado pelo cliente</option>
                   <option value="Finalizado">Finalizado</option>
                 </select>
+
+                <div>
+                  <button name='cleanFilter' className='btnFilter' onClick={(e) => handleFilter(e)} title='Limpar'>
+                    Limpar
+                  </button>
+
+                  <button name='submitFilter' className='btnFilter' onClick={(e) => handleFilter(e)} title='Aplicar'>
+                    Aplicar
+                  </button>
+                </div>
               </form>
             </Filter>
             : ''
