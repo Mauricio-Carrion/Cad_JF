@@ -83,7 +83,7 @@
   border-radius: 5px;
 }
 
-.visitsLabel div {
+.visitsLabel .scrollLabel {
   display: flex;
   flex-direction: row;
   overflow-x: auto;

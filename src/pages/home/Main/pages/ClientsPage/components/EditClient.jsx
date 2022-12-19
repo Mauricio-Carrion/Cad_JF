@@ -235,11 +235,12 @@ const EditClient = () => {
   }
 
   const scrollVisits = () => {
-    const scrollContainer = document.querySelector(".visitsLabel div");
+    const scrollContainer = document.querySelector(".visitsLabel div")
 
     scrollContainer.addEventListener("wheel", (evt) => {
-      scrollContainer.scrollLeft += evt.deltaY;
-    }, { passive: true });
+      evt.preventDefault()
+      scrollContainer.scrollLeft += evt.deltaY
+    })
   }
 
   return (
@@ -299,7 +300,7 @@ const EditClient = () => {
           </form>
       }
       <div className="visitsLabel" onMouseOver={scrollVisits}>
-        <div>
+        <div className="scrollLabel">
           {
             params
               ?
@@ -313,7 +314,7 @@ const EditClient = () => {
           {
             visitsData && visitsData.map(visit => {
               return (
-                <Visit desc={visit.descricao} obs={visit.observacao} date={formatDate(visit.data, false)} />
+                <Visit key={visit.codigo} code={visit.codigo} desc={visit.descricao} obs={visit.observacao} date={formatDate(visit.data, false)} />
               )
             })
           }

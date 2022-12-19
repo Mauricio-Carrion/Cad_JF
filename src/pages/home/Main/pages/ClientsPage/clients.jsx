@@ -58,7 +58,7 @@ const Clients = () => {
     axios(clientOptions)
       .then(
         res => setData(res.data))
-      .catch(err => err.response.status ? logout() : showToastMessageError(err.response.data.msg))
+      .catch(err => err.response.status === 400 ? logout() : showToastMessageError(err.response.data.msg))
 
     axios(userOptions)
       .then(res => setUserData(res.data))

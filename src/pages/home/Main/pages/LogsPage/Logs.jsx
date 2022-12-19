@@ -24,7 +24,7 @@ const Logs = () => {
   useEffect(() => {
     axios(options)
       .then(res => setData(res.data))
-      .catch(err => err.response.status == 400 ? logout() : showToastMessageError(err.response.data.msg))
+      .catch(err => err.response.status === 400 ? logout() : showToastMessageError(err.response.data.msg))
     setLoading(false)
   }, [])
 
