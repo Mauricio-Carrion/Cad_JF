@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, createContext } from 'react'
 import { PencilIcon, XCircleIcon, XMarkIcon, CheckIcon } from '@heroicons/react/24/solid'
 import Modal from '../../../../components/Modal'
 import { formatInputDate } from '../../../../../../utils/utils'
@@ -8,7 +8,8 @@ import axios from 'axios'
 import { AuthContext } from "../../../../../../contexts/auth"
 import './Visit.css'
 
-const Visit = (props) => {
+const Visit = (props, { }) => {
+
   const [openEditModal, setEditModal] = useState(false)
   const [openDeleteModal, setDeleteModal] = useState(false)
   const [data, setData] = useState(props)
@@ -53,14 +54,14 @@ const Visit = (props) => {
 
   const handleEditVisit = async () => {
     await axios.put(
-      `${remoteHost}/visitas`,
+      `${remoteHost}/visita/${props.code}`,
       {
         data: editData.date,
         descricao: editData.desc,
         obs: editData.obs
       },
       { headers })
-      .then(res => showToastMessageSucess('Visita Cadastrada!'))
+      .then(res => showToastMessageSucess('Visita Editada!'))
       .catch(err => {
         handleLogout(err)
         showToastMessageError(err.response.data.msg)
@@ -88,7 +89,7 @@ const Visit = (props) => {
 
           <div>
             <XMarkIcon className='buttonsAddVisit' onClick={cancelEdit} title='Cancelar' />
-            <CheckIcon className='buttonsAddVisit' title='Confirmar' />
+            <CheckIcon className='buttonsAddVisit' onClick={handleEditVisit} title='Confirmar' />
           </div>
         </form>
       </Modal>

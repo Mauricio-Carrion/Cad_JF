@@ -79,7 +79,7 @@ const EditClient = () => {
       .catch(err => console.error(err))
 
     setLoading(false)
-  }, [openModal])
+  }, [openModal, handleEditVisit])
 
   const handleChange = (e) => {
     let updatedValue = {}
