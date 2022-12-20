@@ -143,6 +143,7 @@ const TrUser = (props) => {
 
       {/* Modal editar */}
       <Modal show={OpenEdit} close={OpenEdit}>
+        <h4>Editar usuário</h4>
         <form className="formEditUser">
           <label htmlFor="imgUser">
             <img id='editUserImg' src={currentImage} alt="user" title="Clique para alterar!" />

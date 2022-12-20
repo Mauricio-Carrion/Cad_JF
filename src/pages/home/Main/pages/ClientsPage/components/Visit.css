@@ -44,4 +44,5 @@
 .btns-visit svg {
   width: 30px;
   margin: 0 10px;
+  cursor: pointer;
 }

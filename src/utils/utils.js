@@ -18,3 +18,11 @@ export function formatDate(dateString, complete = true) {
   return date
 }
 
+export function formatInputDate(dateString) {
+  if (dateString.includes('/')) {
+    const dateSplit = dateString.split('/')
+    return `${dateSplit[2]}-${dateSplit[1]}-${dateSplit[0]}`
+  }
+
+  return dateString
+}

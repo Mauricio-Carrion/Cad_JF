@@ -89,6 +89,8 @@ const Clients = () => {
           client.classList.remove('tr-none')
 
         })
+
+        setOpenFilter(false)
         break
       case 'submitFilter':
         arrayTrClients.filter(client => {
@@ -99,12 +101,12 @@ const Clients = () => {
 
           }
         })
+
+        setOpenFilter(false)
         break
       default:
     }
   }
-
-
 
   return (
     <div className="table">

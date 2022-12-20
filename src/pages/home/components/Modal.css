@@ -43,6 +43,13 @@
   margin: 0 40px;
 }
 
+.modal h3,
+.modal h4,
+.modal h5 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
 @media (max-width:800px) {
   .modal {
     width: 500px;

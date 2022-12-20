@@ -322,6 +322,7 @@ const EditClient = () => {
         </div>
 
         <Modal show={openModal} close={openModal}>
+          <h3>Adicionar visita</h3>
           <form className="formAddVisit">
             <input type="text" name="desc" value={newVisitData.desc} onChange={(e) => handleAddChange(e)} placeholder="Descrição" />
             <textarea name='obs' value={newVisitData.obs} onChange={(e) => handleAddChange(e)} placeholder="Observação" />
