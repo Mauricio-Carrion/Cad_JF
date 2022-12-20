@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { PlusCircleIcon, FunnelIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
+import { PlusCircleIcon, FunnelIcon } from '@heroicons/react/24/solid'
 import { showToastMessageError } from '../../../../../App'
 import { AuthContext } from '../../../../../contexts/auth'
 import axios from 'axios'
