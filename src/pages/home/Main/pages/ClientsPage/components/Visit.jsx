@@ -11,6 +11,7 @@ import './Visit.css'
 const Visit = (props) => {
   const [data, setData] = useState(props)
   const [editData, setEditData] = useState(data)
+  const [disableState, setDisableState] = useState(data)
   const { logout } = useContext(AuthContext)
   const [openEditModal, setEditModal] = useState(false)
   const [openDeleteModal, setDeleteModal] = useState(false)
@@ -32,10 +33,12 @@ const Visit = (props) => {
 
     switch (e.target.name) {
       case 'desc':
-        updatedValue = { desc: e.target.value }
+        if (e.target.value.length < 50)
+          updatedValue = { desc: e.target.value }
         break
       case 'obs':
-        updatedValue = { obs: e.target.value }
+        if (e.target.value.length < 150)
+          updatedValue = { obs: e.target.value }
         break
       case 'date':
         updatedValue = { date: e.target.value }
@@ -71,28 +74,31 @@ const Visit = (props) => {
   console.log(editData.date)
 
   return (
-    <section id={`visit-${data.code}`} className="visit">
+    <section id={`visit-${data.code}`} className="visit" onClick={() => setEditModal(true)}>
 
       <div className='mainVisit'>
         <h3>{editData.desc}</h3>
         <p>{editData.obs}</p>
         <h6>{`Data: ${formatInputDate(editData.date)}`}</h6>
-        <div className="btns-visit">
-          <PencilIcon onClick={() => setEditModal(true)} />
-          <XCircleIcon onClick={() => setDeleteModal(true)} />
-        </div>
       </div>
 
       <Modal show={openEditModal} close={openEditModal}>
         <h3>Editar visita</h3>
         <form className="formAddVisit">
-          <input type="text" name="desc" value={editData.desc} placeholder="Descrição" onChange={(e) => handleEditChange(e)} />
-          <textarea name='obs' value={editData.obs} placeholder="Observação" onChange={(e) => handleEditChange(e)} />
-          <input name="date" type="date" value={editData.date} onChange={(e) => handleEditChange(e)} />
+          <input type="text" name="desc" value={editData.desc} placeholder="Descrição" onChange={(e) => handleEditChange(e)} disabled={disableState} />
+          <textarea name='obs' value={editData.obs} placeholder="Observação" onChange={(e) => handleEditChange(e)} disabled={disableState} />
+          <input name="date" type="date" value={editData.date} onChange={(e) => handleEditChange(e)} disabled={disableState} />
 
           <div>
-            <XMarkIcon className='buttonsAddVisit' onClick={cancelEdit} title='Cancelar' />
-            <CheckIcon className='buttonsAddVisit' onClick={handleEditVisit} title='Confirmar' />
+            {
+              disableState ?
+                <>
+                  <XMarkIcon className='buttonsAddVisit' onClick={cancelEdit} title='Cancelar' />
+                  <XCircleIcon onClick={() => setDeleteModal(true)} title='Excluir' />
+                </>
+                :
+                <CheckIcon className='buttonsAddVisit' onClick={handleEditVisit} title='Confirmar' />
+            }
           </div>
         </form>
       </Modal>
