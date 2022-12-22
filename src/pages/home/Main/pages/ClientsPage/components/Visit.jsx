@@ -6,7 +6,6 @@ import remoteHost from '../../../../../../Api'
 import { showToastMessageError, showToastMessageSucess } from "../../../../../../App"
 import { CheckIcon, XMarkIcon, PencilIcon, XCircleIcon } from '@heroicons/react/24/solid'
 import Modal from '../../../../components/Modal'
-import { formatDate } from "../../../../../../utils/utils"
 import './Visit.css'
 
 const Visit = (props) => {
@@ -77,7 +76,7 @@ const Visit = (props) => {
       <div className='mainVisit'>
         <h3>{editData.desc}</h3>
         <p>{editData.obs}</p>
-        <h6>{`Data: ${formatDate(editData.date, false)}`}</h6>
+        <h6>{`Data: ${formatInputDate(editData.date)}`}</h6>
         <div className="btns-visit">
           <PencilIcon onClick={() => setEditModal(true)} />
           <XCircleIcon onClick={() => setDeleteModal(true)} />
@@ -89,7 +88,7 @@ const Visit = (props) => {
         <form className="formAddVisit">
           <input type="text" name="desc" value={editData.desc} placeholder="Descrição" onChange={(e) => handleEditChange(e)} />
           <textarea name='obs' value={editData.obs} placeholder="Observação" onChange={(e) => handleEditChange(e)} />
-          <input name="date" type="date" value={formatInputDate(editData.date)} onChange={(e) => handleEditChange(e)} />
+          <input name="date" type="date" value={editData.date} onChange={(e) => handleEditChange(e)} />
 
           <div>
             <XMarkIcon className='buttonsAddVisit' onClick={cancelEdit} title='Cancelar' />

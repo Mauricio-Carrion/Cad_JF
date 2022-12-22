@@ -24,5 +24,8 @@ export function formatInputDate(dateString) {
     return `${dateSplit[2]}-${dateSplit[1]}-${dateSplit[0]}`
   }
 
-  return dateString
+  if (dateString.includes('-')) {
+    const dateSplit = dateString.split('-')
+    return `${dateSplit[2]}/${dateSplit[1]}/${dateSplit[0]}`
+  }
 }

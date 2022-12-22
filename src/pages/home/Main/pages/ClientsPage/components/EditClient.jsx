@@ -8,7 +8,6 @@ import remoteHost from "../../../../../../Api"
 import Loading from "../../../../components/Loading"
 import Modal from "../../../../components/Modal"
 import { AuthContext } from "../../../../../../contexts/auth"
-import { formatDate } from "../../../../../../utils/utils"
 import Visit from "./Visit"
 
 
@@ -25,8 +24,6 @@ const EditClient = () => {
   const [userData, setUserData] = useState('')
   const [newVisitData, setNewVisitData] = useState('')
   const [buttonEditStatus, setButtonEditStatus] = useState(!params ? true : false)
-  const [openEditModal, setEditModal] = useState(false)
-  const [openDeleteModal, setDeleteModal] = useState(false)
 
   const navigate = useNavigate()
 
@@ -195,7 +192,7 @@ const EditClient = () => {
         })
     }
   }
-
+  console.log(visitsData)
   const handleAddChange = (e) => {
     let updatedValue = {}
 
