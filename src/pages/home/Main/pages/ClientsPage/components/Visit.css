@@ -1,6 +1,6 @@
 .visit .mainVisit {
   display: grid;
-  grid-template-rows: 30px 200px 35px;
+  grid-template-rows: 30px 200px 15px;
   grid-template-columns: 1fr;
   grid-template-areas:
     "h4"
@@ -31,8 +31,9 @@
   display: -webkit-box;
   grid-area: p;
   padding: 0 15px;
+  margin: 10px 0;
   word-break: break-all;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

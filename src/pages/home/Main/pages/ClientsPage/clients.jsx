@@ -7,8 +7,10 @@ import axios from 'axios'
 import remoteHost from '../../../../../Api'
 import Loading from '../../../components/Loading'
 import TrClient from './components/TrClient'
-import './Clients.css'
 import Filter from '../../../components/Filter'
+import { handleLogout } from '../../../../../utils/utils'
+import './Clients.css'
+
 
 const Clients = () => {
   const navigate = useNavigate()
@@ -58,11 +60,11 @@ const Clients = () => {
     axios(clientOptions)
       .then(
         res => setData(res.data))
-      .catch(err => err.response.status === 400 ? logout() : showToastMessageError(err.response.data.msg))
+      .catch(err => handleLogout(err))
 
     axios(userOptions)
       .then(res => setUserData(res.data))
-      .catch(err => console.error(err))
+      .catch(err => handleLogout(err))
     setLoading(false)
   }, [])
 

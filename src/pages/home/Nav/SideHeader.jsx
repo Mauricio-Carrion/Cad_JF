@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/auth'
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import './SideHeader.css'
-import CommonUserImg from '../../../assets/img/user.png'
+import CommonUserImg from '../../../assets/img/user.webp'
 import { capitalize } from '../../../utils/utils'
 import Modal from '../components/Modal';
 

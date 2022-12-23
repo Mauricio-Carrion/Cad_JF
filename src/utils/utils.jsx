@@ -1,3 +1,7 @@
+import React, { useContext } from 'react'
+import { showToastMessageError } from "../App"
+import { AuthContext } from '../contexts/auth'
+
 export function capitalize(string) {
   let lowerString = string.toLowerCase()
   let capitalizeString = lowerString.charAt(0).toUpperCase() + lowerString.slice(1)
@@ -28,4 +32,15 @@ export function formatInputDate(dateString) {
     const dateSplit = dateString.split('-')
     return `${dateSplit[2]}/${dateSplit[1]}/${dateSplit[0]}`
   }
+}
+
+export function handleLogout(err) {
+  const { logout } = useContext(AuthContext)
+
+  if (err.status === 400) {
+    logout()
+    showToastMessageError('Sua sessão expirou!')
+  }
+
+  showToastMessageError(err.response.data.msg)
 }

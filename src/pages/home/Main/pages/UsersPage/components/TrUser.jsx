@@ -5,7 +5,7 @@ import remoteHost from '../../../../../../Api'
 import axios from 'axios';
 import Modal from '../../../../components/Modal';
 import { showToastMessageError, showToastMessageSucess } from '../../../../../../App';
-import userImg from '../../../../../../assets/img/user.png'
+import userImg from '../../../../../../assets/img/user.webp'
 
 const TrUser = (props) => {
   const token = JSON.parse(localStorage.getItem('user')).token

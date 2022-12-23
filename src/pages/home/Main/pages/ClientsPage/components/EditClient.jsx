@@ -1,19 +1,16 @@
 import React, { useEffect, useState, useContext } from "react"
 import { useNavigate } from 'react-router-dom'
 import './EditClient.css'
-import { PencilSquareIcon, CheckIcon, XMarkIcon, PlusCircleIcon, XCircleIcon, PencilIcon } from '@heroicons/react/24/solid'
+import { PencilSquareIcon, CheckIcon, XMarkIcon, PlusCircleIcon } from '@heroicons/react/24/solid'
 import { showToastMessageError, showToastMessageSucess } from "../../../../../../App"
 import axios from "axios"
 import remoteHost from "../../../../../../Api"
 import Loading from "../../../../components/Loading"
 import Modal from "../../../../components/Modal"
-import { AuthContext } from "../../../../../../contexts/auth"
+import { handleLogout } from "../../../../../../utils/utils"
 import Visit from "./Visit"
 
-
-
 const EditClient = () => {
-  const { logout } = useContext(AuthContext)
   const searchParams = window.location.search.split('=')[1]
   const [params, setParams] = useState(searchParams)
   const [loading, setLoading] = useState(true)
@@ -51,19 +48,12 @@ const EditClient = () => {
     headers: headers
   }
 
-  const handleLogout = (err) => {
-    if (err.status === 400) {
-      logout()
-    }
-  }
-
   useEffect(() => {
     if (params) {
       axios(clientOptions)
         .then(res => setData(res.data))
         .catch(err => {
           handleLogout(err)
-          showToastMessageError(err.response.data.msg)
         })
 
       axios(visitOptions)
@@ -72,16 +62,16 @@ const EditClient = () => {
           if (err.response.status === 404) {
             return
           }
-          showToastMessageError(err.response.data.msg)
+          handleLogout(err)
         })
     }
 
     axios(userOptions)
       .then(res => setUserData(res.data))
-      .catch(err => console.error(err))
+      .catch(err => handleLogout(err))
 
     setLoading(false)
-  }, [openModal])
+  }, [openModal, <Visit />])
 
   const handleChange = (e) => {
     let updatedValue = {}
@@ -168,7 +158,6 @@ const EditClient = () => {
         .then(setButtonEditStatus(false))
         .catch(err => {
           handleLogout(err)
-          showToastMessageError(err.response.data.msg)
         })
 
     } else {
@@ -230,7 +219,6 @@ const EditClient = () => {
       .then(res => showToastMessageSucess('Visita Cadastrada!'))
       .catch(err => {
         handleLogout(err)
-        showToastMessageError(err.response.data.msg)
       })
 
     handleCancelAddChange()

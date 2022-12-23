@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Users.css'
-import { showToastMessageError } from '../../../../../App'
 import TrUser from './components/TrUser'
 import axios from 'axios'
 import Loading from '../../../components/Loading'
 import remoteHost from '../../../../../Api'
-import { AuthContext } from '../../../../../contexts/auth'
+import { handleLogout } from '../../../../../utils/utils'
 
 const Users = () => {
   const [data, setData] = useState()
   const [loading, setLoading] = useState(true)
-  const { logout } = useContext(AuthContext)
-
   const token = JSON.parse(localStorage.getItem('user')).token
 
   const options = {
@@ -36,7 +33,7 @@ const Users = () => {
     axios(options)
       .then(
         res => setData(res.data))
-      .catch(err => err.response.status === 400 ? logout() : showToastMessageError(err.response.data.msg))
+      .catch(err => handleLogout(err))
     setLoading(false)
   }, [])
 

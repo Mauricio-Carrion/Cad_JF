@@ -4,7 +4,7 @@
   height: 450px;
 
   background: linear-gradient(199deg, rgba(0, 10, 255, 0.5) 0%, rgba(71, 181, 255, 0.5) 98.32%),
-    url('../../../assets/img/bg.jpg');
+    -webkit-image-set(url('../../../assets/img/bg.webp')1x);
   background-size: 700px;
   background-repeat: no-repeat;
   background-position: center;

@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
 import { formatInputDate } from '../../../../../../utils/utils'
-import { AuthContext } from '../../../../../../contexts/auth'
 import axios from 'axios'
 import remoteHost from '../../../../../../Api'
 import { showToastMessageError, showToastMessageSucess } from "../../../../../../App"
 import { CheckIcon, XMarkIcon, PencilIcon, XCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
+import { handleLogout } from '../../../../../../utils/utils'
 import Modal from '../../../../components/Modal'
 import './Visit.css'
 
@@ -12,7 +12,6 @@ const Visit = (props) => {
   const [data, setData] = useState(props)
   const [editData, setEditData] = useState(data)
   const [disableState, setDisableState] = useState(true)
-  const { logout } = useContext(AuthContext)
   const [openEditModal, setEditModal] = useState(false)
   const [openDeleteModal, setDeleteModal] = useState(false)
 
@@ -20,12 +19,6 @@ const Visit = (props) => {
 
   const headers = {
     Authorization: `Bearer ${token}`
-  }
-
-  const handleLogout = (err) => {
-    if (err.status === 400) {
-      logout()
-    }
   }
 
   const handleEditChange = (e) => {
@@ -54,8 +47,16 @@ const Visit = (props) => {
     setEditModal(false)
   }
 
-  const deleteVisit = () => {
-
+  const deleteVisit = async () => {
+    await axios.delete(
+      `${remoteHost}/visita/${props.code}`,
+      { headers })
+      .then(res => showToastMessageSucess('Visita Excluida!'))
+      .then(res => setEditModal(false))
+      .then(res => setDeleteModal(false))
+      .catch(err => {
+        handleLogout(err)
+      })
   }
 
   const handleEditVisit = async () => {
@@ -72,7 +73,6 @@ const Visit = (props) => {
       .then(res => setDisableState(true))
       .catch(err => {
         handleLogout(err)
-        showToastMessageError(err.response.data.msg)
       })
 
   }
