@@ -55,7 +55,7 @@ const Visit = (props) => {
       .then(res => setEditModal(false))
       .then(res => setDeleteModal(false))
       .catch(err => {
-        handleLogout(err)
+        err.status === 400 ? logout : handleLogout(err)
       })
   }
 
@@ -72,9 +72,8 @@ const Visit = (props) => {
       .then(res => setEditModal(false))
       .then(res => setDisableState(true))
       .catch(err => {
-        handleLogout(err)
+        err.status === 400 ? logout : handleLogout(err)
       })
-
   }
 
   console.log(editData.date)

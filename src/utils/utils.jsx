@@ -35,11 +35,10 @@ export function formatInputDate(dateString) {
 }
 
 export function handleLogout(err) {
-  const { logout } = useContext(AuthContext)
-
   if (err.status === 400) {
-    logout()
     showToastMessageError('Sua sessão expirou!')
+
+    return logout
   }
 
   showToastMessageError(err.response.data.msg)

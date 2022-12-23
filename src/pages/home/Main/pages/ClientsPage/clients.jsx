@@ -60,11 +60,11 @@ const Clients = () => {
     axios(clientOptions)
       .then(
         res => setData(res.data))
-      .catch(err => handleLogout(err))
+      .catch(err => err.status === 400 ? logout : handleLogout(err))
 
     axios(userOptions)
       .then(res => setUserData(res.data))
-      .catch(err => handleLogout(err))
+      .catch(err => err.status === 400 ? logout : handleLogout(err))
     setLoading(false)
   }, [])
 

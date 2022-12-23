@@ -53,7 +53,7 @@ const EditClient = () => {
       axios(clientOptions)
         .then(res => setData(res.data))
         .catch(err => {
-          handleLogout(err)
+          err.status === 400 ? logout : handleLogout(err)
         })
 
       axios(visitOptions)
@@ -68,7 +68,7 @@ const EditClient = () => {
 
     axios(userOptions)
       .then(res => setUserData(res.data))
-      .catch(err => handleLogout(err))
+      .catch(err => err.status === 400 ? logout : handleLogout(err))
 
     setLoading(false)
   }, [openModal, <Visit />])
@@ -157,7 +157,7 @@ const EditClient = () => {
         .then(res => showToastMessageSucess('Cliente foi alterado!'))
         .then(setButtonEditStatus(false))
         .catch(err => {
-          handleLogout(err)
+          err.status === 400 ? logout : handleLogout(err)
         })
 
     } else {
@@ -176,8 +176,7 @@ const EditClient = () => {
         .then(showToastMessageSucess('Cliente cadastrado!'))
         .then(setButtonEditStatus(false))
         .catch(err => {
-          handleLogout(err)
-          showToastMessageError(err.response.data.msg)
+          err.status === 400 ? logout : handleLogout(err)
         })
     }
   }
@@ -218,7 +217,7 @@ const EditClient = () => {
       { headers })
       .then(res => showToastMessageSucess('Visita Cadastrada!'))
       .catch(err => {
-        handleLogout(err)
+        err.status === 400 ? logout : handleLogout(err)
       })
 
     handleCancelAddChange()
