@@ -14,6 +14,7 @@
   border-radius: 20px;
   margin: 0 15px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .mainVisit :nth-child(4) {

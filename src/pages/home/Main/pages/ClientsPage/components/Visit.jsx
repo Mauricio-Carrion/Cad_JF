@@ -4,14 +4,14 @@ import { AuthContext } from '../../../../../../contexts/auth'
 import axios from 'axios'
 import remoteHost from '../../../../../../Api'
 import { showToastMessageError, showToastMessageSucess } from "../../../../../../App"
-import { CheckIcon, XMarkIcon, PencilIcon, XCircleIcon } from '@heroicons/react/24/solid'
+import { CheckIcon, XMarkIcon, PencilIcon, XCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import Modal from '../../../../components/Modal'
 import './Visit.css'
 
 const Visit = (props) => {
   const [data, setData] = useState(props)
   const [editData, setEditData] = useState(data)
-  const [disableState, setDisableState] = useState(data)
+  const [disableState, setDisableState] = useState(true)
   const { logout } = useContext(AuthContext)
   const [openEditModal, setEditModal] = useState(false)
   const [openDeleteModal, setDeleteModal] = useState(false)
@@ -54,6 +54,10 @@ const Visit = (props) => {
     setEditModal(false)
   }
 
+  const deleteVisit = () => {
+
+  }
+
   const handleEditVisit = async () => {
     await axios.put(
       `${remoteHost}/visita/${props.code}`,
@@ -65,10 +69,12 @@ const Visit = (props) => {
       { headers })
       .then(res => showToastMessageSucess('Visita Editada!'))
       .then(res => setEditModal(false))
+      .then(res => setDisableState(true))
       .catch(err => {
         handleLogout(err)
         showToastMessageError(err.response.data.msg)
       })
+
   }
 
   console.log(editData.date)
@@ -93,20 +99,31 @@ const Visit = (props) => {
             {
               disableState ?
                 <>
-                  <XMarkIcon className='buttonsAddVisit' onClick={cancelEdit} title='Cancelar' />
-                  <XCircleIcon onClick={() => setDeleteModal(true)} title='Excluir' />
+                  <PencilIcon onClick={() => setDisableState(false)} title='Editar visita' />
+                  <TrashIcon onClick={() => setDeleteModal(true)} title='Excluir visita' />
+                  <XCircleIcon onClick={cancelEdit} title='Fechar' />
                 </>
                 :
-                <CheckIcon className='buttonsAddVisit' onClick={handleEditVisit} title='Confirmar' />
+                <>
+                  <CheckIcon className='buttonsAddVisit' onClick={handleEditVisit} title='Confirmar edição' />
+                  <XMarkIcon className='buttonsAddVisit' onClick={() => setDisableState(true)} title='Cancelar edição' />
+                </>
             }
           </div>
         </form>
       </Modal>
 
       <Modal show={openDeleteModal} close={openDeleteModal}>
-        <form>
+        Deseja realmente excluir visita?
+        <div className="btns">
+          <button onClick={() => setDeleteModal(false)}>
+            <XMarkIcon className='heroicons' />
+          </button>
 
-        </form>
+          <button onClick={deleteVisit}>
+            <CheckIcon className='heroicons' />
+          </button>
+        </div>
       </Modal>
     </section>
   )
