@@ -36,7 +36,7 @@ const Users = () => {
     axios(options)
       .then(
         res => setData(res.data))
-      .catch(err => err.status === 400 ? logout() : handleLogout(err))
+      .catch(err => err.response.status === 400 ? logout() : handleLogout(err))
     setLoading(false)
   }, [])
 

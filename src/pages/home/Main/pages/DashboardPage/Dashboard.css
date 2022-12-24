@@ -1,0 +1,28 @@
+.dashboard {
+  display: grid;
+  grid-template-rows: 500px 1fr;
+  grid-template-areas:
+    "charts"
+    "reports";
+  color: #909090;
+  margin: 40px;
+}
+
+.clientStatus,
+.clientsByUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 460px;
+  margin: 40px;
+}
+
+.charts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: space-between;
+  grid-area: charts;
+}

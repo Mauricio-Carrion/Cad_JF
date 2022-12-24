@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PlusCircleIcon, FunnelIcon } from '@heroicons/react/24/solid'
-import { showToastMessageError } from '../../../../../App'
 import { AuthContext } from '../../../../../contexts/auth'
 import axios from 'axios'
 import remoteHost from '../../../../../Api'
@@ -60,11 +59,11 @@ const Clients = () => {
     axios(clientOptions)
       .then(
         res => setData(res.data))
-      .catch(err => err.status === 400 ? logout : handleLogout(err))
+      .catch(err => err.response.status === 400 ? logout() : handleLogout(err))
 
     axios(userOptions)
       .then(res => setUserData(res.data))
-      .catch(err => err.status === 400 ? logout : handleLogout(err))
+      .catch(err => err.response.status === 400 ? logout() : handleLogout(err))
     setLoading(false)
   }, [])
 

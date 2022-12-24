@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react"
 import { useNavigate } from 'react-router-dom'
 import './EditClient.css'
 import { PencilSquareIcon, CheckIcon, XMarkIcon, PlusCircleIcon } from '@heroicons/react/24/solid'
-import { showToastMessageError, showToastMessageSucess } from "../../../../../../App"
+import { showToastMessageSucess } from "../../../../../../App"
 import axios from "axios"
 import remoteHost from "../../../../../../Api"
 import Loading from "../../../../components/Loading"
@@ -22,6 +22,7 @@ const EditClient = () => {
   const [userData, setUserData] = useState('')
   const [newVisitData, setNewVisitData] = useState('')
   const [buttonEditStatus, setButtonEditStatus] = useState(!params ? true : false)
+  const [changeVisit, setChangeVisit] = useState('')
 
   const { logout } = useContext(AuthContext)
 
@@ -51,18 +52,23 @@ const EditClient = () => {
     headers: headers
   }
 
+  const excludeVisit = (value) => {
+    setChangeVisit(value)
+  }
+
   useEffect(() => {
     if (params) {
       axios(clientOptions)
         .then(res => setData(res.data))
-        .catch(err => {
-          err.status === 400 ? logout() : handleLogout(err)
-        })
+        .catch(err =>
+          err.response.status === 400 ? logout() : handleLogout(err)
+        )
 
       axios(visitOptions)
         .then(res => setVisitsData(res.data))
         .catch(err => {
           if (err.response.status === 404) {
+            setVisitsData('')
             return
           }
           handleLogout(err)
@@ -71,10 +77,10 @@ const EditClient = () => {
 
     axios(userOptions)
       .then(res => setUserData(res.data))
-      .catch(err => err.status === 400 ? logout() : handleLogout(err))
+      .catch(err => err.response.status === 400 ? logout() : handleLogout(err))
 
     setLoading(false)
-  }, [openModal])
+  }, [openModal, changeVisit])
 
   const handleChange = (e) => {
     let updatedValue = {}
@@ -157,10 +163,10 @@ const EditClient = () => {
           status: data.status
         },
         { headers })
-        .then(res => showToastMessageSucess('Cliente foi alterado!'))
+        .then(res => showToastMessageSucess('Cliente atualizado!'))
         .then(setButtonEditStatus(false))
         .catch(err => {
-          err.status === 400 ? logout() : handleLogout(err)
+          err.response.status === 400 ? logout() : handleLogout(err)
         })
 
     } else {
@@ -179,11 +185,11 @@ const EditClient = () => {
         .then(showToastMessageSucess('Cliente cadastrado!'))
         .then(setButtonEditStatus(false))
         .catch(err => {
-          err.status === 400 ? logout() : handleLogout(err)
+          err.response.status === 400 ? logout() : handleLogout(err)
         })
     }
   }
-  console.log(visitsData)
+
   const handleAddChange = (e) => {
     let updatedValue = {}
 
@@ -220,7 +226,7 @@ const EditClient = () => {
       { headers })
       .then(res => showToastMessageSucess('Visita Cadastrada!'))
       .catch(err => {
-        err.status === 400 ? logout() : handleLogout(err)
+        err.response.status === 400 ? logout() : handleLogout(err)
       })
 
     handleCancelAddChange()
@@ -284,7 +290,7 @@ const EditClient = () => {
                 ?
                 <div>
                   <CheckIcon className="buttonEdit" title="Salvar" onClick={() => handleSubmit()} />
-                  <XMarkIcon className="buttonCancel" onClick={() => handleCancelEdit()} title="Cancelar" />
+                  <XMarkIcon className="buttonCancel" onClick={() => handleCancelEdit()} title="Cancelar edição" />
                 </div>
                 :
                 <PencilSquareIcon className="buttonEdit" onClick={() => handleEdition()} title="Editar" />
@@ -306,7 +312,7 @@ const EditClient = () => {
           {
             visitsData && visitsData.map(visit => {
               return (
-                <Visit key={visit.codigo} code={visit.codigo} desc={visit.descricao} obs={visit.observacao} date={visit.data} />
+                <Visit key={visit.codigo} code={visit.codigo} desc={visit.descricao} obs={visit.observacao} date={visit.data} exclude={excludeVisit} />
               )
             })
           }

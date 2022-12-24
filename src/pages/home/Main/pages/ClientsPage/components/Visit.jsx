@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { formatInputDate } from '../../../../../../utils/utils'
 import axios from 'axios'
 import remoteHost from '../../../../../../Api'
-import { showToastMessageError, showToastMessageSucess } from "../../../../../../App"
+import { showToastMessageSucess } from "../../../../../../App"
 import { CheckIcon, XMarkIcon, PencilIcon, XCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { handleLogout } from '../../../../../../utils/utils'
 import Modal from '../../../../components/Modal'
@@ -10,13 +10,14 @@ import { AuthContext } from '../../../../../../contexts/auth'
 import './Visit.css'
 
 const Visit = (props) => {
-  const [data, setData] = useState(props)
+  const data = props
   const [editData, setEditData] = useState(data)
   const [disableState, setDisableState] = useState(true)
   const [openEditModal, setEditModal] = useState(false)
   const [openDeleteModal, setDeleteModal] = useState(false)
 
   const token = JSON.parse(localStorage.getItem('user')).token
+  const update = props.exclude
   const { logout } = useContext(AuthContext)
 
   const headers = {
@@ -57,8 +58,10 @@ const Visit = (props) => {
       .then(res => setEditModal(false))
       .then(res => setDeleteModal(false))
       .catch(err => {
-        err.status === 400 ? logout() : handleLogout(err)
+        err.response.status === 400 ? logout() : handleLogout(err)
       })
+
+    update(props.code)
   }
 
   const handleEditVisit = async () => {
@@ -74,11 +77,9 @@ const Visit = (props) => {
       .then(res => setEditModal(false))
       .then(res => setDisableState(true))
       .catch(err => {
-        err.status === 400 ? logout() : handleLogout(err)
+        err.response.status === 400 ? logout() : handleLogout(err)
       })
   }
-
-  console.log(editData.date)
 
   return (
     <section id={`visit-${data.code}`} className="visit" onClick={() => setEditModal(true)}>
