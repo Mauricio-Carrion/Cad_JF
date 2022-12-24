@@ -6,6 +6,7 @@ import { showToastMessageError, showToastMessageSucess } from "../../../../../..
 import { CheckIcon, XMarkIcon, PencilIcon, XCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { handleLogout } from '../../../../../../utils/utils'
 import Modal from '../../../../components/Modal'
+import { AuthContext } from '../../../../../../contexts/auth'
 import './Visit.css'
 
 const Visit = (props) => {
@@ -16,6 +17,7 @@ const Visit = (props) => {
   const [openDeleteModal, setDeleteModal] = useState(false)
 
   const token = JSON.parse(localStorage.getItem('user')).token
+  const { logout } = useContext(AuthContext)
 
   const headers = {
     Authorization: `Bearer ${token}`
@@ -55,7 +57,7 @@ const Visit = (props) => {
       .then(res => setEditModal(false))
       .then(res => setDeleteModal(false))
       .catch(err => {
-        err.status === 400 ? logout : handleLogout(err)
+        err.status === 400 ? logout() : handleLogout(err)
       })
   }
 
@@ -72,7 +74,7 @@ const Visit = (props) => {
       .then(res => setEditModal(false))
       .then(res => setDisableState(true))
       .catch(err => {
-        err.status === 400 ? logout : handleLogout(err)
+        err.status === 400 ? logout() : handleLogout(err)
       })
   }
 

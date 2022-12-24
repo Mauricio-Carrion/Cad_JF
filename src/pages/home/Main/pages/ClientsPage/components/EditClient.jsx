@@ -8,6 +8,7 @@ import remoteHost from "../../../../../../Api"
 import Loading from "../../../../components/Loading"
 import Modal from "../../../../components/Modal"
 import { handleLogout } from "../../../../../../utils/utils"
+import { AuthContext } from "../../../../../../contexts/auth"
 import Visit from "./Visit"
 
 const EditClient = () => {
@@ -21,6 +22,8 @@ const EditClient = () => {
   const [userData, setUserData] = useState('')
   const [newVisitData, setNewVisitData] = useState('')
   const [buttonEditStatus, setButtonEditStatus] = useState(!params ? true : false)
+
+  const { logout } = useContext(AuthContext)
 
   const navigate = useNavigate()
 
@@ -53,7 +56,7 @@ const EditClient = () => {
       axios(clientOptions)
         .then(res => setData(res.data))
         .catch(err => {
-          err.status === 400 ? logout : handleLogout(err)
+          err.status === 400 ? logout() : handleLogout(err)
         })
 
       axios(visitOptions)
@@ -68,10 +71,10 @@ const EditClient = () => {
 
     axios(userOptions)
       .then(res => setUserData(res.data))
-      .catch(err => err.status === 400 ? logout : handleLogout(err))
+      .catch(err => err.status === 400 ? logout() : handleLogout(err))
 
     setLoading(false)
-  }, [openModal, <Visit />])
+  }, [openModal])
 
   const handleChange = (e) => {
     let updatedValue = {}
@@ -157,7 +160,7 @@ const EditClient = () => {
         .then(res => showToastMessageSucess('Cliente foi alterado!'))
         .then(setButtonEditStatus(false))
         .catch(err => {
-          err.status === 400 ? logout : handleLogout(err)
+          err.status === 400 ? logout() : handleLogout(err)
         })
 
     } else {
@@ -176,7 +179,7 @@ const EditClient = () => {
         .then(showToastMessageSucess('Cliente cadastrado!'))
         .then(setButtonEditStatus(false))
         .catch(err => {
-          err.status === 400 ? logout : handleLogout(err)
+          err.status === 400 ? logout() : handleLogout(err)
         })
     }
   }
@@ -217,7 +220,7 @@ const EditClient = () => {
       { headers })
       .then(res => showToastMessageSucess('Visita Cadastrada!'))
       .catch(err => {
-        err.status === 400 ? logout : handleLogout(err)
+        err.status === 400 ? logout() : handleLogout(err)
       })
 
     handleCancelAddChange()

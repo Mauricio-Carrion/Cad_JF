@@ -6,10 +6,13 @@ import axios from 'axios';
 import remoteHost from '../../../../../Api';
 import { handleLogout } from '../../../../../utils/utils';
 import './Logs.css'
+import { AuthContext } from '../../../../../contexts/auth';
 
 const Logs = () => {
   const [data, setData] = useState()
   const [loading, setLoading] = useState(true)
+
+  const { logout } = useContext(AuthContext)
 
   const token = JSON.parse(localStorage.getItem('user')).token
 

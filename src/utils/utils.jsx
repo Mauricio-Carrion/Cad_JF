@@ -1,6 +1,4 @@
-import React, { useContext } from 'react'
 import { showToastMessageError } from "../App"
-import { AuthContext } from '../contexts/auth'
 
 export function capitalize(string) {
   let lowerString = string.toLowerCase()
@@ -35,11 +33,5 @@ export function formatInputDate(dateString) {
 }
 
 export function handleLogout(err) {
-  if (err.status === 400) {
-    showToastMessageError('Sua sessão expirou!')
-
-    return logout
-  }
-
   showToastMessageError(err.response.data.msg)
 }
