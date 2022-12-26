@@ -10,6 +10,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, autocolors);
 
 const Dashboard = () => {
   const [statusDbData, setStatusDbData] = useState('')
+  const [userDbData, setUserDbData] = useState('')
   const token = JSON.parse(localStorage.getItem('user')).token
 
   const headers = {
@@ -20,6 +21,12 @@ const Dashboard = () => {
     axios.get(`${remoteHost}/cliente_status`,
       { headers })
       .then(res => setStatusDbData(res.data))
+      .then()
+      .catch(err => console.log(err))
+
+    axios.get(`${remoteHost}/usuario_cliente`,
+      { headers })
+      .then(res => setUserDbData(res.data))
       .then()
       .catch(err => console.log(err))
   }, [])
@@ -47,18 +54,30 @@ const Dashboard = () => {
     ],
   };
 
+  const randomColor = () => {
+    return Math.floor(Math.random() * 255) + 1
+  }
+
+  let usersNames = userDbData && userDbData.map(user => user.usuario)
+  let clientsQtd = userDbData && userDbData.map(user => user.qtdClientes)
+
+  let randomRgb = userDbData && userDbData.map(user => {
+    return (
+      `RGB(${randomColor()},${randomColor()},${randomColor()})`
+    )
+  })
+
   const tecnData = {
-    labels: ['Em andamento', 'Encerrado pelo cliente', 'Finalizado'],
+    labels: usersNames,
     datasets: [
       {
         label: 'Clientes',
-        data: chartStatus,
+        data: clientsQtd,
+        backgroundColor: randomRgb,
+        borderColor: randomRgb,
         borderWidth: 1,
       },
     ],
-    plugins: [
-      autocolors
-    ]
   };
 
   return (
