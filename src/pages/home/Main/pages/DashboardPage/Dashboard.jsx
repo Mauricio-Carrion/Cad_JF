@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import autocolors from 'chartjs-plugin-autocolors';
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Pie } from 'react-chartjs-2';
 import axios from 'axios'
 import remoteHost from '../../../../../Api'
 
@@ -11,6 +11,8 @@ ChartJS.register(ArcElement, Tooltip, Legend, autocolors);
 const Dashboard = () => {
   const [statusDbData, setStatusDbData] = useState('')
   const [userDbData, setUserDbData] = useState('')
+  const [cardsDbData, setCardsDbData] = useState('')
+
   const token = JSON.parse(localStorage.getItem('user')).token
 
   const headers = {
@@ -84,30 +86,30 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="charts">
         <div className="clientStatus">
-          <h1>Status</h1>
+          <h1>Status dos clientes</h1>
           <Doughnut data={statusData} />
         </div>
 
         <div className="clientsByUser">
-          <h1>Técnicos</h1>
-          <Doughnut data={tecnData} />
+          <h1>Clientes por técnico</h1>
+          <Pie data={tecnData} />
         </div>
       </div>
 
       <div className="cards">
         <div className="card card-red">
-          <span>3</span>
+          <h2>{3}</h2>
           <h3>Usuários</h3>
         </div>
 
         <div className="card card-green">
-          <span>3</span>
-          <h3>Usuários</h3>
+          <h2>{3}</h2>
+          <h3>Clientes</h3>
         </div>
 
         <div className="card card-yellow">
-          <span>3</span>
-          <h3>Usuários</h3>
+          <h2>{3}</h2>
+          <h3>Visitas</h3>
         </div>
       </div>
 

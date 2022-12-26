@@ -1,6 +1,6 @@
 .dashboard {
   display: grid;
-  grid-template-rows: 560px 1fr;
+  grid-template-rows: 560px 250px;
   grid-template-areas:
     "charts"
     "reports";
@@ -34,6 +34,10 @@
 }
 
 .card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   height: 100px;
   width: 300px;
   margin: 0 auto;
@@ -42,14 +46,18 @@
   border-radius: 10px;
 }
 
+.card h2 {
+  margin: 10px;
+}
+
 .card-red {
-  background-color: #FF6B6B;
+  background-color: #EB5353;
 }
 
 .card-green {
-  background-color: #6BCB77;
+  background-color: #36AE7C;
 }
 
 .card-yellow {
-  background-color: #FFD93D;
+  background-color: #F9D923;
 }
