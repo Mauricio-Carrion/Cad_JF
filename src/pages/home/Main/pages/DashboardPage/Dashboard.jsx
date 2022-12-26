@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import autocolors from 'chartjs-plugin-autocolors';
 import { Doughnut } from 'react-chartjs-2';
 import axios from 'axios'
@@ -55,7 +55,7 @@ const Dashboard = () => {
   };
 
   const randomColor = () => {
-    return Math.floor(Math.random() * 255) + 1
+    return Math.floor(Math.random() * 255 - 100 + 100)
   }
 
   let usersNames = userDbData && userDbData.map(user => user.usuario)
@@ -93,6 +93,24 @@ const Dashboard = () => {
           <Doughnut data={tecnData} />
         </div>
       </div>
+
+      <div className="cards">
+        <div className="card card-red">
+          <span>3</span>
+          <h3>Usuários</h3>
+        </div>
+
+        <div className="card card-green">
+          <span>3</span>
+          <h3>Usuários</h3>
+        </div>
+
+        <div className="card card-yellow">
+          <span>3</span>
+          <h3>Usuários</h3>
+        </div>
+      </div>
+
     </div>
   )
 }

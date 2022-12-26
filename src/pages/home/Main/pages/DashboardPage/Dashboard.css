@@ -1,6 +1,6 @@
 .dashboard {
   display: grid;
-  grid-template-rows: 500px 1fr;
+  grid-template-rows: 560px 1fr;
   grid-template-areas:
     "charts"
     "reports";
@@ -15,14 +15,41 @@
   align-items: center;
   justify-content: center;
   width: 460px;
-  margin: 40px;
 }
 
 .charts {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0 auto;
   justify-content: space-between;
   grid-area: charts;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  grid-area: reports;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card {
+  height: 100px;
+  width: 300px;
+  margin: 0 auto;
+  padding: 15px;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.card-red {
+  background-color: #FF6B6B;
+}
+
+.card-green {
+  background-color: #6BCB77;
+}
+
+.card-yellow {
+  background-color: #FFD93D;
 }
