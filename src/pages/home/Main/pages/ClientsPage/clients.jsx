@@ -150,6 +150,7 @@ const Clients = () => {
             </Filter>
             : ''
         }
+        <PlusCircleIcon onClick={OpenAdd} className='buttonAddClient' title='Adicionar cliente' />
       </div>
 
       <table>
@@ -179,7 +180,6 @@ const Clients = () => {
           }
         </tbody>
       </table>
-      <PlusCircleIcon onClick={OpenAdd} className='buttonAddClient' title='Adicionar cliente' />
     </div >
   )
 }
