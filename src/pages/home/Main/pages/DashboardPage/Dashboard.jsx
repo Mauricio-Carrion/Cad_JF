@@ -27,20 +27,17 @@ const Dashboard = () => {
     axios.get(`${remoteHost}/cliente_status`,
       { headers })
       .then(res => setStatusDbData(res.data))
-      .then()
-      .catch(err => err.status === 400 ? logout() : handleLogout(err))
+      .catch(err => err.response.status === 400 ? logout() : handleLogout(err))
 
     axios.get(`${remoteHost}/usuario_cliente`,
       { headers })
       .then(res => setUserDbData(res.data))
-      .then()
-      .catch(err => err.status === 400 ? logout() : handleLogout(err))
+      .catch(err => err.response.status === 400 ? logout() : handleLogout(err))
 
     axios.get(`${remoteHost}/status_card`,
       { headers })
       .then(res => setCardsDbData(res.data))
-      .then()
-      .catch(err => err.status === 400 ? logout() : handleLogout(err))
+      .catch(err => err.response.status === 400 ? logout() : handleLogout(err))
   }, [])
 
   let chartStatus = statusDbData && statusDbData.map(status => status.qtd)

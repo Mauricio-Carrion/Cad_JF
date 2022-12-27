@@ -46,7 +46,7 @@
 
 .btnBack {
   position: absolute;
-  top: 45px;
+  top: 25px;
   width: 50px;
   color: #184087;
   cursor: pointer;
@@ -198,7 +198,7 @@
 
 @media(max-width:560px) {
   .editClient {
-    margin: 0;
+    margin: 20px 0;
   }
 }
 
