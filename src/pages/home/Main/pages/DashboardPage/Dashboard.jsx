@@ -31,6 +31,12 @@ const Dashboard = () => {
       .then(res => setUserDbData(res.data))
       .then()
       .catch(err => console.log(err))
+
+    axios.get(`${remoteHost}/status_card`,
+      { headers })
+      .then(res => setCardsDbData(res.data))
+      .then()
+      .catch(err => console.log(err))
   }, [])
 
   let chartStatus = statusDbData && statusDbData.map(status => status.qtd)
@@ -98,18 +104,27 @@ const Dashboard = () => {
 
       <div className="cards">
         <div className="card card-red">
-          <h2>{3}</h2>
-          <h3>Usuários</h3>
+          <h2>{cardsDbData.usuarios ? cardsDbData.usuarios : 0}</h2>
+          <div>
+            <h3>Técnicos</h3>
+            <h6>Cadastrados</h6>
+          </div>
         </div>
 
         <div className="card card-green">
-          <h2>{3}</h2>
-          <h3>Clientes</h3>
+          <h2>{cardsDbData.clientes ? cardsDbData.clientes : 0}</h2>
+          <div>
+            <h3>Clientes</h3>
+            <h6>Cadastrados</h6>
+          </div>
         </div>
 
         <div className="card card-yellow">
-          <h2>{3}</h2>
-          <h3>Visitas</h3>
+          <h2>{cardsDbData.visitas ? cardsDbData.visitas : 0}</h2>
+          <div>
+            <h3>Visitas</h3>
+            <h6>Cadastradas</h6>
+          </div>
         </div>
       </div>
 
