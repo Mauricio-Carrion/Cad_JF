@@ -44,6 +44,14 @@
   cursor: pointer;
 }
 
+.btnBack {
+  position: absolute;
+  top: 45px;
+  width: 50px;
+  color: #184087;
+  cursor: pointer;
+}
+
 *:disabled {
   opacity: 1;
 }

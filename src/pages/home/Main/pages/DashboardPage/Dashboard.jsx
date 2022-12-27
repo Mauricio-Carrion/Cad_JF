@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './Dashboard.css'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import autocolors from 'chartjs-plugin-autocolors';
 import { Doughnut, Pie } from 'react-chartjs-2';
 import axios from 'axios'
 import remoteHost from '../../../../../Api'
+import { handleLogout } from '../../../../../utils/utils';
+import { AuthContext } from '../../../../../contexts/auth';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend, autocolors);
 
 const Dashboard = () => {
+  const { logout } = useContext(AuthContext)
   const [statusDbData, setStatusDbData] = useState('')
   const [userDbData, setUserDbData] = useState('')
   const [cardsDbData, setCardsDbData] = useState('')
@@ -24,19 +28,19 @@ const Dashboard = () => {
       { headers })
       .then(res => setStatusDbData(res.data))
       .then()
-      .catch(err => console.log(err))
+      .catch(err => err.status === 400 ? logout() : handleLogout(err))
 
     axios.get(`${remoteHost}/usuario_cliente`,
       { headers })
       .then(res => setUserDbData(res.data))
       .then()
-      .catch(err => console.log(err))
+      .catch(err => err.status === 400 ? logout() : handleLogout(err))
 
     axios.get(`${remoteHost}/status_card`,
       { headers })
       .then(res => setCardsDbData(res.data))
       .then()
-      .catch(err => console.log(err))
+      .catch(err => err.status === 400 ? logout() : handleLogout(err))
   }, [])
 
   let chartStatus = statusDbData && statusDbData.map(status => status.qtd)
@@ -104,7 +108,7 @@ const Dashboard = () => {
 
       <div className="cards">
         <div className="card card-red">
-          <h2>{cardsDbData.usuarios ? cardsDbData.usuarios : 0}</h2>
+          <h1>{cardsDbData.usuarios ? cardsDbData.usuarios : 0}</h1>
           <div>
             <h3>Técnicos</h3>
             <h6>Cadastrados</h6>
@@ -112,7 +116,7 @@ const Dashboard = () => {
         </div>
 
         <div className="card card-green">
-          <h2>{cardsDbData.clientes ? cardsDbData.clientes : 0}</h2>
+          <h1>{cardsDbData.clientes ? cardsDbData.clientes : 0}</h1>
           <div>
             <h3>Clientes</h3>
             <h6>Cadastrados</h6>
@@ -120,7 +124,7 @@ const Dashboard = () => {
         </div>
 
         <div className="card card-yellow">
-          <h2>{cardsDbData.visitas ? cardsDbData.visitas : 0}</h2>
+          <h1>{cardsDbData.visitas ? cardsDbData.visitas : 0}</h1>
           <div>
             <h3>Visitas</h3>
             <h6>Cadastradas</h6>

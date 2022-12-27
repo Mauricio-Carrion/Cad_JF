@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react"
 import { useNavigate } from 'react-router-dom'
 import './EditClient.css'
-import { PencilSquareIcon, CheckIcon, XMarkIcon, PlusCircleIcon } from '@heroicons/react/24/solid'
+import { PencilSquareIcon, CheckIcon, XMarkIcon, PlusCircleIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/solid'
 import { showToastMessageSucess } from "../../../../../../App"
 import axios from "axios"
 import remoteHost from "../../../../../../Api"
@@ -243,6 +243,7 @@ const EditClient = () => {
 
   return (
     <div className="editClient">
+      <ArrowUturnLeftIcon className="btnBack" onClick={() => navigate('/clients')} title="Voltar" />
       <div className="resume">
         <h3>{data && data.nomeFantasia}</h3>
         <h1>{visitsData.length}</h1>

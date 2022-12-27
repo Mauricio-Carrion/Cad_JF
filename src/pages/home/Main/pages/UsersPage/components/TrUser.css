@@ -31,7 +31,6 @@
 .formEditUser {
   display: grid;
   grid-template-columns: 200px 200px;
-  grid-template-rows: 50px 50px 50px 50px;
   gap: 10px;
   align-items: center;
 }

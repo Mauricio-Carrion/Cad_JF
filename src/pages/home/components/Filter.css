@@ -1,11 +1,11 @@
 .filter {
   display: flex;
   flex-direction: column;
-  position: relative;
+  position: absolute;
   justify-content: center;
   align-items: center;
-  top: 90px;
-  left: -110px;
+  top: 116px;
+  left: 593px;
   width: 150px;
   height: 120px;
   border-radius: 10px;
