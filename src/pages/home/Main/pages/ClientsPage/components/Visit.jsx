@@ -26,15 +26,17 @@ const Visit = (props) => {
 
   const handleEditChange = (e) => {
     let updatedValue = {}
-
+    console.log(e.target)
     switch (e.target.name) {
       case 'desc':
-        if (e.target.value.length < 50)
+        if (e.target.value.length < 50) {
           updatedValue = { desc: e.target.value }
+        }
         break
       case 'obs':
-        if (e.target.value.length < 150)
+        if (e.target.value.length < 150) {
           updatedValue = { obs: e.target.value }
+        }
         break
       case 'date':
         updatedValue = { date: e.target.value }
@@ -94,7 +96,7 @@ const Visit = (props) => {
         <h3>Editar visita</h3>
         <form className="formAddVisit">
           <input type="text" name="desc" value={editData.desc} placeholder="Descrição" onChange={(e) => handleEditChange(e)} disabled={disableState} />
-          <textarea name='obs' value={editData.obs} placeholder="Observação" onChange={(e) => handleEditChange(e)} disabled={disableState} />
+          <textarea name='obs' value={editData.obs} placeholder="Observação" onChange={(e) => console.log(e.target)} disabled={disableState} />
           <input name="date" type="date" value={editData.date} onChange={(e) => handleEditChange(e)} disabled={disableState} />
 
           <div>
