@@ -68,3 +68,110 @@
 .card-yellow {
   background-color: #f1860f;
 }
+
+@media(max-width:1300px) {
+
+  .clientStatus,
+  .clientsByUser {
+    margin: 0;
+  }
+}
+
+@media(max-width:1100px) {
+  .card {
+    width: 200px;
+  }
+
+  .clientStatus,
+  .clientsByUser {
+    width: 350px;
+  }
+
+  .clientStatus h1,
+  .clientsByUser h1 {
+    text-align: center;
+  }
+}
+
+@media(max-width:880px) {
+  .card {
+    margin: 0 5px;
+  }
+
+  .cards {
+    justify-content: initial;
+  }
+
+  .clientStatus,
+  .clientsByUser {
+    width: 320px;
+  }
+}
+
+
+@media(max-width:800px) {
+  .charts {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 150px;
+  }
+
+  .cards {
+    justify-content: center;
+  }
+
+  .dashboard {
+    grid-template-rows: 920px 250px
+  }
+}
+
+@media(max-width:670px) {
+  .cards {
+    flex-direction: column;
+  }
+
+  .dashboard {
+    grid-template-rows: 920px 420px;
+  }
+
+  .card {
+    margin: 10px;
+  }
+
+  .card {
+    width: 270px;
+  }
+}
+
+@media(max-width:415px) {
+  .card {
+    width: 170px;
+  }
+
+  .clientStatus,
+  .clientsByUser {
+    width: 280px;
+  }
+
+  .charts {
+    justify-content: initial;
+  }
+
+  .dashboard {
+    grid-template-rows: 830px 420px;
+  }
+}
+
+@media(max-width:380px) {
+
+  .clientStatus,
+  .clientsByUser {
+    width: 220px;
+  }
+
+  .dashboard {
+    grid-template-rows: 730px 420px;
+  }
+}

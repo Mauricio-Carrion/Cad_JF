@@ -44,3 +44,9 @@
   transition: all 0.3s;
   border-radius: 10px;
 }
+
+@media(max-width:450px) {
+  .funnelIcon {
+    margin: 0 10px;
+  }
+}
