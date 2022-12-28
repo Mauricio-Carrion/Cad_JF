@@ -1,7 +1,7 @@
 .tdDeleteUserIcon,
 .tdEditUserIcon {
   width: 30px;
-  margin: 10px;
+  margin: 5px;
   cursor: pointer;
   transition: all 0.4s;
 }
