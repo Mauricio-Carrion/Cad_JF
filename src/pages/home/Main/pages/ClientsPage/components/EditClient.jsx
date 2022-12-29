@@ -192,13 +192,15 @@ const EditClient = () => {
 
   const handleAddChange = (e) => {
     let updatedValue = {}
-
+    console.log(e.target.name)
     switch (e.target.name) {
       case 'desc':
-        updatedValue = { descricao: e.target.value }
+        if (e.target.value.length < 50)
+          updatedValue = { desc: e.target.value }
         break
       case 'obs':
-        updatedValue = { obs: e.target.value }
+        if (e.target.value.length < 150)
+          updatedValue = { obs: e.target.value }
         break
       case 'date':
         updatedValue = { data: e.target.value }

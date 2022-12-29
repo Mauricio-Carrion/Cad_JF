@@ -26,17 +26,15 @@ const Visit = (props) => {
 
   const handleEditChange = (e) => {
     let updatedValue = {}
-    console.log(e.target)
+    console.log(e.target.value)
     switch (e.target.name) {
       case 'desc':
-        if (e.target.value.length < 50) {
+        if (e.target.value.length < 50)
           updatedValue = { desc: e.target.value }
-        }
         break
       case 'obs':
-        if (e.target.value.length < 150) {
+        if (e.target.value.length < 150)
           updatedValue = { obs: e.target.value }
-        }
         break
       case 'date':
         updatedValue = { date: e.target.value }
