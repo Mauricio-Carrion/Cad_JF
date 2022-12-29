@@ -94,7 +94,7 @@ const Visit = (props) => {
         <h3>Editar visita</h3>
         <form className="formAddVisit">
           <input type="text" name="desc" value={editData.desc} placeholder="Descrição" onChange={(e) => handleEditChange(e)} disabled={disableState} />
-          <textarea name='obs' value={editData.obs} placeholder="Observação" onChange={(e) => console.log(e.target)} disabled={disableState} />
+          <textarea name='obs' value={editData.obs} placeholder="Observação" onChange={(e) => handleEditChange(e)} disabled={disableState} />
           <input name="date" type="date" value={editData.date} onChange={(e) => handleEditChange(e)} disabled={disableState} />
 
           <div>

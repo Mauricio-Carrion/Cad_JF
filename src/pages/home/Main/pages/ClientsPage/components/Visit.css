@@ -25,14 +25,17 @@
 .visit h3 {
   grid-area: h4;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .visit p {
   display: -webkit-box;
   grid-area: p;
-  padding: 0 15px;
   margin: 10px 0;
-  word-break: break-all;
+  font-size: 16px;
+  word-break: break-word;
   -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
   overflow: hidden;

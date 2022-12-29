@@ -222,7 +222,7 @@ const EditClient = () => {
       {
         cliente: params,
         data: newVisitData.data,
-        descricao: newVisitData.descricao,
+        descricao: newVisitData.desc,
         obs: newVisitData.obs
       },
       { headers })
@@ -231,7 +231,9 @@ const EditClient = () => {
         err.response.status === 400 ? logout() : handleLogout(err)
       })
 
+    console.log(newVisitData);
     handleCancelAddChange()
+
   }
 
   const scrollVisits = () => {
