@@ -9,7 +9,7 @@ import { handleLogout } from '../../../../../utils/utils';
 import { AuthContext } from '../../../../../contexts/auth';
 
 
-ChartJS.register(ArcElement, Tooltip, Legend, autocolors);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Dashboard = () => {
   const { logout } = useContext(AuthContext)
@@ -124,7 +124,7 @@ const Dashboard = () => {
           <h1>{cardsDbData.visitas ? cardsDbData.visitas : 0}</h1>
           <div>
             <h3>Visitas</h3>
-            <h6>Cadastradas</h6>
+            <h6>Efetuadas</h6>
           </div>
         </div>
       </div>
