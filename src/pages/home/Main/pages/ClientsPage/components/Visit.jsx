@@ -26,7 +26,7 @@ const Visit = (props) => {
 
   const handleEditChange = (e) => {
     let updatedValue = {}
-    console.log(e.target.value)
+
     switch (e.target.name) {
       case 'desc':
         if (e.target.value.length < 50)
