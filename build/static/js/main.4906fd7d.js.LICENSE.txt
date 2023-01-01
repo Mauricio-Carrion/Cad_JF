@@ -12,13 +12,6 @@
  * Released under the MIT License
  */
 
-/*!
- * chartjs-plugin-autocolors v0.2.0
- * https://github.com/kurkle/chartjs-plugin-autocolors#readme
- * (c) 2022 Jukka Kurkela <jukka.kurkela@gmail.com>
- * Released under the MIT license
- */
-
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
