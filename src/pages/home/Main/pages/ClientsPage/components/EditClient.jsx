@@ -182,8 +182,8 @@ const EditClient = () => {
         },
         { headers })
         .then(res => setParams(res.data.codigo))
-        .then(showToastMessageSucess('Cliente cadastrado!'))
-        .then(setButtonEditStatus(false))
+        .then(res => showToastMessageSucess('Cliente cadastrado!'))
+        .then(res => setButtonEditStatus(false))
         .catch(err => {
           err.response.status === 400 ? logout() : handleLogout(err)
         })
@@ -192,7 +192,7 @@ const EditClient = () => {
 
   const handleAddChange = (e) => {
     let updatedValue = {}
-    console.log(e.target.name)
+
     switch (e.target.name) {
       case 'desc':
         if (e.target.value.length < 50)
@@ -231,7 +231,6 @@ const EditClient = () => {
         err.response.status === 400 ? logout() : handleLogout(err)
       })
 
-    console.log(newVisitData);
     handleCancelAddChange()
 
   }
