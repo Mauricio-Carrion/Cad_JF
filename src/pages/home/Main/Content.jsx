@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { MenuContext } from '../Nav/SideHeader'
 import './Content.css'
 
 import Dashboard from './pages/DashboardPage/Dashboard'
@@ -9,8 +10,10 @@ import EditClient from './pages/ClientsPage/components/EditClient';
 import Logs from './pages/LogsPage/Logs'
 
 const Content = () => {
+  const { value } = useContext(MenuContext)
+
   return (
-    <div className="content">
+    <div className="content" onClick={value()}>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
