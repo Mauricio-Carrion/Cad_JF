@@ -38,28 +38,28 @@ const SideHeader = () => {
       </div>
 
       <nav className={`${toggle ? 'nav-active' : ''}`}>
-        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/dashboard">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/dashboard" onClick={toggle ? handleToggle : ''}>
           <i className="fa fa-area-chart" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             DashBoard
           </p>
         </NavLink>
 
-        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/users">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/users" onClick={toggle ? handleToggle : ''}>
           <i className="fa fa-user" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Usuários
           </p>
         </NavLink>
 
-        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/clients">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/clients" onClick={toggle ? handleToggle : ''}>
           <i className="fa fa-users" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Clientes
           </p>
         </NavLink>
 
-        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/logs">
+        <NavLink className={`${toggle ? 'a-active' : ''}`} to="/logs" onClick={toggle ? handleToggle : ''}>
           <i className="fa fa-archive" aria-hidden="true" />
           <p className={`${toggle ? 'p-active' : ''}`}>
             Logs

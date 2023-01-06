@@ -9,6 +9,7 @@ import EditClient from './pages/ClientsPage/components/EditClient';
 import Logs from './pages/LogsPage/Logs'
 
 const Content = () => {
+
   return (
     <div className="content">
       <Routes>
