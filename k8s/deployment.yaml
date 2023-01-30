@@ -13,9 +13,10 @@ spec:
     spec:
       containers:
         - name: nodeapi
-          image: node:18.12.1
+          image: mauriciocarrion/nodeapi:latest
           ports:
             - containerPort: 3087
+              targetPort: 3087
           env:
             - name: POSTGRES_DB
               value: "kubenews"
