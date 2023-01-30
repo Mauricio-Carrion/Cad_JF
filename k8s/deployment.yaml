@@ -1,6 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: mysqldb
+spec:
+  selector:
+    matchLabels:
+      app: mysqldb
+  template:
+    metadata:
+      labels:
+        app: mysqldb
+    spec:
+      containers:
+        - name: mysqldb
+          image: mauriciocarrion/mysqldb:latest
+          ports:
+            - containerPort: 3087
+          env:
+            - name: DB_PORT
+              value: 3309
+            - name: DB_HOST
+              value: mysqldb
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "#@jj2802"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapi
+spec:
+  selector:
+    app: nodeapi
+  ports:
+    - port: 3087
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: nodeapi
 spec:
   selector:
@@ -18,12 +58,15 @@ spec:
             - containerPort: 3087
               targetPort: 3087
           env:
-            - name: POSTGRES_DB
-              value: "kubenews"
-            - name: POSTGRES_USER
-              value: "kubenews"
-            - name: POSTGRES_PASSWORD
-              value: "pg#123"
+            - name: DB_PORT
+              value: 3309
+            - name: DB_HOST
+              value: mysqldb
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "#@jj2802"
+
 ---
 apiVersion: v1
 kind: Service
@@ -69,6 +112,7 @@ spec:
               value: "pg#123"
             - name: DB_HOST
               value: "postgre"
+
 ---
 apiVersion: v1
 kind: Service
