@@ -1,38 +1,80 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysqldb
+  name: dbcadjf
 spec:
   selector:
     matchLabels:
-      app: mysqldb
+      app: dbcadjf
   template:
     metadata:
       labels:
-        app: mysqldb
+        app: dbcadjf
     spec:
       containers:
-        - name: mysqldb
-          image: mauriciocarrion/mysqldb:latest
+        - name: dbcadjf
+          image: mauriciocarrion/dbcadjf:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "#@jj2802"
+            - name: MYSQL_DATABASE
+              value: "dbCad"
+            - name: MYSQL_USER
+              value: "jf.mysql"
+            - name: MYSQL_PASSWORD
+              value: "#@jj2802"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbcadjf
+spec:
+  selector:
+    app: dbcadjf
+  ports:
+    - port: 3306
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apicadjf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apicadjf
+  template:
+    metadata:
+      labels:
+        app: apicadjf
+    spec:
+      containers:
+        - name: apicadjf
+          image: mauriciocarrion/apicadjf:latest
           ports:
             - containerPort: 3087
           env:
             - name: DB_PORT
               value: 3309
             - name: DB_HOST
-              value: mysqldb
+              value: dbcadjf
             - name: DB_USER
-              value: "root"
+              value: "jf.mysql"
             - name: DB_PASSWORD
               value: "#@jj2802"
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeapi
+  name: apicadjf
 spec:
   selector:
-    app: nodeapi
+    app: apicadjf
   ports:
     - port: 3087
   type: ClusterIP
@@ -41,87 +83,40 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapi
+  name: cadjf
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: nodeapi
+      app: cadjf
   template:
     metadata:
       labels:
-        app: nodeapi
-    spec:
-      containers:
-        - name: nodeapi
-          image: mauriciocarrion/nodeapi:latest
-          ports:
-            - containerPort: 3087
-              targetPort: 3087
-          env:
-            - name: DB_PORT
-              value: 3309
-            - name: DB_HOST
-              value: mysqldb
-            - name: DB_USER
-              value: "root"
-            - name: DB_PASSWORD
-              value: "#@jj2802"
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nodeapi
-spec:
-  selector:
-    app: nodeapi
-  ports:
-    - port: 3087
-  type: ClusterIP
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web
-spec:
-  replicas: 4
-  selector:
-    matchLabels:
-      app: web
-  template:
-    metadata:
-      labels:
-        app: web
+        app: cadjf
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8080"
         prometheus.io/path: "/metrics"
     spec:
       containers:
-        - name: web
-          image: mauriciocarrion/kube-news:{{TAG}}
+        - name: cadjf
+          image: mauriciocarrion/cadjf:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 80
           env:
-            - name: DB_DATABASE
-              value: "kubenews"
-            - name: DB_USERNAME
-              value: "kubenews"
-            - name: DB_PASSWORD
-              value: "pg#123"
-            - name: DB_HOST
-              value: "postgre"
+            - name: API_HOST
+              value: apicadjf
+            - name: API_PORT
+              value: 3387
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: web
+  name: cadjf
 spec:
   selector:
-    app: web
+    app: cadjf
   ports:
     - port: 80
-      targetPort: 8080
   type: LoadBalancer

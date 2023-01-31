@@ -1,3 +1,3 @@
-const remoteHost = 'http://192.168.254.108:3087/service'
+const remoteHost = `http://${process.env.API_HOST}:${process.env.API_PORT}/service`
 
 export default remoteHost
